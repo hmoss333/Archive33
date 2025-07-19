@@ -8,16 +8,21 @@ public class InteractObject : MonoBehaviour
     public bool highlighted; //testing
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         renderer = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         //testing
         renderer.material.color = highlighted ? Color.green : Color.red;
         highlighted = false;
+    }
+
+    public virtual void Interact()
+    {
+        print($"Put interact logic for {this.gameObject.name} here");
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     public enum States { idle, interacting, attacked };
     public States state;
 
@@ -13,13 +15,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask layer;
     [SerializeField] InteractObject interactObj;
 
+    public bool hasDocument { get; private set; }
+    [SerializeField] Document currentDoc;
+    [SerializeField] GameObject documentPrefab;
+
     Vector2 viewPos;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+
         Cursor.lockState = CursorLockMode.Locked;
         state = States.idle;
+        hasDocument = false;
     }
 
     // Update is called once per frame
@@ -27,6 +39,13 @@ public class PlayerController : MonoBehaviour
     {
         UpdateLook();
         InteractCheck();
+
+        if (Input.GetMouseButtonDown(0) && interactObj != null)
+        {
+            interactObj.Interact();
+        }
+
+        documentPrefab.SetActive(hasDocument);
     }
 
     void UpdateLook()
@@ -57,5 +76,22 @@ public class PlayerController : MonoBehaviour
                 interactObj = null;
             }
         }
+    }
+
+    public void SetCurrentDocument(Document newDoc)
+    {
+        currentDoc = newDoc;
+        hasDocument = true;
+    }
+
+    public Document GetCurrentDocument()
+    {
+        return currentDoc;
+    }
+
+    public void RemoveCurrentDocument()
+    {
+        currentDoc = null;
+        hasDocument = false;
     }
 }
