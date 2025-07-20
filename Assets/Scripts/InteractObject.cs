@@ -21,6 +21,15 @@ public class InteractObject : MonoBehaviour
         highlighted = false;
     }
 
+    private void FixedUpdate()
+    {
+        if (!highlighted && GetComponent<Outline>())
+        {
+            Outline outlineScript = GetComponent<Outline>();
+            Destroy(outlineScript);
+        }
+    }
+
     public virtual void Interact()
     {
         print($"Put interact logic for {this.gameObject.name} here");
