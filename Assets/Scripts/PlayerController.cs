@@ -74,6 +74,19 @@ public class PlayerController : MonoBehaviour
             {
                 interactObj = hit.transform.gameObject.GetComponent<InteractObject>();
                 interactObj.highlighted = true;
+                Renderer R = hit.collider.GetComponent<Renderer>();
+
+                //if (R == null)
+                //    continue; // no renderer attached? go to next hit
+                //              // TODO: maybe implement here a check for GOs that should not be affected like the player
+
+                Outline OL = R.GetComponent<Outline>();
+                if (OL == null) // if no script is attached, attach one
+                {
+                    print($"Adding autotransparent from {this.name}");
+                    OL = R.gameObject.AddComponent<Outline>();
+                }
+                //OL.BeTransparent(); // get called every frame to reset the falloff
             }
             else
             {
