@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InBox : InteractObject
 {
+    [SerializeField] GameObject documentObj;
     [SerializeField] List<Document> documents;
 
     [SerializeField] float documentGenTime = 7.5f;
@@ -12,6 +13,7 @@ public class InBox : InteractObject
     public override void Start()
     {
         baseTime = 0f;
+        documentObj.SetActive(false);
         base.Start();
     }
 
@@ -24,11 +26,11 @@ public class InBox : InteractObject
             if (baseTime >= documentGenTime)
             {
                 baseTime = 0f;
-                Document newDoc = new Document();
-                newDoc.InitializeDoc();
-                documents.Add(newDoc);
+                GenerateNewDocument();
             }
         }
+
+        documentObj.SetActive(documents.Count > 0);
     }
 
     public void GenerateNewDocument()

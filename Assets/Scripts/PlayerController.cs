@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
             Destroy(this);
 
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
         state = States.idle;
         hasDocument = false;
     }

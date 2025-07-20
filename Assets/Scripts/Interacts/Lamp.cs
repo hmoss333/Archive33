@@ -8,9 +8,11 @@ public class Lamp : InteractObject
     public bool isOn;// { get; private set; }
 
     [SerializeField] bool blownOut;
-    [SerializeField] float blowOutTime = 10f;
-    [SerializeField] float rechargeTime = 15f;
+    [SerializeField] float blowOutTime = 8f;
+    [SerializeField] float rechargeTime = 5f;
     float timer;
+
+    Coroutine lightBlowoutRoutine;
 
 
     public override void Start()
@@ -28,8 +30,12 @@ public class Lamp : InteractObject
             timer += Time.deltaTime;
             if (timer >= blowOutTime)
             {
-                blownOut = true;
-                timer = 0f;
+                //blownOut = true;
+                if (lightBlowoutRoutine == null)
+                {
+                    lightBlowoutRoutine = StartCoroutine(LightBlowout());
+                    timer = 0f;
+                }
             }
         }
 
@@ -56,5 +62,18 @@ public class Lamp : InteractObject
     {
         base.Interact();
         isOn = !isOn;
+    }
+
+    IEnumerator LightBlowout()
+    {
+        light.GetComponent<LightFlicker>().enabled = true;
+
+        yield return new WaitForSeconds(1.5f);
+
+        light.GetComponent<LightFlicker>().enabled = false;
+        blownOut = true;
+        isOn = false;
+
+        lightBlowoutRoutine = null;
     }
 }

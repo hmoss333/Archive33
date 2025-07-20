@@ -118,7 +118,7 @@ MonoBehaviour:
   currentFrequency: 0
   targetFrequency: 0
   maxFrequency: 100
-  rotateSpeed: 1000
+  rotateSpeed: 500
   staticAudio: {fileID: 3656556502706598338}
   foundStation: 0
 --- !u!82 &3656556502706598338
