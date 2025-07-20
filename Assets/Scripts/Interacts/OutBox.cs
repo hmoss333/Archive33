@@ -14,10 +14,12 @@ public class OutBox : InteractObject
                 if (!PlayerController.instance.GetCurrentDocument().toBeShredded)
                 {
                     DialogueController.instance.UpdateText("Good job");
+                    GameplayController.instance.Success();
                 }
                 else
                 {
                     DialogueController.instance.UpdateText("That one should not have been sent out");
+                    GameplayController.instance.Failure();
                 }
                 PlayerController.instance.RemoveCurrentDocument();
             }

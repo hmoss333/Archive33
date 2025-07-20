@@ -50,12 +50,12 @@ public class Radio : InteractObject
 
             if (Input.GetAxis("Mouse X") > 0)
             {
-                currentFrequency += Time.deltaTime * rotateSpeed;
+                currentFrequency += Time.deltaTime * 2f * rotateSpeed;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed);
             }
             else if (Input.GetAxis("Mouse X") < 0)
             {
-                currentFrequency -= Time.deltaTime * rotateSpeed;
+                currentFrequency -= Time.deltaTime * 2f * rotateSpeed;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed);
             }
 
@@ -68,19 +68,12 @@ public class Radio : InteractObject
                 foundStation = false;
             }
 
-            if (foundStation)
+            if (foundStation && PlayerController.instance.hasDocument)
             {
-                if (PlayerController.instance.hasDocument)
-                {
-                    if (PlayerController.instance.GetCurrentDocument().toBeShredded)
-                        DialogueController.instance.UpdateText("This document should be shredded");
-                    else
-                        DialogueController.instance.UpdateText("This document should be sent out");
-                }
+                if (PlayerController.instance.GetCurrentDocument().toBeShredded)
+                    DialogueController.instance.UpdateText("This document should be shredded");
                 else
-                {
-                    DialogueController.instance.UpdateText("Pick up a new document");
-                }
+                    DialogueController.instance.UpdateText("This document should be sent out");
             }
             else
             {
