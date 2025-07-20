@@ -31,6 +31,13 @@ public class InBox : InteractObject
         }
     }
 
+    public void GenerateNewDocument()
+    {
+        Document newDoc = new Document();
+        newDoc.InitializeDoc();
+        documents.Add(newDoc);
+    }
+
     public override void Interact()
     {
         base.Interact();

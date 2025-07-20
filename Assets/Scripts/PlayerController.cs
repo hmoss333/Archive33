@@ -37,15 +37,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateLook();
-        InteractCheck();
+        if (state == States.idle)
+        {
+            UpdateLook();
+            InteractCheck();
+        }
 
-        if (Input.GetMouseButtonDown(0) && interactObj != null)
+        if (Input.GetMouseButtonUp(0) && interactObj != null)
         {
             interactObj.Interact();
         }
 
         documentPrefab.SetActive(hasDocument);
+        SetState(States.idle);
     }
 
     void UpdateLook()
@@ -93,5 +97,11 @@ public class PlayerController : MonoBehaviour
     {
         currentDoc = null;
         hasDocument = false;
+        Radio.instance.InitializeFrequency();
+    }
+
+    public void SetState(States setState)
+    {
+        state = setState;
     }
 }

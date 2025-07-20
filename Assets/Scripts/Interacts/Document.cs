@@ -13,7 +13,7 @@ public class Document
     {
         stamped = false;
         int randVal = (int)Random.Range(0, 2);
-        toBeShredded = true;//randVal == 0 ? false : true;
+        toBeShredded = randVal == 0 ? false : true;
     }
 
     public void Stamp()
