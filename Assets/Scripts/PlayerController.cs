@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,8 +56,8 @@ public class PlayerController : MonoBehaviour
 
     void UpdateLook()
     {
-        viewPos.x += Input.GetAxis("Mouse X") * mouseSensitivity / 2f;
-        viewPos.y += Input.GetAxis("Mouse Y") * mouseSensitivity / 2f;
+        viewPos.x += Input.GetAxis("Mouse X") * mouseSensitivity / 4f;
+        viewPos.y += Input.GetAxis("Mouse Y") * mouseSensitivity / 4f;
 
         viewPos.y = Mathf.Clamp(viewPos.y, -89f, 89f);
 
@@ -73,21 +74,22 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit, checkDist, layer))
             {
-                interactObj = hit.transform.gameObject.GetComponent<InteractObject>();
-                interactObj.highlighted = true;
-                Renderer R = hit.collider.GetComponent<Renderer>();
-
-                //if (R == null)
-                //    continue; // no renderer attached? go to next hit
-                //              // TODO: maybe implement here a check for GOs that should not be affected like the player
-
-                Outline OL = R.GetComponent<Outline>();
-                if (OL == null) // if no script is attached, attach one
+                try
                 {
-                    print($"Adding autotransparent from {this.name}");
-                    OL = R.gameObject.AddComponent<Outline>();
+                    interactObj = hit.transform.gameObject.GetComponent<InteractObject>();
+                    interactObj.highlighted = true;
+                    Renderer R = hit.collider.GetComponent<Renderer>();
+                    Outline OL = R.GetComponent<Outline>();
+                    if (OL == null) // if no script is attached, attach one
+                    {
+                        print($"Adding autotransparent from {this.name}");
+                        OL = R.gameObject.AddComponent<Outline>();
+                    }
                 }
-                //OL.BeTransparent(); // get called every frame to reset the falloff
+                catch (Exception e)
+                {
+                    print(e);
+                }
             }
             else
             {

@@ -10,9 +10,12 @@ public class Radio : InteractObject
 
     [SerializeField] float currentFrequency;
     [SerializeField] float targetFrequency;
+    [SerializeField] List<float> badFrequencies;
     [SerializeField] float maxFrequency = 100f;
     [SerializeField] float rotateSpeed;
-    [SerializeField] AudioSource staticAudio;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip staticAudio, shredAudio, fileAudio;
+    [SerializeField] List<AudioClip> badAudio;
 
     bool interacting;
     [SerializeField] bool foundStation;
@@ -28,12 +31,16 @@ public class Radio : InteractObject
         base.Start();
         interacting = false;
         foundStation = false;
+        audioSource.clip = staticAudio;
+        audioSource.loop = true;
+        audioSource.Play();
         InitializeFrequency();
     }
 
     public void InitializeFrequency()
     {
         targetFrequency = Random.Range(0, maxFrequency);
+        GenerateBadFrequencies();
     }
 
     public override void Update()
@@ -50,16 +57,16 @@ public class Radio : InteractObject
 
             if (Input.GetAxis("Mouse X") > 0)
             {
-                currentFrequency += Time.deltaTime * 2f * rotateSpeed;
+                currentFrequency += Time.deltaTime * rotateSpeed;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed);
             }
             else if (Input.GetAxis("Mouse X") < 0)
             {
-                currentFrequency -= Time.deltaTime * 2f * rotateSpeed;
+                currentFrequency -= Time.deltaTime * rotateSpeed;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed);
             }
 
-            if (currentFrequency <= targetFrequency + 7.5f && currentFrequency >= targetFrequency - 7.5f)
+            if (currentFrequency <= targetFrequency + 5f && currentFrequency >= targetFrequency - 5f)
             {
                 foundStation = true;
             }
@@ -68,16 +75,53 @@ public class Radio : InteractObject
                 foundStation = false;
             }
 
+            if (GameplayController.instance.phase > 3)
+            {
+                foreach (float frequency in badFrequencies)
+                {
+                    if (currentFrequency <= frequency + 5f && currentFrequency >= frequency - 5f && audioSource.clip == staticAudio)
+                    {
+                        int randClip = Random.Range(0, badAudio.Count - 1);
+                        audioSource.clip = badAudio[randClip];
+                    }
+                }
+            }
+
             if (foundStation && PlayerController.instance.hasDocument)
             {
                 if (PlayerController.instance.GetCurrentDocument().toBeShredded)
+                {
                     DialogueController.instance.UpdateText("This document should be shredded");
+                    if (audioSource.clip != shredAudio)
+                    {
+                        audioSource.Stop();
+                        audioSource.clip = shredAudio;
+                        audioSource.Play();
+                        print("Set shred audio");
+                    }
+                }
                 else
+                {
                     DialogueController.instance.UpdateText("This document should be sent out");
+                    if (audioSource.clip != fileAudio)
+                    {
+                        audioSource.Stop();
+                        audioSource.clip = fileAudio;
+                        audioSource.Play();
+                        print("Set file audio");
+                    }
+                }
             }
             else
             {
                 DialogueController.instance.UpdateText(".........");
+                if (audioSource.clip != staticAudio)
+                {
+                    audioSource.Stop();
+                    audioSource.clip = staticAudio;
+                    audioSource.Play();
+                    print("Set static audio");
+                }
             }
         }
     }
@@ -86,5 +130,25 @@ public class Radio : InteractObject
     {
         base.Interact();
         interacting = !interacting;       
+    }
+
+    void GenerateBadFrequencies()
+    {
+        badFrequencies.Clear();
+
+        int randNum = Random.Range(2, 6);
+        for (int i = 0; i < randNum; i++)
+        {
+            float randStation = Random.Range(0, maxFrequency);
+            randStation = Mathf.Round(randStation);
+            if (!badFrequencies.Contains(randStation))
+            {
+                badFrequencies.Add(randStation);
+            }
+            else
+            {
+                i--;
+            }
+        }
     }
 }
