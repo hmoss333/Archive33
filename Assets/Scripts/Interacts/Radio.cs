@@ -58,69 +58,80 @@ public class Radio : InteractObject
             if (Input.GetAxis("Mouse X") > 0)
             {
                 currentFrequency += Time.deltaTime * rotateSpeed;
-                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed);
+                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
             }
             else if (Input.GetAxis("Mouse X") < 0)
             {
                 currentFrequency -= Time.deltaTime * rotateSpeed;
-                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed);
+                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
             }
 
-            if (currentFrequency <= targetFrequency + 5f && currentFrequency >= targetFrequency - 5f)
+            if (GameplayController.instance.phase < 1)
             {
-                foundStation = true;
+                if (currentFrequency <= targetFrequency + 5f && currentFrequency >= targetFrequency - 5f)
+                {
+                    interacting = false;
+                    GameplayController.instance.IncrementPhase();
+                }
             }
             else
             {
-                foundStation = false;
-            }
-
-            if (GameplayController.instance.phase > 3)
-            {
-                foreach (float frequency in badFrequencies)
+                if (currentFrequency <= targetFrequency + 5f && currentFrequency >= targetFrequency - 5f)
                 {
-                    if (currentFrequency <= frequency + 5f && currentFrequency >= frequency - 5f && audioSource.clip == staticAudio)
+                    foundStation = true;
+                }
+                else
+                {
+                    foundStation = false;
+                }
+
+                if (GameplayController.instance.phase > 3)
+                {
+                    foreach (float frequency in badFrequencies)
                     {
-                        int randClip = Random.Range(0, badAudio.Count - 1);
-                        audioSource.clip = badAudio[randClip];
+                        if (currentFrequency <= frequency + 5f && currentFrequency >= frequency - 5f && audioSource.clip == staticAudio)
+                        {
+                            int randClip = Random.Range(0, badAudio.Count - 1);
+                            audioSource.clip = badAudio[randClip];
+                        }
                     }
                 }
-            }
 
-            if (foundStation && PlayerController.instance.hasDocument)
-            {
-                if (PlayerController.instance.GetCurrentDocument().toBeShredded)
+                if (foundStation && PlayerController.instance.hasDocument)
                 {
-                    DialogueController.instance.UpdateText("This document should be shredded");
-                    if (audioSource.clip != shredAudio)
+                    if (PlayerController.instance.GetCurrentDocument().toBeShredded)
                     {
-                        audioSource.Stop();
-                        audioSource.clip = shredAudio;
-                        audioSource.Play();
-                        print("Set shred audio");
+                        DialogueController.instance.UpdateText("This document should be shredded");
+                        if (audioSource.clip != shredAudio)
+                        {
+                            audioSource.Stop();
+                            audioSource.clip = shredAudio;
+                            audioSource.Play();
+                            print("Set shred audio");
+                        }
+                    }
+                    else
+                    {
+                        DialogueController.instance.UpdateText("This document should be sent out");
+                        if (audioSource.clip != fileAudio)
+                        {
+                            audioSource.Stop();
+                            audioSource.clip = fileAudio;
+                            audioSource.Play();
+                            print("Set file audio");
+                        }
                     }
                 }
                 else
                 {
-                    DialogueController.instance.UpdateText("This document should be sent out");
-                    if (audioSource.clip != fileAudio)
+                    DialogueController.instance.UpdateText(".........");
+                    if (audioSource.clip != staticAudio)
                     {
                         audioSource.Stop();
-                        audioSource.clip = fileAudio;
+                        audioSource.clip = staticAudio;
                         audioSource.Play();
-                        print("Set file audio");
+                        print("Set static audio");
                     }
-                }
-            }
-            else
-            {
-                DialogueController.instance.UpdateText(".........");
-                if (audioSource.clip != staticAudio)
-                {
-                    audioSource.Stop();
-                    audioSource.clip = staticAudio;
-                    audioSource.Play();
-                    print("Set static audio");
                 }
             }
         }

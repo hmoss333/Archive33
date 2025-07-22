@@ -2,10 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using NaughtyAttributes;
 
 public class GameplayController : MonoBehaviour
 {
     public static GameplayController instance;
+
+    [SerializeField] InteractObject radio;
+    [SerializeField] InteractObject inbox;
+    [SerializeField] InteractObject outbox;
+    [SerializeField] InteractObject stamp;
+    [SerializeField] InteractObject shredder;
+    [SerializeField] InteractObject lamp;
+    [SerializeField] InteractObject fuseBox;
+    [SerializeField] InteractObject fuse1;
+    [SerializeField] InteractObject fuse2;
+    [SerializeField] InteractObject fuse3;
 
     public int phase { get; private set; }
     [SerializeField] int score;
@@ -42,6 +54,17 @@ public class GameplayController : MonoBehaviour
 
         if (powerOutage)
         {
+            radio.GetComponent<Collider>().enabled = false;
+            inbox.GetComponent<Collider>().enabled = false;
+            outbox.GetComponent<Collider>().enabled = false;
+            stamp.GetComponent<Collider>().enabled = false;
+            shredder.GetComponent<Collider>().enabled = false;
+            lamp.GetComponent<Collider>().enabled = false;
+            fuseBox.GetComponent<Collider>().enabled = true;
+            fuse1.GetComponent<Collider>().enabled = true;
+            fuse2.GetComponent<Collider>().enabled = true;
+            fuse3.GetComponent<Collider>().enabled = true;
+
             //Spawn Zombies
             if (phase >= 2)
             {
@@ -63,21 +86,44 @@ public class GameplayController : MonoBehaviour
         switch (phase)
         {
             case 0:
-                //Initial tutorial
+                //Initialize game
                 //Radio gives initial message from supervisor explaining how to play
-                DialogueController.instance.UpdateText("[TODO]: Put intro dialogue here");
+                radio.GetComponent<Collider>().enabled = true;
+                inbox.GetComponent<Collider>().enabled = false;
+                outbox.GetComponent<Collider>().enabled = false;
+                stamp.GetComponent<Collider>().enabled = false;
+                shredder.GetComponent<Collider>().enabled = false;
+                lamp.GetComponent<Collider>().enabled = true;
+                fuseBox.GetComponent<Collider>().enabled = false;
+                fuse1.GetComponent<Collider>().enabled = false;
+                fuse2.GetComponent<Collider>().enabled = false;
+                fuse3.GetComponent<Collider>().enabled = false;
                 break;
             case 1:
                 //Introduce power outages
                 //Radio gives another message about the power outage, directs the player to use the fuse box to restore power
                 //Quick look at zombie enemy as lights come back
-                DialogueController.instance.UpdateText("[TODO]: Add dialogue talking about power outages and how to fix them");
+                DialogueController.instance.UpdateText("[TODO]: Put intro welcome dialogue here explaining the job game loop");
+                inbox.GetComponent<Collider>().enabled = true;
+                outbox.GetComponent<Collider>().enabled = true;
+                stamp.GetComponent<Collider>().enabled = true;
+                shredder.GetComponent<Collider>().enabled = true;
                 break;
             case 2:
                 //Power outage starts on a timer
                 //If power is out, spawn zombie and have them move closer during each outage
                 //If zombie touches player, game over
-                DialogueController.instance.UpdateText("[TODO]: Have radio voice talk about strange readings in the area");
+                DialogueController.instance.UpdateText("[TODO]: Add dialogue talking about power outages and how to fix them");
+                radio.GetComponent<Collider>().enabled = false;
+                inbox.GetComponent<Collider>().enabled = false;
+                outbox.GetComponent<Collider>().enabled = false;
+                stamp.GetComponent<Collider>().enabled = false;
+                shredder.GetComponent<Collider>().enabled = false;
+                lamp.GetComponent<Collider>().enabled = false;
+                fuseBox.GetComponent<Collider>().enabled = true;
+                fuse1.GetComponent<Collider>().enabled = true;
+                fuse2.GetComponent<Collider>().enabled = true;
+                fuse3.GetComponent<Collider>().enabled = true;
                 break;
             case 3:
                 //Radio message is garbled and more ominous
@@ -85,16 +131,23 @@ public class GameplayController : MonoBehaviour
                 //If the player is too stressed, start spawning Static man
                 //Player must shred documents to lower stress (all documents while stressed must be shredded)
                 //Power outages still happen on a timer
-                DialogueController.instance.UpdateText("[TODO]: Radio voice starts talking about a dark king and black skies, 'he is coming. listen for his Voice'");
+                DialogueController.instance.UpdateText("[TODO]: Have radio voice talk about strange readings in the area");               
                 break;
             case 4:
                 //Final scenario
-                DialogueController.instance.UpdateText("[TODO]: Add final dialogue from radio explaining that the rest of the site is falling and that the player has to finish the work");
+                DialogueController.instance.UpdateText("[TODO]: Radio voice starts talking about a dark king and black skies, 'he is coming. listen for his Voice'");
+                //DialogueController.instance.UpdateText("[TODO]: Add final dialogue from radio explaining that the rest of the site is falling and that the player has to finish the work");
                 break;
             default:
                 DialogueController.instance.UpdateText("[TODO]: Default Scenario Text");
                 break;
         }
+    }
+
+    public void IncrementPhase()
+    {
+        phase++;
+        SetPhase(phase);
     }
 
     public void Success()
@@ -104,16 +157,11 @@ public class GameplayController : MonoBehaviour
         int randVal = Random.Range(3, 8);
         if (score >= randVal)
         {
-            phase++;
-
-            if (phase > 0)
-            {
-                powerOutage = true;
-                if (poRoutine == null)
-                    poRoutine = StartCoroutine(PowerOutageRoutine(false));
-                FuseBox.instance.SetBroken();
-                score = 0;
-            }
+            powerOutage = true;
+            if (poRoutine == null)
+                poRoutine = StartCoroutine(PowerOutageRoutine(false));
+            FuseBox.instance.SetBroken();
+            score = 0;
         }
     }
 
@@ -130,8 +178,7 @@ public class GameplayController : MonoBehaviour
         powerOutage = false;
         score = 0;
         penalty = 0;
-        phase++;
-        SetPhase(phase);
+        IncrementPhase();
     }
 
     IEnumerator PowerOutageRoutine(bool turnLightsOn)
@@ -147,6 +194,7 @@ public class GameplayController : MonoBehaviour
         foreach (Light light in lights)
         {
             light.enabled = turnLightsOn;
+            light.intensity = 3.75f;
             light.GetComponent<LightFlicker>().enabled = false;
         }
 

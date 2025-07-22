@@ -20,7 +20,7 @@ public class InBox : InteractObject
     public override void Update()
     {
         base.Update();
-        if (documents.Count <= 0)
+        if (GameplayController.instance.phase > 0 && documents.Count <= 0)
         {
             baseTime += Time.deltaTime;
             if (baseTime >= documentGenTime)

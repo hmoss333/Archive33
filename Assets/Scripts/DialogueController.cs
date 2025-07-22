@@ -8,7 +8,7 @@ public class DialogueController : MonoBehaviour
     public static DialogueController instance;
 
     [SerializeField] TMP_Text textUI;
-    [SerializeField] float fadeTime = 1.5f;
+    [SerializeField] float fadeTime = 3.5f;
     float timer;
 
     private void Start()
