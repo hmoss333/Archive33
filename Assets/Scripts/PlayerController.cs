@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -50,6 +51,15 @@ public class PlayerController : MonoBehaviour
             interactObj.Interact();
         }
 
+        if (currentDoc != null)
+        {
+            documentPrefab.GetComponentInChildren<TMP_Text>().text =
+                GameplayController.instance.shiftNum > 0
+                    ? Radio.instance.targetFrequency.ToString()
+                    : currentDoc.toBeShredded
+                        ? "Destroy"
+                        : currentDoc.fileColor.ToString();
+        }
         documentPrefab.SetActive(hasDocument);
         SetState(States.idle);
     }

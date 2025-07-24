@@ -507,7 +507,7 @@ MonoBehaviour:
   documentObj: {fileID: 9072031485740836278}
   documents: []
   documentGenTime: 7.5
-  airTime: 20
+  airTime: 16
 --- !u!1 &9072031485740836278
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class Radio : InteractObject
     [SerializeField] GameObject dialObj;
 
     [SerializeField] float currentFrequency;
-    [SerializeField] float targetFrequency;
+    public float targetFrequency { get; private set; }
     [SerializeField] List<float> badFrequencies;
     [SerializeField] float maxFrequency = 100f;
     [SerializeField] float rotateSpeed;

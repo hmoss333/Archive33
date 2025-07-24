@@ -8,6 +8,11 @@ public class GameplayController : MonoBehaviour
 {
     public static GameplayController instance;
 
+    [NaughtyAttributes.HorizontalLine]
+
+    [Header("Warning References")]
+    [SerializeField] List<GameObject> warningLights;
+
     [Header("Prop References")]
     [SerializeField] GameObject radio;
     [SerializeField] GameObject fuseBox;
@@ -45,7 +50,7 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 0;
+        shiftNum = 1; //0;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -56,6 +61,7 @@ public class GameplayController : MonoBehaviour
     private void Update()
     {
         SetProps(shiftNum);
+        SetWarningLights(penalty);
 
         switch (state)
         {
@@ -93,6 +99,7 @@ public class GameplayController : MonoBehaviour
                         {
                             powerOutageTimer = 20f;
                             powerOutage = true;
+                            FuseBox.instance.SetBroken();
                         }
 
                         foreach (Light light in lights)
@@ -155,8 +162,6 @@ public class GameplayController : MonoBehaviour
                 //Logic for if the player dies
                 //Other hazards will change the state from gameplay to this
                 DialogueController.instance.UpdateText("[TODO]: handle death logic here", true);
-                score = 0;
-                penalty = 0;
                 break;
             default:
                 DialogueController.instance.UpdateText($"Current state: {state}", true);
@@ -174,6 +179,14 @@ public class GameplayController : MonoBehaviour
         radio.SetActive(shiftVal >= 1);
         fuseBox.SetActive(shiftVal >= 2);
         bell.SetActive(shiftVal >= 3);
+    }
+
+    void SetWarningLights(int penaltyVal)
+    {
+        for (int i = 0; i < warningLights.Count; i++)
+        {
+            warningLights[i].GetComponent<Renderer>().material.color = i <= penaltyVal - 1 ? Color.red : Color.gray;
+        }
     }
 
     public void Success()

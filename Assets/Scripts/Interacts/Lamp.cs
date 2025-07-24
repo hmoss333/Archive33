@@ -10,7 +10,7 @@ public class Lamp : InteractObject
 
     public void Start()
     {
-        isOn = false;
+        isOn = true;
     }
 
     public override void Update()
