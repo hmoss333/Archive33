@@ -8,24 +8,29 @@ public class GameplayController : MonoBehaviour
 {
     public static GameplayController instance;
 
-    [SerializeField] InteractObject radio;
-    [SerializeField] InteractObject inbox;
-    [SerializeField] InteractObject outbox;
-    [SerializeField] InteractObject stamp;
-    [SerializeField] InteractObject shredder;
-    [SerializeField] InteractObject lamp;
-    [SerializeField] InteractObject fuseBox;
-    [SerializeField] InteractObject fuse1;
-    [SerializeField] InteractObject fuse2;
-    [SerializeField] InteractObject fuse3;
+    [Header("Prop References")]
+    [SerializeField] GameObject radio;
+    [SerializeField] GameObject fuseBox;
+    [SerializeField] GameObject bell;
 
     public enum State { dialogue, gameplay, victory, death }
     public State state;
     public int shiftNum { get; private set; }
 
-    private int score;
-    private int penalty;
+    private int score; //Increments on correct filing; 10 = win
+    private int penalty; //Increments on incorrect filing; 5 = death
 
+    [NaughtyAttributes.HorizontalLine]
+
+    [Header("Power Outage Values")]
+    [SerializeField] float powerOutageTimer = 20f;
+    private int powerOutage; //0 = Off; 1 = Start outage; 2 = Active outage
+    [SerializeField] List<Light> lights;
+    Coroutine powerOutageCo;
+
+    [NaughtyAttributes.HorizontalLine]
+
+    [Header("Dialogue Values")]
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     Coroutine introDialogueCo;
 
@@ -38,19 +43,22 @@ public class GameplayController : MonoBehaviour
             Destroy(this);
 
         shiftNum = 0;
+        powerOutage = 0;
+        powerOutageCo = null;
         introDialogueCo = null;
         state = State.dialogue;
     }
 
     private void Update()
     {
+        SetProps(shiftNum);
+
         switch (state)
         {
             case State.dialogue:
                 //Play dialogue set for current shift
                 if (introDialogueCo == null)
                     introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
-
                 break;
             case State.gameplay:
                 //Handle all gameplay loop logic
@@ -71,6 +79,23 @@ public class GameplayController : MonoBehaviour
                     //Power outage
                     //FuseBox + fuses
                     //Zombie enemy
+                    if (powerOutage == 0)
+                    {
+                        if (powerOutageTimer > 0)
+                        {
+                            powerOutageTimer -= Time.deltaTime;
+                        }
+                        else
+                        {
+                            powerOutageTimer = 20f;
+                            powerOutage = 1;
+                        }
+                    }
+                    else if (powerOutage == 1)
+                    {
+                        if (powerOutageCo == null)
+                            powerOutageCo = StartCoroutine(PowerOutageRoutine(false));
+                    }
                 }
                 if (shiftNum >= 3)
                 {
@@ -115,6 +140,13 @@ public class GameplayController : MonoBehaviour
         state = stateVal;
     }
 
+    void SetProps(int shiftVal)
+    {
+        radio.SetActive(shiftVal >= 1);
+        fuseBox.SetActive(shiftVal >= 2);
+        bell.SetActive(shiftVal >= 3);
+    }
+
     public void Success()
     {
         score++;
@@ -134,6 +166,9 @@ public class GameplayController : MonoBehaviour
     public void RestartPower()
     {
         print("RestartPower");
+        powerOutage = 0;
+        if (powerOutageCo != null) { StopCoroutine(powerOutageCo); }
+        powerOutageCo = StartCoroutine(PowerOutageRoutine(true));
     }
 
     IEnumerator IntroDialogueRoutine(List<string> dialogueItems)
@@ -143,13 +178,34 @@ public class GameplayController : MonoBehaviour
         for (int i = 0; i < dialogueItems.Count; i++)
         {
             DialogueController.instance.UpdateText(dialogueItems[i], false);
-
             yield return new WaitForSeconds(3f);
         }
 
         DialogueController.instance.UpdateText(string.Empty, false);
         SetState(State.gameplay);
         introDialogueCo = null;
+    }
+
+    IEnumerator PowerOutageRoutine(bool value)
+    {
+        //Flicker lights
+        //Turn lights on/off depending on state
+        foreach (Light light in lights)
+        {
+            light.enabled = true;
+            light.GetComponent<LightFlicker>().enabled = true;
+        }
+
+        yield return new WaitForSeconds(1.25f);
+
+        foreach (Light light in lights)
+        {
+            light.enabled = value;
+            light.GetComponent<LightFlicker>().enabled = false;
+        }
+
+        powerOutage = value ? 0 : 2;
+        powerOutageCo = null;
     }
 }
 

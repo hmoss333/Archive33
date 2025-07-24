@@ -15,11 +15,12 @@ public class Document
         stamped = false;
         int randVal = (int)Random.Range(0, 2);
         //corrupted = GameplayController.instance.powerOutage;
-        toBeShredded = corrupted
-            ? true
-            : randVal == 0
-                ? false
-                : true;
+        //toBeShredded = corrupted
+        //    ? true
+        //    : randVal == 0
+        //        ? false
+        //        : true;
+        toBeShredded = true; //for testing
     }
 
     public void Stamp()
