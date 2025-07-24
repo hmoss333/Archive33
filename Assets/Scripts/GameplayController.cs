@@ -23,12 +23,12 @@ public class GameplayController : MonoBehaviour
     [NaughtyAttributes.HorizontalLine]
 
     [Header("Power Outage Values")]
-    private float powerOutageTimer = 20f;
+    [SerializeField] private float powerOutageTimer = 20f;
     private bool powerOutage;
-    [SerializeField] GameObject zombie;
-    [SerializeField] List<Transform> zombiePoints;
     private float zombieMoveTimer = 5f;
     private int zombieMoveNum;
+    [SerializeField] GameObject zombie;
+    [SerializeField] List<Transform> zombiePoints;
     [SerializeField] List<Light> lights;
 
     [NaughtyAttributes.HorizontalLine]
@@ -45,7 +45,7 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 0;
+        shiftNum = 2; //0;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
