@@ -23,10 +23,13 @@ public class GameplayController : MonoBehaviour
     [NaughtyAttributes.HorizontalLine]
 
     [Header("Power Outage Values")]
-    [SerializeField] float powerOutageTimer = 20f;
-    private int powerOutage; //0 = Off; 1 = Start outage; 2 = Active outage
+    private float powerOutageTimer = 20f;
+    private bool powerOutage;
+    [SerializeField] GameObject zombie;
+    [SerializeField] List<Transform> zombiePoints;
+    private float zombieMoveTimer = 5f;
+    private int zombieMoveNum;
     [SerializeField] List<Light> lights;
-    Coroutine powerOutageCo;
 
     [NaughtyAttributes.HorizontalLine]
 
@@ -43,8 +46,9 @@ public class GameplayController : MonoBehaviour
             Destroy(this);
 
         shiftNum = 0;
-        powerOutage = 0;
-        powerOutageCo = null;
+        powerOutage = false;
+        zombieMoveNum = 0;
+        zombie.SetActive(false);
         introDialogueCo = null;
         state = State.dialogue;
     }
@@ -79,22 +83,47 @@ public class GameplayController : MonoBehaviour
                     //Power outage
                     //FuseBox + fuses
                     //Zombie enemy
-                    if (powerOutage == 0)
+                    zombie.SetActive(powerOutage);
+
+                    if (!powerOutage)
                     {
-                        if (powerOutageTimer > 0)
-                        {
-                            powerOutageTimer -= Time.deltaTime;
-                        }
-                        else
+                        zombieMoveNum = 0;
+                        powerOutageTimer -= Time.deltaTime;
+                        if (powerOutageTimer <= 0)
                         {
                             powerOutageTimer = 20f;
-                            powerOutage = 1;
+                            powerOutage = true;
+                        }
+
+                        foreach (Light light in lights)
+                        {
+                            light.enabled = true;
+                            light.GetComponent<LightFlicker>().enabled = false;
+                            light.intensity = 3f;
                         }
                     }
-                    else if (powerOutage == 1)
+                    else
                     {
-                        if (powerOutageCo == null)
-                            powerOutageCo = StartCoroutine(PowerOutageRoutine(false));
+                        foreach (Light light in lights)
+                        {
+                            light.enabled = true;
+                            light.GetComponent<LightFlicker>().enabled = true;
+                        }
+
+                        zombie.transform.position = zombiePoints[zombieMoveNum].position;
+                        zombieMoveTimer -= Time.deltaTime;
+                        if (zombieMoveTimer <= 0)
+                        {
+                            if (zombieMoveNum < zombiePoints.Count - 1)
+                            {
+                                zombieMoveNum++;
+                                zombieMoveTimer = 5f;
+                            }
+                            else
+                            {
+                                SetState(State.death);
+                            }
+                        }
                     }
                 }
                 if (shiftNum >= 3)
@@ -165,10 +194,7 @@ public class GameplayController : MonoBehaviour
 
     public void RestartPower()
     {
-        print("RestartPower");
-        powerOutage = 0;
-        if (powerOutageCo != null) { StopCoroutine(powerOutageCo); }
-        powerOutageCo = StartCoroutine(PowerOutageRoutine(true));
+        powerOutage = false;
     }
 
     IEnumerator IntroDialogueRoutine(List<string> dialogueItems)
@@ -184,28 +210,6 @@ public class GameplayController : MonoBehaviour
         DialogueController.instance.UpdateText(string.Empty, false);
         SetState(State.gameplay);
         introDialogueCo = null;
-    }
-
-    IEnumerator PowerOutageRoutine(bool value)
-    {
-        //Flicker lights
-        //Turn lights on/off depending on state
-        foreach (Light light in lights)
-        {
-            light.enabled = true;
-            light.GetComponent<LightFlicker>().enabled = true;
-        }
-
-        yield return new WaitForSeconds(1.25f);
-
-        foreach (Light light in lights)
-        {
-            light.enabled = value;
-            light.GetComponent<LightFlicker>().enabled = false;
-        }
-
-        powerOutage = value ? 0 : 2;
-        powerOutageCo = null;
     }
 }
 
