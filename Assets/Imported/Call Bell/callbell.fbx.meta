@@ -3,7 +3,12 @@ guid: fab1b34a0402eb241a5905d6580b65cf
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_zvonok
+    second: {fileID: 2100000, guid: d44948ec7d312e14cb86a12782458698, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
