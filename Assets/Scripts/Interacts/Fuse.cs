@@ -7,9 +7,8 @@ public class Fuse : InteractObject
     public bool isBroken { get; private set; }
     Renderer renderer;
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
         renderer = GetComponent<Renderer>();
     }
 

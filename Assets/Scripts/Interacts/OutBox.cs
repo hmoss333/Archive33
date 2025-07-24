@@ -13,19 +13,19 @@ public class OutBox : InteractObject
             {
                 if (!PlayerController.instance.GetCurrentDocument().toBeShredded)
                 {
-                    DialogueController.instance.UpdateText("Document filed");
+                    DialogueController.instance.UpdateText("Document filed", true);
                     GameplayController.instance.Success();
                 }
                 else
                 {
-                    DialogueController.instance.UpdateText("That one should not have been sent out...");
+                    DialogueController.instance.UpdateText("That one should not have been sent out...", true);
                     GameplayController.instance.Failure();
                 }
                 PlayerController.instance.RemoveCurrentDocument();
             }
             else
             {
-                DialogueController.instance.UpdateText("This document needs a stamp");
+                DialogueController.instance.UpdateText("This document needs a stamp", true);
             }
         }
     }

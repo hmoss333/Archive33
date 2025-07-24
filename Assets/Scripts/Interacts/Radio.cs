@@ -21,14 +21,13 @@ public class Radio : InteractObject
     [SerializeField] bool foundStation;
 
 
-    public override void Start()
+    public void Start()
     {
         if (instance == null)
             instance = this;
         else
             Destroy(this);
 
-        base.Start();
         interacting = false;
         foundStation = false;
         audioSource.clip = staticAudio;
@@ -66,12 +65,23 @@ public class Radio : InteractObject
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
             }
 
-            if (GameplayController.instance.phase < 1)
+            if (GameplayController.instance.shiftNum < 1)
             {
                 if (currentFrequency <= targetFrequency + 5f && currentFrequency >= targetFrequency - 5f)
                 {
                     interacting = false;
-                    GameplayController.instance.IncrementPhase();
+                    //GameplayController.instance.IncrementPhase();
+                }
+                else
+                {
+                    DialogueController.instance.UpdateText(".........", true);
+                    if (audioSource.clip != staticAudio)
+                    {
+                        audioSource.Stop();
+                        audioSource.clip = staticAudio;
+                        audioSource.Play();
+                        print("Set static audio");
+                    }
                 }
             }
             else
@@ -85,7 +95,7 @@ public class Radio : InteractObject
                     foundStation = false;
                 }
 
-                if (GameplayController.instance.phase > 3)
+                if (GameplayController.instance.shiftNum > 3)
                 {
                     foreach (float frequency in badFrequencies)
                     {
@@ -101,7 +111,7 @@ public class Radio : InteractObject
                 {
                     if (PlayerController.instance.GetCurrentDocument().toBeShredded)
                     {
-                        DialogueController.instance.UpdateText("This document should be shredded");
+                        DialogueController.instance.UpdateText("This document should be shredded", true);
                         if (audioSource.clip != shredAudio)
                         {
                             audioSource.Stop();
@@ -112,7 +122,7 @@ public class Radio : InteractObject
                     }
                     else
                     {
-                        DialogueController.instance.UpdateText("This document should be sent out");
+                        DialogueController.instance.UpdateText("This document should be sent out", true);
                         if (audioSource.clip != fileAudio)
                         {
                             audioSource.Stop();
@@ -124,7 +134,7 @@ public class Radio : InteractObject
                 }
                 else
                 {
-                    DialogueController.instance.UpdateText(".........");
+                    DialogueController.instance.UpdateText(".........", true);
                     if (audioSource.clip != staticAudio)
                     {
                         audioSource.Stop();

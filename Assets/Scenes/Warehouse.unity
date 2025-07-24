@@ -250,21 +250,30 @@ MonoBehaviour:
   fuse1: {fileID: 1755698083}
   fuse2: {fileID: 588640342}
   fuse3: {fileID: 428993700}
-  score: 0
-  penalty: 0
-  zombiePrefab: {fileID: 0}
-  staticManPrefab: {fileID: 0}
-  lights:
-  - {fileID: 412887707}
-  - {fileID: 1887507954}
-  - {fileID: 675654818}
-  - {fileID: 1921635788}
-  - {fileID: 1282840003}
-  - {fileID: 127660266}
-  - {fileID: 1067233628}
-  uniqueDialogue: []
-  zombieSpawns: []
-  staticManSpawns: []
+  state: 0
+  uniqueDialogue:
+  - dialogueLines:
+    - Hello! Welcome to your first day as an archivist for #####
+    - Lets walk you through the basics of the job
+    - In front of you there should be a pnumatic tube
+    - This is where you will recieve documents from accross the Facility
+    - Your job is to either file these documents or put them in the shredder
+    - Each document is different, but they should indicate what to do on the document
+      itself
+    - Make sure that you're not letting the documents sit too long, though
+    - That pnumatic tube also controls the airflow into your office
+    - Keep the files moving and so will the air
+    - And please, make sure that you are filing all documents correctly
+    - Failure to meet company standards will result in termination
+    - But most importantly, just remember to have fun!
+  - dialogueLines:
+    - '[TODO]: Shift 2'
+  - dialogueLines:
+    - '[TODO]: Shift 3'
+  - dialogueLines:
+    - '[TODO]: Shift 4'
+  - dialogueLines:
+    - '[TODO]: Shift 5'
 --- !u!1001 &53360321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5837,13 +5846,41 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5387872318897454152, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_fontSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387872318897454152, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 151e38c24b8ca4486997fe78026fced9, type: 2}
     - target: {fileID: 5387872318897454152, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387872318897454152, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1099266064948786653, guid: 151e38c24b8ca4486997fe78026fced9, type: 2}
+    - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
 --- !u!1001 &5768634394267339201

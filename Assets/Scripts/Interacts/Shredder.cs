@@ -11,12 +11,12 @@ public class Shredder : InteractObject
         {
             if (PlayerController.instance.GetCurrentDocument().toBeShredded)
             {
-                DialogueController.instance.UpdateText("Document destroyed");
+                DialogueController.instance.UpdateText("Document destroyed", true);
                 GameplayController.instance.Success();
             }
             else
             {
-                DialogueController.instance.UpdateText("That file should not have been shredded...");
+                DialogueController.instance.UpdateText("That file should not have been shredded...", true);
                 GameplayController.instance.Failure();
             }
             PlayerController.instance.RemoveCurrentDocument();

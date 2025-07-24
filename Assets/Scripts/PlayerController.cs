@@ -56,8 +56,8 @@ public class PlayerController : MonoBehaviour
 
     void UpdateLook()
     {
-        viewPos.x += Input.GetAxis("Mouse X") * mouseSensitivity / 10f;
-        viewPos.y += Input.GetAxis("Mouse Y") * mouseSensitivity / 10f;
+        viewPos.x += Input.GetAxis("Mouse X") * mouseSensitivity / 20f;
+        viewPos.y += Input.GetAxis("Mouse Y") * mouseSensitivity / 20f;
 
         viewPos.y = Mathf.Clamp(viewPos.y, -89f, 89f);
 

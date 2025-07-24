@@ -8,19 +8,21 @@ public class InBox : InteractObject
     [SerializeField] List<Document> documents;
 
     [SerializeField] float documentGenTime = 7.5f;
+    [SerializeField] float airTime;
     float baseTime;
+    float aTimer;
 
-    public override void Start()
+    public void Start()
     {
         baseTime = 0f;
+        aTimer = airTime;
         documentObj.SetActive(false);
-        base.Start();
     }
 
     public override void Update()
     {
         base.Update();
-        if (GameplayController.instance.phase > 0 && documents.Count <= 0)
+        if (GameplayController.instance.state == GameplayController.State.gameplay)
         {
             baseTime += Time.deltaTime;
             if (baseTime >= documentGenTime)
@@ -31,6 +33,19 @@ public class InBox : InteractObject
         }
 
         documentObj.SetActive(documents.Count > 0);
+        if (documents.Count > 0)
+        {
+            airTime -= Time.deltaTime;
+            if (airTime <= 0)
+            {
+                airTime = aTimer;
+                GameplayController.instance.SetState(GameplayController.State.death);
+            }
+        }
+        else
+        {
+            airTime = aTimer;
+        }
     }
 
     public void GenerateNewDocument()

@@ -10,6 +10,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] TMP_Text textUI;
     [SerializeField] float fadeTime = 3.5f;
     float timer;
+    bool fade;
 
     private void Start()
     {
@@ -18,12 +19,13 @@ public class DialogueController : MonoBehaviour
         else
             Destroy(this);
 
+        fade = false;
         textUI.SetText(string.Empty);
     }
 
     private void Update()
     {
-        if (textUI.text != string.Empty)
+        if (fade && textUI.text != string.Empty)
         {
             timer += Time.deltaTime;
             if (timer >= fadeTime)
@@ -38,9 +40,10 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    public void UpdateText(string newText)
+    public void UpdateText(string newText, bool fadeVal)
     {
         textUI.text = newText;
+        fade = fadeVal;
         print(newText);
     }
 }

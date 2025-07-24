@@ -10,14 +10,13 @@ public class FuseBox : InteractObject
     Renderer renderer;
     bool isBroken;
 
-    public override void Start()
+    public void Start()
     {
         if (instance == null)
             instance = this;
         else
             Destroy(this);
 
-        base.Start();
         renderer = GetComponent<Renderer>();
     }
 

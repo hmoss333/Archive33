@@ -19,18 +19,15 @@ public class GameplayController : MonoBehaviour
     [SerializeField] InteractObject fuse2;
     [SerializeField] InteractObject fuse3;
 
-    public int phase { get; private set; }
-    [SerializeField] int score;
-    [SerializeField] int penalty;
-    [SerializeField] GameObject zombiePrefab;
-    [SerializeField] GameObject staticManPrefab;
-    public bool powerOutage { get; private set; }
-    [SerializeField] List<Light> lights;
-    Coroutine poRoutine;
+    public enum State { dialogue, gameplay, victory, death }
+    public State state;
+    public int shiftNum { get; private set; }
 
-    [SerializeField] List<string> uniqueDialogue;
-    [SerializeField] List<Transform> zombieSpawns;
-    [SerializeField] List<Transform> staticManSpawns;
+    private int score;
+    private int penalty;
+
+    [SerializeField] List<DialogueContainer> uniqueDialogue;
+    Coroutine introDialogueCo;
 
     // Start is called before the first frame update
     void Start()
@@ -40,164 +37,124 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        phase = 0;
-        score = 0;
-        penalty = 0;
-        powerOutage = false;
-
-        SetPhase(phase);
+        shiftNum = 0;
+        introDialogueCo = null;
+        state = State.dialogue;
     }
 
     private void Update()
     {
-        //lights.SetActive(!powerOutage);
-
-        if (powerOutage)
+        switch (state)
         {
-            radio.GetComponent<Collider>().enabled = false;
-            inbox.GetComponent<Collider>().enabled = false;
-            outbox.GetComponent<Collider>().enabled = false;
-            stamp.GetComponent<Collider>().enabled = false;
-            shredder.GetComponent<Collider>().enabled = false;
-            lamp.GetComponent<Collider>().enabled = false;
-            fuseBox.GetComponent<Collider>().enabled = true;
-            fuse1.GetComponent<Collider>().enabled = true;
-            fuse2.GetComponent<Collider>().enabled = true;
-            fuse3.GetComponent<Collider>().enabled = true;
+            case State.dialogue:
+                //Play dialogue set for current shift
+                if (introDialogueCo == null)
+                    introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
 
-            //Spawn Zombies
-            if (phase >= 2)
-            {
-                //GameObject zombieObj = Instantiate(zombiePrefab, zombieSpawns[Random.Range(0, zombieSpawns.Count - 1)].position, Quaternion.identity);
-                DialogueController.instance.UpdateText("[TODO]: Spawn zombie");
-            }
-
-            //Spawn Static Man
-            if (phase >= 3)
-            {
-                //GameObject staticManObj = Instantiate(staticManPrefab, staticManSpawns[Random.Range(0, staticManSpawns.Count - 1)].position, Quaternion.identity);
-                DialogueController.instance.UpdateText("[TODO]: Spawn static man");
-            }
-        }
-    }
-
-    void SetPhase(int phaseNum)
-    {
-        switch (phase)
-        {
-            case 0:
-                //Initialize game
-                //Radio gives initial message from supervisor explaining how to play
-                radio.GetComponent<Collider>().enabled = true;
-                inbox.GetComponent<Collider>().enabled = false;
-                outbox.GetComponent<Collider>().enabled = false;
-                stamp.GetComponent<Collider>().enabled = false;
-                shredder.GetComponent<Collider>().enabled = false;
-                lamp.GetComponent<Collider>().enabled = true;
-                fuseBox.GetComponent<Collider>().enabled = false;
-                fuse1.GetComponent<Collider>().enabled = false;
-                fuse2.GetComponent<Collider>().enabled = false;
-                fuse3.GetComponent<Collider>().enabled = false;
                 break;
-            case 1:
-                //Introduce power outages
-                //Radio gives another message about the power outage, directs the player to use the fuse box to restore power
-                //Quick look at zombie enemy as lights come back
-                DialogueController.instance.UpdateText("[TODO]: Put intro welcome dialogue here explaining the job game loop");
-                inbox.GetComponent<Collider>().enabled = true;
-                outbox.GetComponent<Collider>().enabled = true;
-                stamp.GetComponent<Collider>().enabled = true;
-                shredder.GetComponent<Collider>().enabled = true;
+            case State.gameplay:
+                //Handle all gameplay loop logic
+                //Adds more features based on shiftNum count
+                if (shiftNum >= 0)
+                {
+                    //Inbox
+                    //Outbox
+                    //Shredder
+                }
+                if (shiftNum >= 1)
+                {
+                    //Radio
+                    //Static man enemy
+                }
+                if (shiftNum >= 2)
+                {
+                    //Power outage
+                    //FuseBox + fuses
+                    //Zombie enemy
+                }
+                if (shiftNum >= 3)
+                {
+                    //'The Button'
+                    //Malformed Documents
+                }
+                if (shiftNum >= 4)
+                {
+                    //Lower timers for all hazards
+                }
                 break;
-            case 2:
-                //Power outage starts on a timer
-                //If power is out, spawn zombie and have them move closer during each outage
-                //If zombie touches player, game over
-                DialogueController.instance.UpdateText("[TODO]: Add dialogue talking about power outages and how to fix them");
-                radio.GetComponent<Collider>().enabled = false;
-                inbox.GetComponent<Collider>().enabled = false;
-                outbox.GetComponent<Collider>().enabled = false;
-                stamp.GetComponent<Collider>().enabled = false;
-                shredder.GetComponent<Collider>().enabled = false;
-                lamp.GetComponent<Collider>().enabled = false;
-                fuseBox.GetComponent<Collider>().enabled = true;
-                fuse1.GetComponent<Collider>().enabled = true;
-                fuse2.GetComponent<Collider>().enabled = true;
-                fuse3.GetComponent<Collider>().enabled = true;
+            case State.victory:
+                //Logic for if the player makes it to the end of their shift
+                DialogueController.instance.UpdateText("[TODO]: display win screen here", true);
+                if (shiftNum < 5)
+                {
+                    shiftNum++;
+                    score = 0;
+                    penalty = 0;
+                    SetState(State.dialogue);
+                }
+                else
+                {
+                    //You win!
+                }
                 break;
-            case 3:
-                //Radio message is garbled and more ominous
-                //Add 'bad' stations that will cause the player stress if they listen to them for too long
-                //If the player is too stressed, start spawning Static man
-                //Player must shred documents to lower stress (all documents while stressed must be shredded)
-                //Power outages still happen on a timer
-                DialogueController.instance.UpdateText("[TODO]: Have radio voice talk about strange readings in the area");               
-                break;
-            case 4:
-                //Final scenario
-                DialogueController.instance.UpdateText("[TODO]: Radio voice starts talking about a dark king and black skies, 'he is coming. listen for his Voice'");
-                //DialogueController.instance.UpdateText("[TODO]: Add final dialogue from radio explaining that the rest of the site is falling and that the player has to finish the work");
+            case State.death:
+                //Logic for if the player dies
+                //Other hazards will change the state from gameplay to this
+                DialogueController.instance.UpdateText("[TODO]: handle death logic here", true);
+                score = 0;
+                penalty = 0;
                 break;
             default:
-                DialogueController.instance.UpdateText("[TODO]: Default Scenario Text");
+                DialogueController.instance.UpdateText($"Current state: {state}", true);
                 break;
         }
     }
 
-    public void IncrementPhase()
+    public void SetState(State stateVal)
     {
-        phase++;
-        SetPhase(phase);
+        state = stateVal;
     }
 
     public void Success()
     {
         score++;
 
-        int randVal = Random.Range(3, 8);
-        if (score >= randVal)
-        {
-            powerOutage = true;
-            if (poRoutine == null)
-                poRoutine = StartCoroutine(PowerOutageRoutine(false));
-            FuseBox.instance.SetBroken();
-            score = 0;
-        }
+        if (score >= 10)
+            SetState(State.victory);
     }
 
     public void Failure()
     {
         penalty++;
+
+        if (penalty >= 5)
+            SetState(State.death);
     }
 
     public void RestartPower()
     {
-        if (poRoutine != null)
-            StopCoroutine(poRoutine);
-        poRoutine = StartCoroutine(PowerOutageRoutine(true));
-        powerOutage = false;
-        score = 0;
-        penalty = 0;
-        IncrementPhase();
+        print("RestartPower");
     }
 
-    IEnumerator PowerOutageRoutine(bool turnLightsOn)
+    IEnumerator IntroDialogueRoutine(List<string> dialogueItems)
     {
-        foreach (Light light in lights)
+        yield return new WaitForSeconds(3.5f);
+
+        for (int i = 0; i < dialogueItems.Count; i++)
         {
-            light.enabled = true;
-            light.GetComponent<LightFlicker>().enabled = true;
+            DialogueController.instance.UpdateText(dialogueItems[i], false);
+
+            yield return new WaitForSeconds(3f);
         }
 
-        yield return new WaitForSeconds(1.5f);
-
-        foreach (Light light in lights)
-        {
-            light.enabled = turnLightsOn;
-            light.intensity = 3.75f;
-            light.GetComponent<LightFlicker>().enabled = false;
-        }
-
-        poRoutine = null;
+        DialogueController.instance.UpdateText(string.Empty, false);
+        SetState(State.gameplay);
+        introDialogueCo = null;
     }
+}
+
+[System.Serializable]
+class DialogueContainer
+{
+    public List<string> dialogueLines;
 }

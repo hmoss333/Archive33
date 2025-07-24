@@ -118,8 +118,8 @@ MonoBehaviour:
   currentFrequency: 0
   targetFrequency: 0
   badFrequencies: []
-  maxFrequency: 35
-  rotateSpeed: 25
+  maxFrequency: 15
+  rotateSpeed: 10
   audioSource: {fileID: 3656556502706598338}
   staticAudio: {fileID: 8300000, guid: ea24f109dd7d040ed9c875fa3611d5c0, type: 3}
   shredAudio: {fileID: 8300000, guid: 85712420169bb485087d27b81eefc997, type: 3}
