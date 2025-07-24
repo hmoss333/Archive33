@@ -45,7 +45,7 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 2; //0;
+        shiftNum = 0;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
