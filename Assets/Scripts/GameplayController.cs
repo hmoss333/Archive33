@@ -24,14 +24,19 @@ public class GameplayController : MonoBehaviour
 
     private int score; //Increments on correct filing; 10 = win
     private int penalty; //Increments on incorrect filing; 5 = death
+
+    [NaughtyAttributes.HorizontalLine]
+
+    [Header("Sanity Variables")]
     [SerializeField] private float sanity = 100f;
     private bool loseSanity = false;
     [SerializeField] float sanityLossRate;
     [SerializeField] float sanityGainRate;
+    [SerializeField] GameObject staticMan;
 
     [NaughtyAttributes.HorizontalLine]
 
-    [Header("Power Outage Values")]
+    [Header("Power Outage Variables")]
     [SerializeField] private float powerOutageTimer = 20f;
     private bool powerOutage;
     private float zombieMoveTimer = 5f;
@@ -42,7 +47,7 @@ public class GameplayController : MonoBehaviour
 
     [NaughtyAttributes.HorizontalLine]
 
-    [Header("Dialogue Values")]
+    [Header("Dialogue Variables")]
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     Coroutine introDialogueCo;
 
@@ -58,6 +63,7 @@ public class GameplayController : MonoBehaviour
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
+        staticMan.SetActive(false);
         introDialogueCo = null;
         state = State.dialogue;
     }
@@ -102,6 +108,7 @@ public class GameplayController : MonoBehaviour
                     if (sanity >= 75f)
                     {
                         //First phase
+                        staticMan.SetActive(true);
                     }
                     else if (sanity >= 50f)
                     {
@@ -119,6 +126,7 @@ public class GameplayController : MonoBehaviour
                     else
                     {
                         //Default
+                        staticMan.SetActive(false);
                     }
 
                     loseSanity = false;
