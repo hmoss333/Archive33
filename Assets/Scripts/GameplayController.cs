@@ -59,12 +59,13 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 0;
+        shiftNum = 1; // 0;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
         staticMan.SetActive(false);
         introDialogueCo = null;
+        FadeController.instance.StartFade(1f, 0.01f);
         state = State.dialogue;
     }
 
@@ -76,6 +77,8 @@ public class GameplayController : MonoBehaviour
         switch (state)
         {
             case State.dialogue:
+                FadeController.instance.StartFade(0f, 2f);
+
                 //Play dialogue set for current shift
                 if (introDialogueCo == null)
                     introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
@@ -191,22 +194,31 @@ public class GameplayController : MonoBehaviour
             case State.victory:
                 //Logic for if the player makes it to the end of their shift
                 DialogueController.instance.UpdateText("[TODO]: display win screen here", true);
-                if (shiftNum < 5)
+
+                if (!FadeController.instance.isFading)
                 {
-                    shiftNum++;
-                    score = 0;
-                    penalty = 0;
-                    SetState(State.dialogue);
-                }
-                else
-                {
-                    //You win!
+                    //Reset scene for next shift
+                    if (shiftNum < 5)
+                    {
+                        score = 0;
+                        penalty = 0;
+                        powerOutage = false;
+                        sanity = 100f;
+                        shiftNum++;
+                        SetState(State.dialogue);
+                    }
+                    //Win game
+                    else
+                    {
+                        //TODO add win game logic here
+                    }
                 }
                 break;
             case State.death:
                 //Logic for if the player dies
                 //Other hazards will change the state from gameplay to this
                 DialogueController.instance.UpdateText("[TODO]: handle death logic here", true);
+                FadeController.instance.StartFade(1f, 3f);
                 break;
             default:
                 DialogueController.instance.UpdateText($"Current state: {state}", true);
@@ -234,12 +246,25 @@ public class GameplayController : MonoBehaviour
         }
     }
 
+    void ToggleInteracts(bool value)
+    {
+        InteractObject[] interacts = FindObjectsOfType<InteractObject>();
+        foreach (InteractObject interact in interacts)
+        {
+            interact.enabled = value;
+        }
+    }
+
     public void Success()
     {
         score++;
 
-        if (score >= 10)
+        if (score >= 3)//10)
+        {
+            ToggleInteracts(false);
+            FadeController.instance.StartFade(1f, 5f);           
             SetState(State.victory);
+        }
     }
 
     public void Failure()
@@ -271,6 +296,7 @@ public class GameplayController : MonoBehaviour
         }
 
         DialogueController.instance.UpdateText(string.Empty, false);
+        ToggleInteracts(true);
         SetState(State.gameplay);
         introDialogueCo = null;
     }
