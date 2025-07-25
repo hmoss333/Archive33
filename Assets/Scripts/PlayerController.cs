@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         {
             documentPrefab.GetComponentInChildren<TMP_Text>().text =
                 GameplayController.instance.shiftNum > 0
-                    ? Mathf.Round(Radio.instance.targetFrequency).ToString()
+                    ? Radio.instance.targetFrequency.ToString("F2")
                     : currentDoc.toBeShredded
                         ? "Destroy"
                         : currentDoc.fileColor.ToString();

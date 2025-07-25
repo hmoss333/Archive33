@@ -105,16 +105,15 @@ public class GameplayController : MonoBehaviour
                     }
 
 
-                    if (sanity >= 75f)
+                    if (sanity <= 75f)
                     {
                         //First phase
-                        staticMan.SetActive(true);
                     }
-                    else if (sanity >= 50f)
+                    else if (sanity <= 50f)
                     {
                         //Second phase
                     }
-                    else if (sanity >= 25f)
+                    else if (sanity <= 25f)
                     {
                         //Third phase
                     }
@@ -126,7 +125,6 @@ public class GameplayController : MonoBehaviour
                     else
                     {
                         //Default
-                        staticMan.SetActive(false);
                     }
 
                     loseSanity = false;
