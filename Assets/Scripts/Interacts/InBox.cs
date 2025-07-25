@@ -7,8 +7,8 @@ public class InBox : InteractObject
     [SerializeField] GameObject documentObj;
     [SerializeField] List<Document> documents;
 
-    [SerializeField] float documentGenTime = 5f;
-    [SerializeField] float airTime = 15f;
+    [SerializeField] float documentGenTime = 7.5f;
+    [SerializeField] float airTime = 30f;
     float baseTime;
     float aTimer;
 
@@ -34,7 +34,7 @@ public class InBox : InteractObject
             documentObj.SetActive(documents.Count > 0);
             if (documents.Count > 0)
             {
-                airTime -= Time.deltaTime;
+                airTime -= Time.deltaTime / 2f;
                 if (airTime <= 0)
                 {
                     airTime = aTimer;

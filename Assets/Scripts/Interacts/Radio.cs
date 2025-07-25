@@ -7,18 +7,18 @@ public class Radio : InteractObject
     public static Radio instance;
 
     [SerializeField] GameObject dialObj;
+    [SerializeField] List<RadioStation> radioStations;
 
     [SerializeField] float currentFrequency;
-    public float targetFrequency { get; private set; }
-    [SerializeField] List<float> badFrequencies;
+    public float targetFrequency { get; private set; } //used to write frequency to document
     [SerializeField] float maxFrequency = 100f;
     [SerializeField] float rotateSpeed;
     [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip staticAudio, shredAudio, fileAudio;
+    [SerializeField] AudioClip staticAudio, correctAudio;
+    [SerializeField] List<float> badFrequencies;
     [SerializeField] List<AudioClip> badAudio;
 
     bool interacting;
-    [SerializeField] bool foundStation;
 
 
     public void Start()
@@ -29,7 +29,6 @@ public class Radio : InteractObject
             Destroy(this);
 
         interacting = false;
-        foundStation = false;
         audioSource.clip = staticAudio;
         audioSource.loop = true;
         audioSource.Play();
@@ -38,8 +37,22 @@ public class Radio : InteractObject
 
     public void InitializeFrequency()
     {
+        radioStations.Clear();
+
+        RadioStation newStation = new RadioStation();
         targetFrequency = Random.Range(0, maxFrequency);
-        GenerateBadFrequencies();
+        newStation.frequency = targetFrequency;
+        newStation.clip = correctAudio;
+        radioStations.Add(newStation);
+
+        for (int i = 0; i < badAudio.Count; i++)
+        {
+            RadioStation newBadStation = new RadioStation();
+            float randomFrequency = Random.Range(0, maxFrequency);
+            newBadStation.frequency = randomFrequency;
+            newBadStation.clip = badAudio[i];
+            radioStations.Add(newBadStation);
+        }
     }
 
     public override void Update()
@@ -65,75 +78,50 @@ public class Radio : InteractObject
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
             }
 
-            if (GameplayController.instance.shiftNum < 1)
-            {
-                if (currentFrequency <= targetFrequency + 5f && currentFrequency >= targetFrequency - 5f)
-                {
-                    interacting = false;
-                    //GameplayController.instance.IncrementPhase();
-                }
-                else
-                {
-                    DialogueController.instance.UpdateText(".........", true);
-                    if (audioSource.clip != staticAudio)
-                    {
-                        audioSource.Stop();
-                        audioSource.clip = staticAudio;
-                        audioSource.Play();
-                        print("Set static audio");
-                    }
-                }
-            }
-            else
-            {
-                if (currentFrequency <= targetFrequency + 5f && currentFrequency >= targetFrequency - 5f)
-                {
-                    foundStation = true;
-                }
-                else
-                {
-                    foundStation = false;
-                }
 
-                if (GameplayController.instance.shiftNum > 3)
-                {
-                    foreach (float frequency in badFrequencies)
-                    {
-                        if (currentFrequency <= frequency + 5f && currentFrequency >= frequency - 5f && audioSource.clip == staticAudio)
-                        {
-                            int randClip = Random.Range(0, badAudio.Count - 1);
-                            audioSource.clip = badAudio[randClip];
-                        }
-                    }
-                }
+            //Check Bad Station match
+            //Check Good station match
+            //Else play static
 
-                if (foundStation && PlayerController.instance.hasDocument)
+
+            for (int i = 0; i < radioStations.Count; i++)
+            {
+                if (currentFrequency <= radioStations[i].frequency + 2.5f && currentFrequency >= radioStations[i].frequency - 2.5f)
                 {
-                    if (PlayerController.instance.GetCurrentDocument().toBeShredded)
+                    if (radioStations[i].frequency <= targetFrequency + 2.5f && radioStations[i].frequency >= targetFrequency - 2.5f)
                     {
-                        DialogueController.instance.UpdateText("This document should be shredded", true);
-                        if (audioSource.clip != shredAudio)
+                        //Correct station
+                        DialogueController.instance.UpdateText(
+                            PlayerController.instance.GetCurrentDocument().toBeShredded
+                                ? "This document should be shredded"
+                                : "This document should be filed", true);
+                        if (audioSource.clip != correctAudio)
                         {
                             audioSource.Stop();
-                            audioSource.clip = shredAudio;
+                            audioSource.clip = correctAudio;
                             audioSource.Play();
-                            print("Set shred audio");
+                            print("Set correct audio");
                         }
+                        break;
                     }
                     else
                     {
-                        DialogueController.instance.UpdateText("This document should be sent out", true);
-                        if (audioSource.clip != fileAudio)
+                        //Bad station
+                        GameplayController.instance.BadRadioStation();
+                        DialogueController.instance.UpdateText("[TODO]: bad audio", true);
+                        if (audioSource.clip != radioStations[i].clip)
                         {
                             audioSource.Stop();
-                            audioSource.clip = fileAudio;
+                            audioSource.clip = radioStations[i].clip;
                             audioSource.Play();
-                            print("Set file audio");
+                            print("Set bad audio");
                         }
+                        break;
                     }
                 }
                 else
                 {
+                    //Static
                     DialogueController.instance.UpdateText(".........", true);
                     if (audioSource.clip != staticAudio)
                     {
@@ -172,4 +160,12 @@ public class Radio : InteractObject
             }
         }
     }
+}
+
+
+[System.Serializable]
+class RadioStation
+{
+    public float frequency;
+    public AudioClip clip;
 }

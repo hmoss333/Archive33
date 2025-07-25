@@ -24,6 +24,10 @@ public class GameplayController : MonoBehaviour
 
     private int score; //Increments on correct filing; 10 = win
     private int penalty; //Increments on incorrect filing; 5 = death
+    [SerializeField] private float sanity = 100f;
+    private bool loseSanity = false;
+    [SerializeField] float sanityLossRate;
+    [SerializeField] float sanityGainRate;
 
     [NaughtyAttributes.HorizontalLine]
 
@@ -50,7 +54,7 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 1; //0;
+        shiftNum = 0;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -83,6 +87,41 @@ public class GameplayController : MonoBehaviour
                 {
                     //Radio
                     //Static man enemy
+                    if (loseSanity)
+                    {
+                        if (sanity > 0f)
+                            sanity -= sanityLossRate * Time.deltaTime;
+                    }
+                    else
+                    {
+                        if (sanity < 100f)
+                            sanity += sanityGainRate * Time.deltaTime;
+                    }
+
+
+                    if (sanity >= 75f)
+                    {
+                        //First phase
+                    }
+                    else if (sanity >= 50f)
+                    {
+                        //Second phase
+                    }
+                    else if (sanity >= 25f)
+                    {
+                        //Third phase
+                    }
+                    else if (sanity <= 0)
+                    {
+                        //Death
+                        SetState(State.death);
+                    }
+                    else
+                    {
+                        //Default
+                    }
+
+                    loseSanity = false;
                 }
                 if (shiftNum >= 2)
                 {
@@ -208,6 +247,11 @@ public class GameplayController : MonoBehaviour
     public void RestartPower()
     {
         powerOutage = false;
+    }
+
+    public void BadRadioStation()
+    {
+        loseSanity = true;
     }
 
     IEnumerator IntroDialogueRoutine(List<string> dialogueItems)

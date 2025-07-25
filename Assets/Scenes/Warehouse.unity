@@ -240,6 +240,8 @@ MonoBehaviour:
   fuseBox: {fileID: 285408572}
   bell: {fileID: 2130839218}
   state: 0
+  sanityLossRate: 7.5
+  sanityGainRate: 3
   powerOutageTimer: 20
   zombie: {fileID: 1118018747008711890}
   zombiePoints:
