@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: da50549e9e4e941e7871986ef5744482
   - enabled: 1
-    path: Assets/Scenes/Warehouse.unity
+    path: Assets/Scenes/Warehouse_shift_2.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
