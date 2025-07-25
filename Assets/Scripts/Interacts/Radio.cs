@@ -15,7 +15,7 @@ public class Radio : InteractObject
     [SerializeField] float rotateSpeed;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip staticAudio, correctAudio;
-    [SerializeField] List<float> badFrequencies;
+    //[SerializeField] List<float> badFrequencies;
     [SerializeField] List<AudioClip> badAudio;
 
     bool interacting;
@@ -78,12 +78,6 @@ public class Radio : InteractObject
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
             }
 
-
-            //Check Bad Station match
-            //Check Good station match
-            //Else play static
-
-
             for (int i = 0; i < radioStations.Count; i++)
             {
                 if (currentFrequency <= radioStations[i].frequency + 2.5f && currentFrequency >= radioStations[i].frequency - 2.5f)
@@ -141,25 +135,25 @@ public class Radio : InteractObject
         interacting = !interacting;       
     }
 
-    void GenerateBadFrequencies()
-    {
-        badFrequencies.Clear();
+    //void GenerateBadFrequencies()
+    //{
+    //    badFrequencies.Clear();
 
-        int randNum = Random.Range(2, 6);
-        for (int i = 0; i < randNum; i++)
-        {
-            float randStation = Random.Range(0, maxFrequency);
-            randStation = Mathf.Round(randStation);
-            if (!badFrequencies.Contains(randStation))
-            {
-                badFrequencies.Add(randStation);
-            }
-            else
-            {
-                i--;
-            }
-        }
-    }
+    //    int randNum = Random.Range(2, 6);
+    //    for (int i = 0; i < randNum; i++)
+    //    {
+    //        float randStation = Random.Range(0, maxFrequency);
+    //        randStation = Mathf.Round(randStation);
+    //        if (!badFrequencies.Contains(randStation))
+    //        {
+    //            badFrequencies.Add(randStation);
+    //        }
+    //        else
+    //        {
+    //            i--;
+    //        }
+    //    }
+    //}
 }
 
 
