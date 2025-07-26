@@ -65,6 +65,7 @@ public class Radio : InteractObject
     {
         base.Update();
 
+        currentFrequency = Mathf.Clamp(currentFrequency, 0f, 25f);
         radioText.text = currentFrequency.ToString("F2");
 
         //TODO
@@ -87,9 +88,9 @@ public class Radio : InteractObject
 
         for (int i = 0; i < radioStations.Count; i++)
         {
-            if (currentFrequency <= radioStations[i].frequency + 0.5f && currentFrequency >= radioStations[i].frequency - 0.5f)
+            if (currentFrequency <= radioStations[i].frequency + 1.5f && currentFrequency >= radioStations[i].frequency - 1.5f)
             {
-                if (radioStations[i].frequency <= targetFrequency + 0.5f && radioStations[i].frequency >= targetFrequency - 0.5f)
+                if (radioStations[i].frequency <= targetFrequency + 1.5f && radioStations[i].frequency >= targetFrequency - 1.5f)
                 {
                     if (PlayerController.instance.hasDocument && interacting)
                     {

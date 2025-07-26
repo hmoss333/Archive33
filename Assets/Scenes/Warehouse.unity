@@ -194,6 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 39588185}
   - component: {fileID: 39588186}
+  - component: {fileID: 39588187}
   m_Layer: 0
   m_Name: GameplayController
   m_TagString: Untagged
@@ -240,7 +241,7 @@ MonoBehaviour:
   fuseBox: {fileID: 285408572}
   bell: {fileID: 2130839218}
   state: 0
-  sanity: 100
+  sanity: 50
   sanityLossRate: 5
   sanityGainRate: 3
   staticMan: {fileID: 2775949822140155805}
@@ -283,6 +284,22 @@ MonoBehaviour:
     - '[TODO]: Shift 4'
   - dialogueLines:
     - '[TODO]: Shift 5'
+--- !u!114 &39588187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39588184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dce1b258673b4fb19f0c3b12aebdeb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objToFlicker: {fileID: 860276009}
+  m_OnTrigger:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &40423186
 GameObject:
   m_ObjectHideFlags: 0
@@ -2909,6 +2926,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f0c31dcd24808146bd2f1b4545c5787, type: 3}
+--- !u!1 &860276009 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1768623548778671444, guid: d1d9ed5ebb6124ca587433d394a3bd6b, type: 3}
+  m_PrefabInstance: {fileID: 2775949822140155804}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &861720079 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4349689160829392, guid: 7f0c31dcd24808146bd2f1b4545c5787, type: 3}
@@ -6539,7 +6561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4903323723772409483, guid: d1d9ed5ebb6124ca587433d394a3bd6b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4903323723772409483, guid: d1d9ed5ebb6124ca587433d394a3bd6b, type: 3}
       propertyPath: m_LocalPosition.z
