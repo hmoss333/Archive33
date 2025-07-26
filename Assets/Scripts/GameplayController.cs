@@ -28,11 +28,13 @@ public class GameplayController : MonoBehaviour
     [NaughtyAttributes.HorizontalLine]
 
     [Header("Sanity Variables")]
-    [SerializeField] private float sanity = 100f;
+    [SerializeField][Range(0, 50)] private float sanity = 100f;
     private bool loseSanity = false;
     [SerializeField] float sanityLossRate;
     [SerializeField] float sanityGainRate;
     [SerializeField] GameObject staticMan;
+    Vector3 staticManDefaultPos;
+    ObjectFlicker staticManFlicker;
 
     [NaughtyAttributes.HorizontalLine]
 
@@ -59,12 +61,13 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 1; // 0;
+        shiftNum = 1;// 0;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
         staticMan.SetActive(false);
-        introDialogueCo = null;
+        staticManDefaultPos = staticMan.transform.position;
+        staticManFlicker = GetComponent<ObjectFlicker>();
         FadeController.instance.StartFade(1f, 0.01f);
         state = State.dialogue;
     }
@@ -77,6 +80,7 @@ public class GameplayController : MonoBehaviour
         switch (state)
         {
             case State.dialogue:
+                ToggleInteracts(false);
                 FadeController.instance.StartFade(0f, 2f);
 
                 //Play dialogue set for current shift
@@ -103,31 +107,29 @@ public class GameplayController : MonoBehaviour
                     }
                     else
                     {
-                        if (sanity < 100f)
+                        if (sanity < 50f)
                             sanity += sanityGainRate * Time.deltaTime;
                     }
 
 
-                    if (sanity <= 75f)
+                    if (sanity <= 37.5f)
                     {
                         //First phase
-                    }
-                    else if (sanity <= 50f)
-                    {
-                        //Second phase
-                    }
-                    else if (sanity <= 25f)
-                    {
-                        //Third phase
-                    }
-                    else if (sanity <= 0)
-                    {
-                        //Death
-                        SetState(State.death);
+                        staticMan.SetActive(true);
+                        staticManFlicker.StartFlicker(0.5f);
+                        staticMan.transform.position = Vector3.MoveTowards(staticMan.transform.position, PlayerController.instance.transform.position, 1f * Time.deltaTime);
                     }
                     else
                     {
                         //Default
+                        staticMan.SetActive(false);
+                        staticMan.transform.position = staticManDefaultPos;
+                    }
+
+                    if (Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position) <= 1.5f)
+                    {
+                        SetState(State.death);
+                        //Jump scare
                     }
 
                     loseSanity = false;
@@ -197,13 +199,16 @@ public class GameplayController : MonoBehaviour
 
                 if (!FadeController.instance.isFading)
                 {
+                    DialogueController.instance.UpdateText(string.Empty, false);
+
                     //Reset scene for next shift
                     if (shiftNum < 5)
                     {
                         score = 0;
                         penalty = 0;
                         powerOutage = false;
-                        sanity = 100f;
+                        sanity = 50f;
+                        introDialogueCo = null;
                         shiftNum++;
                         SetState(State.dialogue);
                     }
@@ -259,7 +264,7 @@ public class GameplayController : MonoBehaviour
     {
         score++;
 
-        if (score >= 3)//10)
+        if (score >= 10)
         {
             ToggleInteracts(false);
             FadeController.instance.StartFade(1f, 5f);           
@@ -280,7 +285,7 @@ public class GameplayController : MonoBehaviour
         powerOutage = false;
     }
 
-    public void BadRadioStation()
+    public void LoseSanity()
     {
         loseSanity = true;
     }

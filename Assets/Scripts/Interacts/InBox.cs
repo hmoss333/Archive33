@@ -19,19 +19,27 @@ public class InBox : InteractObject
         documentObj.SetActive(false);
     }
 
+    private void OnDisable()
+    {
+        documents.Clear();
+        documentObj.SetActive(false);
+    }
+
     public override void Update()
     {
         base.Update();
         if (GameplayController.instance.state == GameplayController.State.gameplay)
         {
-            baseTime += Time.deltaTime;
-            if (baseTime >= documentGenTime)
+            if (documents.Count < 5)
             {
-                baseTime = 0f;
-                GenerateNewDocument();
+                baseTime += Time.deltaTime;
+                if (baseTime >= documentGenTime)
+                {
+                    baseTime = 0f;
+                    GenerateNewDocument();
+                }
             }
 
-            documentObj.SetActive(documents.Count > 0);
             if (documents.Count > 0)
             {
                 airTime -= Time.deltaTime / 2f;
@@ -45,7 +53,9 @@ public class InBox : InteractObject
             {
                 airTime = aTimer;
             }
-        }    
+        }
+
+        documentObj.SetActive(documents.Count > 0);
     }
 
     public void GenerateNewDocument()

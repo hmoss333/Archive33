@@ -87,13 +87,16 @@ public class PlayerController : MonoBehaviour
                 try
                 {
                     interactObj = hit.transform.gameObject.GetComponent<InteractObject>();
-                    interactObj.highlighted = true;
-                    Renderer R = hit.collider.GetComponent<Renderer>();
-                    Outline OL = R.GetComponent<Outline>();
-                    if (OL == null) // if no script is attached, attach one
+                    if (interactObj.enabled)
                     {
-                        print($"Adding autotransparent from {this.name}");
-                        OL = R.gameObject.AddComponent<Outline>();
+                        interactObj.highlighted = true;
+                        Renderer R = hit.collider.GetComponent<Renderer>();
+                        Outline OL = R.GetComponent<Outline>();
+                        if (OL == null) // if no script is attached, attach one
+                        {
+                            print($"Adding autotransparent from {this.name}");
+                            OL = R.gameObject.AddComponent<Outline>();
+                        }
                     }
                 }
                 catch (Exception e)
