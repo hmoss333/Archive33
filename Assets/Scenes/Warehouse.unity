@@ -3781,6 +3781,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: goatman
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: c1b3d2b17091ca847b318f000d216391, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 358daf6d815d4ef4695af111db128764, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1b3d2b17091ca847b318f000d216391, type: 3}
 --- !u!4 &1203093411 stripped
