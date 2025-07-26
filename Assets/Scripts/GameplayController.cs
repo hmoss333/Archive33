@@ -59,12 +59,11 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 1; // 0;
+        shiftNum = 0;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
         staticMan.SetActive(false);
-        introDialogueCo = null;
         FadeController.instance.StartFade(1f, 0.01f);
         state = State.dialogue;
     }
@@ -77,6 +76,7 @@ public class GameplayController : MonoBehaviour
         switch (state)
         {
             case State.dialogue:
+                ToggleInteracts(false);
                 FadeController.instance.StartFade(0f, 2f);
 
                 //Play dialogue set for current shift
@@ -128,6 +128,7 @@ public class GameplayController : MonoBehaviour
                     else
                     {
                         //Default
+                        staticMan.SetActive(false);
                     }
 
                     loseSanity = false;
@@ -197,6 +198,8 @@ public class GameplayController : MonoBehaviour
 
                 if (!FadeController.instance.isFading)
                 {
+                    DialogueController.instance.UpdateText(string.Empty, false);
+
                     //Reset scene for next shift
                     if (shiftNum < 5)
                     {
@@ -204,6 +207,7 @@ public class GameplayController : MonoBehaviour
                         penalty = 0;
                         powerOutage = false;
                         sanity = 100f;
+                        introDialogueCo = null;
                         shiftNum++;
                         SetState(State.dialogue);
                     }
@@ -280,7 +284,7 @@ public class GameplayController : MonoBehaviour
         powerOutage = false;
     }
 
-    public void BadRadioStation()
+    public void LoseSanity()
     {
         loseSanity = true;
     }
