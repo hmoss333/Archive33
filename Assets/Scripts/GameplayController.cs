@@ -81,6 +81,12 @@ public class GameplayController : MonoBehaviour
         {
             case State.dialogue:
                 ToggleInteracts(false);
+                foreach (Light light in lights)
+                {
+                    light.enabled = true;
+                    light.GetComponent<LightFlicker>().enabled = false;
+                    light.intensity = 3f;
+                }
                 FadeController.instance.StartFade(0f, 2f);
 
                 //Play dialogue set for current shift
