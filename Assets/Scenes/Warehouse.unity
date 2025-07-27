@@ -241,7 +241,7 @@ MonoBehaviour:
   fuseBox: {fileID: 285408572}
   bell: {fileID: 2130839218}
   state: 0
-  sanity: 0
+  sanity: 50
   sanityLossRate: 5
   sanityGainRate: 3
   staticMan: {fileID: 2775949822140155805}

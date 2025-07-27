@@ -126,7 +126,7 @@ public class GameplayController : MonoBehaviour
                         staticMan.transform.position = staticManDefaultPos;
                     }
 
-                    if (Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position) <= 1.5f)
+                    if (Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position) <= 1f)
                     {
                         SetState(State.death);
                         //Jump scare
