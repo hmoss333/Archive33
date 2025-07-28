@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
                     ? Radio.instance.targetFrequency.ToString("F2")
                     : currentDoc.toBeShredded
                         ? "Destroy"
-                        : "File";//currentDoc.fileColor.ToString();
+                        : currentDoc.fileColor.ToString(); //"File";
         }
         documentPrefab.SetActive(hasDocument);
         SetState(States.idle);
