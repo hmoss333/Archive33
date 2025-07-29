@@ -15,7 +15,7 @@ public class GameplayController : MonoBehaviour
 
     [Header("Prop References")]
     [SerializeField] GameObject radio;
-    [SerializeField] GameObject fuseBox;
+    [SerializeField] GameObject fuseBoxCover;
     [SerializeField] GameObject bell;
 
     public enum State { dialogue, gameplay, victory, death }
@@ -245,7 +245,7 @@ public class GameplayController : MonoBehaviour
     void SetProps(int shiftVal)
     {
         radio.SetActive(shiftVal >= 1);
-        fuseBox.SetActive(shiftVal >= 2);
+        fuseBoxCover.SetActive(shiftVal < 2);
         bell.SetActive(shiftVal >= 3);
     }
 
