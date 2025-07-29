@@ -28,10 +28,8 @@ public class GameplayController : MonoBehaviour
     [NaughtyAttributes.HorizontalLine]
 
     [Header("Sanity Variables")]
-    [SerializeField][Range(0, 50)] private float sanity = 100f;
-    private bool loseSanity = false;
-    [SerializeField] float sanityLossRate;
-    [SerializeField] float sanityGainRate;
+    [SerializeField] float stationResetTimer = 14f;
+    public bool spawnStaticMan = false;// { get; private set; }
     [SerializeField] GameObject staticMan;
     Vector3 staticManDefaultPos;
     ObjectFlicker staticManFlicker;
@@ -61,7 +59,7 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 0;
+        shiftNum = 1;// 0;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -106,21 +104,8 @@ public class GameplayController : MonoBehaviour
                 {
                     //Radio
                     //Static man enemy
-                    if (loseSanity)
+                    if (spawnStaticMan)
                     {
-                        if (sanity > 0f)
-                            sanity -= sanityLossRate * Time.deltaTime;
-                    }
-                    else
-                    {
-                        if (sanity < 50f)
-                            sanity += sanityGainRate * Time.deltaTime;
-                    }
-
-
-                    if (sanity <= 37.5f)
-                    {
-                        //First phase
                         staticMan.SetActive(true);
                         staticManFlicker.StartFlicker(0.5f);
                         staticMan.transform.position = Vector3.MoveTowards(staticMan.transform.position, PlayerController.instance.transform.position, 1f * Time.deltaTime);
@@ -130,6 +115,13 @@ public class GameplayController : MonoBehaviour
                         //Default
                         staticMan.SetActive(false);
                         staticMan.transform.position = staticManDefaultPos;
+                        stationResetTimer -= Time.deltaTime;
+                        if (stationResetTimer <= 0)
+                        {
+                            stationResetTimer = 14f; //Reset to default value
+                            spawnStaticMan = true;
+                            Radio.instance.InitializeFrequency();
+                        }
                     }
 
                     if (Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position) <= 1f)
@@ -137,8 +129,6 @@ public class GameplayController : MonoBehaviour
                         SetState(State.death);
                         //Jump scare
                     }
-
-                    loseSanity = false;
                 }
                 if (shiftNum >= 2)
                 {
@@ -213,7 +203,7 @@ public class GameplayController : MonoBehaviour
                         score = 0;
                         penalty = 0;
                         powerOutage = false;
-                        sanity = 50f;
+                        spawnStaticMan = false;
                         introDialogueCo = null;
                         shiftNum++;
                         SetState(State.dialogue);
@@ -289,11 +279,6 @@ public class GameplayController : MonoBehaviour
     public void RestartPower()
     {
         powerOutage = false;
-    }
-
-    public void LoseSanity()
-    {
-        loseSanity = true;
     }
 
     IEnumerator IntroDialogueRoutine(List<string> dialogueItems)
