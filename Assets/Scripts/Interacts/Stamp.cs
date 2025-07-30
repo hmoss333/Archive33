@@ -9,7 +9,8 @@ public class Stamp : InteractObject
         base.Interact();
         if (PlayerController.instance.GetCurrentDocument() != null)
         {
-            PlayerController.instance.GetCurrentDocument().Stamp();
+            //PlayerController.instance.GetCurrentDocument().Stamp();
+            DialogueController.instance.UpdateText("Document approved for filing", true);
         }
     }
 }

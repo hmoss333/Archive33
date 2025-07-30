@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
             Destroy(this);
 
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
         state = States.idle;
         hasDocument = false;
     }
@@ -48,14 +51,23 @@ public class PlayerController : MonoBehaviour
             interactObj.Interact();
         }
 
+        if (currentDoc != null)
+        {
+            documentPrefab.GetComponentInChildren<TMP_Text>().text =
+                GameplayController.instance.shiftNum > 0
+                    ? Radio.instance.targetFrequency.ToString("F2")
+                    : currentDoc.toBeShredded
+                        ? "Destroy"
+                        : currentDoc.fileColor.ToString(); //"File";
+        }
         documentPrefab.SetActive(hasDocument);
         SetState(States.idle);
     }
 
     void UpdateLook()
     {
-        viewPos.x += Input.GetAxis("Mouse X") * mouseSensitivity;
-        viewPos.y += Input.GetAxis("Mouse Y") * mouseSensitivity;
+        viewPos.x += Input.GetAxis("Mouse X") * mouseSensitivity / 20f;
+        viewPos.y += Input.GetAxis("Mouse Y") * mouseSensitivity / 20f;
 
         viewPos.y = Mathf.Clamp(viewPos.y, -89f, 89f);
 
@@ -72,21 +84,25 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit, checkDist, layer))
             {
-                interactObj = hit.transform.gameObject.GetComponent<InteractObject>();
-                interactObj.highlighted = true;
-                Renderer R = hit.collider.GetComponent<Renderer>();
-
-                //if (R == null)
-                //    continue; // no renderer attached? go to next hit
-                //              // TODO: maybe implement here a check for GOs that should not be affected like the player
-
-                Outline OL = R.GetComponent<Outline>();
-                if (OL == null) // if no script is attached, attach one
+                try
                 {
-                    print($"Adding autotransparent from {this.name}");
-                    OL = R.gameObject.AddComponent<Outline>();
+                    interactObj = hit.transform.gameObject.GetComponent<InteractObject>();
+                    if (interactObj.enabled)
+                    {
+                        interactObj.highlighted = true;
+                        Renderer R = hit.collider.GetComponent<Renderer>();
+                        Outline OL = R.GetComponent<Outline>();
+                        if (OL == null) // if no script is attached, attach one
+                        {
+                            print($"Adding autotransparent from {this.name}");
+                            OL = R.gameObject.AddComponent<Outline>();
+                        }
+                    }
                 }
-                //OL.BeTransparent(); // get called every frame to reset the falloff
+                catch (Exception e)
+                {
+                    print(e);
+                }
             }
             else
             {

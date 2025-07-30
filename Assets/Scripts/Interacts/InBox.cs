@@ -4,31 +4,58 @@ using UnityEngine;
 
 public class InBox : InteractObject
 {
+    [SerializeField] GameObject documentObj;
     [SerializeField] List<Document> documents;
 
     [SerializeField] float documentGenTime = 7.5f;
+    [SerializeField] float airTime = 30f;
     float baseTime;
+    float aTimer;
 
-    public override void Start()
+    public void Start()
     {
         baseTime = 0f;
-        base.Start();
+        aTimer = airTime;
+        documentObj.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        documents.Clear();
+        documentObj.SetActive(false);
     }
 
     public override void Update()
     {
         base.Update();
-        if (documents.Count <= 0)
+        if (GameplayController.instance.state == GameplayController.State.gameplay)
         {
-            baseTime += Time.deltaTime;
-            if (baseTime >= documentGenTime)
+            if (documents.Count < 5)
             {
-                baseTime = 0f;
-                Document newDoc = new Document();
-                newDoc.InitializeDoc();
-                documents.Add(newDoc);
+                baseTime += Time.deltaTime;
+                if (baseTime >= documentGenTime)
+                {
+                    baseTime = 0f;
+                    GenerateNewDocument();
+                }
+            }
+
+            if (documents.Count > 0)
+            {
+                airTime -= Time.deltaTime / 2f;
+                if (airTime <= 0)
+                {
+                    airTime = aTimer;
+                    GameplayController.instance.SetState(GameplayController.State.death);
+                }
+            }
+            else
+            {
+                airTime = aTimer;
             }
         }
+
+        documentObj.SetActive(documents.Count > 0);
     }
 
     public void GenerateNewDocument()

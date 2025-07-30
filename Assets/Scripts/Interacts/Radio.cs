@@ -1,46 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Radio : InteractObject
 {
     public static Radio instance;
 
     [SerializeField] GameObject dialObj;
+    [SerializeField] List<RadioStation> radioStations;
 
-    [SerializeField] float currentFrequency;
-    [SerializeField] float targetFrequency;
-    [SerializeField] float maxFrequency = 100f;
+    [SerializeField][Range(0, 25)] float currentFrequency;
+    [SerializeField] TMP_Text radioText;
+    public float targetFrequency { get; private set; } //public in order to display frequency on document
     [SerializeField] float rotateSpeed;
-    [SerializeField] AudioSource staticAudio;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip staticAudio, correctAudio;
+    [SerializeField] List<AudioClip> badAudio;
 
     bool interacting;
-    [SerializeField] bool foundStation;
 
 
-    public override void Start()
+    public void Start()
     {
         if (instance == null)
             instance = this;
         else
             Destroy(this);
 
-        base.Start();
         interacting = false;
-        foundStation = false;
+        audioSource.clip = staticAudio;
+        audioSource.loop = true;
+        audioSource.Play();
         InitializeFrequency();
+    }
+
+    private void OnDisable()
+    {
+        currentFrequency = 0f;
+        radioText.text = currentFrequency.ToString("F2");
     }
 
     public void InitializeFrequency()
     {
-        targetFrequency = Random.Range(0, maxFrequency);
+        radioStations.Clear();
+
+        RadioStation newStation = new RadioStation();
+        targetFrequency = Random.Range(0f, 25f);
+        newStation.frequency = targetFrequency;
+        newStation.clip = correctAudio;
+        radioStations.Add(newStation);
+
+        for (int i = 0; i < badAudio.Count; i++)
+        {
+            RadioStation newBadStation = new RadioStation();
+            float randomFrequency = Random.Range(0f, 25f);
+            newBadStation.frequency = randomFrequency;
+            newBadStation.clip = badAudio[i];
+            radioStations.Add(newBadStation);
+        }
     }
 
     public override void Update()
     {
         base.Update();
 
-        currentFrequency = Mathf.Clamp(currentFrequency, 0, maxFrequency);
+        currentFrequency = Mathf.Clamp(currentFrequency, 0f, 25f);
+        radioText.text = currentFrequency.ToString("F2");
 
         //TODO
         //Add logic to have the player tune the radio to a randomized station value in order to get the instructions for the current document
@@ -50,34 +76,68 @@ public class Radio : InteractObject
 
             if (Input.GetAxis("Mouse X") > 0)
             {
-                currentFrequency += Time.deltaTime * 2f * rotateSpeed;
-                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed);
+                currentFrequency += Time.deltaTime * rotateSpeed;
+                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
             }
             else if (Input.GetAxis("Mouse X") < 0)
             {
-                currentFrequency -= Time.deltaTime * 2f * rotateSpeed;
-                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed);
+                currentFrequency -= Time.deltaTime * rotateSpeed;
+                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
             }
+        }
 
-            if (currentFrequency <= targetFrequency + 7.5f && currentFrequency >= targetFrequency - 7.5f)
+        for (int i = 0; i < radioStations.Count; i++)
+        {
+            if (currentFrequency <= radioStations[i].frequency + 1.5f && currentFrequency >= radioStations[i].frequency - 1.5f)
             {
-                foundStation = true;
-            }
-            else
-            {
-                foundStation = false;
-            }
-
-            if (foundStation && PlayerController.instance.hasDocument)
-            {
-                if (PlayerController.instance.GetCurrentDocument().toBeShredded)
-                    DialogueController.instance.UpdateText("This document should be shredded");
+                if (radioStations[i].frequency <= targetFrequency + 1.5f && radioStations[i].frequency >= targetFrequency - 1.5f)
+                {
+                    if (PlayerController.instance.hasDocument && interacting)
+                    {
+                        //Correct station
+                        DialogueController.instance.UpdateText(
+                            PlayerController.instance.GetCurrentDocument().toBeShredded
+                                ? "This document should be shredded"
+                                : "This document should be filed", true);
+                    }
+                    if (audioSource.clip != correctAudio)
+                    {
+                        audioSource.Stop();
+                        audioSource.clip = correctAudio;
+                        audioSource.Play();
+                    }
+                    break;
+                }
                 else
-                    DialogueController.instance.UpdateText("This document should be sent out");
+                {
+                    GameplayController.instance.LoseSanity();
+                    if (interacting)
+                    {
+                        //Bad station
+                        DialogueController.instance.UpdateText("[TODO]: Bad audio", true);
+                    }
+                    if (audioSource.clip != radioStations[i].clip)
+                    {
+                        audioSource.Stop();
+                        audioSource.clip = radioStations[i].clip;
+                        audioSource.Play();
+                    }
+                    break;
+                }
             }
             else
             {
-                DialogueController.instance.UpdateText(".........");
+                if (interacting)
+                {
+                    //Static
+                    DialogueController.instance.UpdateText(".........", true);
+                }
+                if (audioSource.clip != staticAudio)
+                {
+                    audioSource.Stop();
+                    audioSource.clip = staticAudio;
+                    audioSource.Play();
+                }
             }
         }
     }
@@ -87,4 +147,12 @@ public class Radio : InteractObject
         base.Interact();
         interacting = !interacting;       
     }
+}
+
+
+[System.Serializable]
+class RadioStation
+{
+    public float frequency;
+    public AudioClip clip;
 }

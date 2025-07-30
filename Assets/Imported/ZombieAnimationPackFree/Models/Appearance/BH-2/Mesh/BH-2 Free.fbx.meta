@@ -1,149 +1,431 @@
 fileFormatVersion: 2
 guid: 83df9562de1b27646afd2f8bfb8d8927
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: BH_2_
-    100004: BH_2_lod0
-    100006: BH_2_lod1
-    100008: BH_2_lod2
-    100010: BH_2_lod3
-    100012: BH_2_lod4
-    100014: Chest
-    100016: Head
-    100018: Hips
-    100020: Jaw
-    100022: LeftEye
-    100024: LeftFoot
-    100026: LeftHand
-    100028: LeftIndexDistal
-    100030: LeftIndexIntermediate
-    100032: LeftIndexProximal
-    100034: LeftLittleDistal
-    100036: LeftLittleIntermediate
-    100038: LeftLittleProximal
-    100040: LeftLowerArm
-    100042: LeftLowerLeg
-    100044: LeftMiddleDistal
-    100046: LeftMiddleIntermediate
-    100048: LeftMiddleProximal
-    100050: LeftRingDistal
-    100052: LeftRingIntermediate
-    100054: LeftRingProximal
-    100056: LeftShoulder
-    100058: LeftThumbDistal
-    100060: LeftThumbIntermediate
-    100062: LeftThumbProximal
-    100064: LeftToes
-    100066: LeftUpperArm
-    100068: LeftUpperLeg
-    100070: Neck
-    100072: RightEye
-    100074: RightFoot
-    100076: RightHand
-    100078: RightIndexDistal
-    100080: RightIndexIntermediate
-    100082: RightIndexProximal
-    100084: RightLittleDistal
-    100086: RightLittleIntermediate
-    100088: RightLittleProximal
-    100090: RightLowerArm
-    100092: RightLowerLeg
-    100094: RightMiddleDistal
-    100096: RightMiddleIntermediate
-    100098: RightMiddleProximal
-    100100: RightRingDistal
-    100102: RightRingIntermediate
-    100104: RightRingProximal
-    100106: RightShoulder
-    100108: RightThumbDistal
-    100110: RightThumbIntermediate
-    100112: RightThumbProximal
-    100114: RightToes
-    100116: RightUpperArm
-    100118: RightUpperLeg
-    100120: Root
-    100122: Spine
-    100124: UpperChest
-    400000: //RootNode
-    400002: BH_2_
-    400004: BH_2_lod0
-    400006: BH_2_lod1
-    400008: BH_2_lod2
-    400010: BH_2_lod3
-    400012: BH_2_lod4
-    400014: Chest
-    400016: Head
-    400018: Hips
-    400020: Jaw
-    400022: LeftEye
-    400024: LeftFoot
-    400026: LeftHand
-    400028: LeftIndexDistal
-    400030: LeftIndexIntermediate
-    400032: LeftIndexProximal
-    400034: LeftLittleDistal
-    400036: LeftLittleIntermediate
-    400038: LeftLittleProximal
-    400040: LeftLowerArm
-    400042: LeftLowerLeg
-    400044: LeftMiddleDistal
-    400046: LeftMiddleIntermediate
-    400048: LeftMiddleProximal
-    400050: LeftRingDistal
-    400052: LeftRingIntermediate
-    400054: LeftRingProximal
-    400056: LeftShoulder
-    400058: LeftThumbDistal
-    400060: LeftThumbIntermediate
-    400062: LeftThumbProximal
-    400064: LeftToes
-    400066: LeftUpperArm
-    400068: LeftUpperLeg
-    400070: Neck
-    400072: RightEye
-    400074: RightFoot
-    400076: RightHand
-    400078: RightIndexDistal
-    400080: RightIndexIntermediate
-    400082: RightIndexProximal
-    400084: RightLittleDistal
-    400086: RightLittleIntermediate
-    400088: RightLittleProximal
-    400090: RightLowerArm
-    400092: RightLowerLeg
-    400094: RightMiddleDistal
-    400096: RightMiddleIntermediate
-    400098: RightMiddleProximal
-    400100: RightRingDistal
-    400102: RightRingIntermediate
-    400104: RightRingProximal
-    400106: RightShoulder
-    400108: RightThumbDistal
-    400110: RightThumbIntermediate
-    400112: RightThumbProximal
-    400114: RightToes
-    400116: RightUpperArm
-    400118: RightUpperLeg
-    400120: Root
-    400122: Spine
-    400124: UpperChest
-    2100000: BH_2
-    2100002: BH_2_GLASS
-    4300000: BH_2_lod0
-    4300002: BH_2_lod1
-    4300004: BH_2_lod2
-    4300006: BH_2_lod3
-    4300008: BH_2_lod4
-    7400000: Take 001
-    9500000: //RootNode
-    13700000: BH_2_lod0
-    13700002: BH_2_lod1
-    13700004: BH_2_lod2
-    13700006: BH_2_lod3
-    13700008: BH_2_lod4
-    2186277476908879412: ImportLogs
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: BH_2_
+  - first:
+      1: 100004
+    second: BH_2_lod0
+  - first:
+      1: 100006
+    second: BH_2_lod1
+  - first:
+      1: 100008
+    second: BH_2_lod2
+  - first:
+      1: 100010
+    second: BH_2_lod3
+  - first:
+      1: 100012
+    second: BH_2_lod4
+  - first:
+      1: 100014
+    second: Chest
+  - first:
+      1: 100016
+    second: Head
+  - first:
+      1: 100018
+    second: Hips
+  - first:
+      1: 100020
+    second: Jaw
+  - first:
+      1: 100022
+    second: LeftEye
+  - first:
+      1: 100024
+    second: LeftFoot
+  - first:
+      1: 100026
+    second: LeftHand
+  - first:
+      1: 100028
+    second: LeftIndexDistal
+  - first:
+      1: 100030
+    second: LeftIndexIntermediate
+  - first:
+      1: 100032
+    second: LeftIndexProximal
+  - first:
+      1: 100034
+    second: LeftLittleDistal
+  - first:
+      1: 100036
+    second: LeftLittleIntermediate
+  - first:
+      1: 100038
+    second: LeftLittleProximal
+  - first:
+      1: 100040
+    second: LeftLowerArm
+  - first:
+      1: 100042
+    second: LeftLowerLeg
+  - first:
+      1: 100044
+    second: LeftMiddleDistal
+  - first:
+      1: 100046
+    second: LeftMiddleIntermediate
+  - first:
+      1: 100048
+    second: LeftMiddleProximal
+  - first:
+      1: 100050
+    second: LeftRingDistal
+  - first:
+      1: 100052
+    second: LeftRingIntermediate
+  - first:
+      1: 100054
+    second: LeftRingProximal
+  - first:
+      1: 100056
+    second: LeftShoulder
+  - first:
+      1: 100058
+    second: LeftThumbDistal
+  - first:
+      1: 100060
+    second: LeftThumbIntermediate
+  - first:
+      1: 100062
+    second: LeftThumbProximal
+  - first:
+      1: 100064
+    second: LeftToes
+  - first:
+      1: 100066
+    second: LeftUpperArm
+  - first:
+      1: 100068
+    second: LeftUpperLeg
+  - first:
+      1: 100070
+    second: Neck
+  - first:
+      1: 100072
+    second: RightEye
+  - first:
+      1: 100074
+    second: RightFoot
+  - first:
+      1: 100076
+    second: RightHand
+  - first:
+      1: 100078
+    second: RightIndexDistal
+  - first:
+      1: 100080
+    second: RightIndexIntermediate
+  - first:
+      1: 100082
+    second: RightIndexProximal
+  - first:
+      1: 100084
+    second: RightLittleDistal
+  - first:
+      1: 100086
+    second: RightLittleIntermediate
+  - first:
+      1: 100088
+    second: RightLittleProximal
+  - first:
+      1: 100090
+    second: RightLowerArm
+  - first:
+      1: 100092
+    second: RightLowerLeg
+  - first:
+      1: 100094
+    second: RightMiddleDistal
+  - first:
+      1: 100096
+    second: RightMiddleIntermediate
+  - first:
+      1: 100098
+    second: RightMiddleProximal
+  - first:
+      1: 100100
+    second: RightRingDistal
+  - first:
+      1: 100102
+    second: RightRingIntermediate
+  - first:
+      1: 100104
+    second: RightRingProximal
+  - first:
+      1: 100106
+    second: RightShoulder
+  - first:
+      1: 100108
+    second: RightThumbDistal
+  - first:
+      1: 100110
+    second: RightThumbIntermediate
+  - first:
+      1: 100112
+    second: RightThumbProximal
+  - first:
+      1: 100114
+    second: RightToes
+  - first:
+      1: 100116
+    second: RightUpperArm
+  - first:
+      1: 100118
+    second: RightUpperLeg
+  - first:
+      1: 100120
+    second: Root
+  - first:
+      1: 100122
+    second: Spine
+  - first:
+      1: 100124
+    second: UpperChest
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: BH_2_
+  - first:
+      4: 400004
+    second: BH_2_lod0
+  - first:
+      4: 400006
+    second: BH_2_lod1
+  - first:
+      4: 400008
+    second: BH_2_lod2
+  - first:
+      4: 400010
+    second: BH_2_lod3
+  - first:
+      4: 400012
+    second: BH_2_lod4
+  - first:
+      4: 400014
+    second: Chest
+  - first:
+      4: 400016
+    second: Head
+  - first:
+      4: 400018
+    second: Hips
+  - first:
+      4: 400020
+    second: Jaw
+  - first:
+      4: 400022
+    second: LeftEye
+  - first:
+      4: 400024
+    second: LeftFoot
+  - first:
+      4: 400026
+    second: LeftHand
+  - first:
+      4: 400028
+    second: LeftIndexDistal
+  - first:
+      4: 400030
+    second: LeftIndexIntermediate
+  - first:
+      4: 400032
+    second: LeftIndexProximal
+  - first:
+      4: 400034
+    second: LeftLittleDistal
+  - first:
+      4: 400036
+    second: LeftLittleIntermediate
+  - first:
+      4: 400038
+    second: LeftLittleProximal
+  - first:
+      4: 400040
+    second: LeftLowerArm
+  - first:
+      4: 400042
+    second: LeftLowerLeg
+  - first:
+      4: 400044
+    second: LeftMiddleDistal
+  - first:
+      4: 400046
+    second: LeftMiddleIntermediate
+  - first:
+      4: 400048
+    second: LeftMiddleProximal
+  - first:
+      4: 400050
+    second: LeftRingDistal
+  - first:
+      4: 400052
+    second: LeftRingIntermediate
+  - first:
+      4: 400054
+    second: LeftRingProximal
+  - first:
+      4: 400056
+    second: LeftShoulder
+  - first:
+      4: 400058
+    second: LeftThumbDistal
+  - first:
+      4: 400060
+    second: LeftThumbIntermediate
+  - first:
+      4: 400062
+    second: LeftThumbProximal
+  - first:
+      4: 400064
+    second: LeftToes
+  - first:
+      4: 400066
+    second: LeftUpperArm
+  - first:
+      4: 400068
+    second: LeftUpperLeg
+  - first:
+      4: 400070
+    second: Neck
+  - first:
+      4: 400072
+    second: RightEye
+  - first:
+      4: 400074
+    second: RightFoot
+  - first:
+      4: 400076
+    second: RightHand
+  - first:
+      4: 400078
+    second: RightIndexDistal
+  - first:
+      4: 400080
+    second: RightIndexIntermediate
+  - first:
+      4: 400082
+    second: RightIndexProximal
+  - first:
+      4: 400084
+    second: RightLittleDistal
+  - first:
+      4: 400086
+    second: RightLittleIntermediate
+  - first:
+      4: 400088
+    second: RightLittleProximal
+  - first:
+      4: 400090
+    second: RightLowerArm
+  - first:
+      4: 400092
+    second: RightLowerLeg
+  - first:
+      4: 400094
+    second: RightMiddleDistal
+  - first:
+      4: 400096
+    second: RightMiddleIntermediate
+  - first:
+      4: 400098
+    second: RightMiddleProximal
+  - first:
+      4: 400100
+    second: RightRingDistal
+  - first:
+      4: 400102
+    second: RightRingIntermediate
+  - first:
+      4: 400104
+    second: RightRingProximal
+  - first:
+      4: 400106
+    second: RightShoulder
+  - first:
+      4: 400108
+    second: RightThumbDistal
+  - first:
+      4: 400110
+    second: RightThumbIntermediate
+  - first:
+      4: 400112
+    second: RightThumbProximal
+  - first:
+      4: 400114
+    second: RightToes
+  - first:
+      4: 400116
+    second: RightUpperArm
+  - first:
+      4: 400118
+    second: RightUpperLeg
+  - first:
+      4: 400120
+    second: Root
+  - first:
+      4: 400122
+    second: Spine
+  - first:
+      4: 400124
+    second: UpperChest
+  - first:
+      21: 2100000
+    second: BH_2
+  - first:
+      21: 2100002
+    second: BH_2_GLASS
+  - first:
+      43: 4300000
+    second: BH_2_lod0
+  - first:
+      43: 4300002
+    second: BH_2_lod1
+  - first:
+      43: 4300004
+    second: BH_2_lod2
+  - first:
+      43: 4300006
+    second: BH_2_lod3
+  - first:
+      43: 4300008
+    second: BH_2_lod4
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: BH_2_lod0
+  - first:
+      137: 13700002
+    second: BH_2_lod1
+  - first:
+      137: 13700004
+    second: BH_2_lod2
+  - first:
+      137: 13700006
+    second: BH_2_lod3
+  - first:
+      137: 13700008
+    second: BH_2_lod4
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -156,7 +438,7 @@ ModelImporter:
       name: BH_2_GLASS
     second: {fileID: 2100000, guid: 336af2cf970b95f46aec26056f05da00, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -165,6 +447,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -188,34 +471,47 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 0
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human:
     - boneName: Hips
       humanName: Hips
@@ -980,13 +1276,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
