@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class InBox : InteractObject
 {
+    [Header("Door Variables")]
+    [SerializeField] GameObject door;
+    private Quaternion startRotation;
+    private Quaternion endRotation;
+    [SerializeField] float rotationSpeed = 1.0f;
+    private float _lerpTime = 0f;
+
+    [Header("Document Variables")]
     [SerializeField] GameObject documentObj;
     [SerializeField] List<Document> documents;
-
     [SerializeField] float documentGenTime = 7.5f;
+
+    [Header("Air Variables")]
+    [SerializeField] GameObject airArrow;
     [SerializeField] float airTime = 30f;
+
+
     float baseTime;
     float aTimer;
 
@@ -17,6 +29,9 @@ public class InBox : InteractObject
         baseTime = 0f;
         aTimer = airTime;
         documentObj.SetActive(false);
+
+        startRotation = door.transform.rotation;
+        endRotation = Quaternion.Euler(90, 0, 0);
     }
 
     private void OnDisable()
@@ -55,6 +70,26 @@ public class InBox : InteractObject
             }
         }
 
+        if (documents.Count > 0)
+        {
+            _lerpTime += Time.deltaTime * rotationSpeed;
+            door.transform.rotation = Quaternion.Slerp(startRotation, endRotation, _lerpTime);
+            if (_lerpTime >= 1.0f)
+            {
+                _lerpTime = 1.0f; // Ensure it reaches the end exactly
+            }
+        }
+        else
+        {
+            _lerpTime -= Time.deltaTime * rotationSpeed;
+            door.transform.rotation = Quaternion.Slerp(startRotation, endRotation, _lerpTime);
+            if (_lerpTime <= 0f)
+            {
+                _lerpTime = 0f; // Ensure it reaches the start exactly
+            }
+        }
+
+        //airArrow.transform.rotation = 
         documentObj.SetActive(documents.Count > 0);
     }
 
