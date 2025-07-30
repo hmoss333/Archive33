@@ -117,15 +117,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlighted: 0
   dialObj: {fileID: 8954140841052948885}
-  radioStations: []
   currentFrequency: 0
   radioText: {fileID: 1185434254820822383}
   rotateSpeed: 10
+  focusTime: 3
   audioSource: {fileID: 3656556502706598338}
   staticAudio: {fileID: 8300000, guid: ea24f109dd7d040ed9c875fa3611d5c0, type: 3}
-  correctAudio: {fileID: 0}
-  badAudio:
-  - {fileID: 8300000, guid: 1127f0a9e3fb04de698ebf0c81048f58, type: 3}
+  badAudio: {fileID: 8300000, guid: fb7ce3dbdbebb4babb5a338d3c2884b4, type: 3}
 --- !u!82 &3656556502706598338
 AudioSource:
   m_ObjectHideFlags: 0

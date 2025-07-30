@@ -54,11 +54,11 @@ public class PlayerController : MonoBehaviour
         if (currentDoc != null)
         {
             documentPrefab.GetComponentInChildren<TMP_Text>().text =
-                GameplayController.instance.shiftNum > 0
-                    ? Radio.instance.targetFrequency.ToString("F2")
-                    : currentDoc.toBeShredded
+                    currentDoc.toBeShredded
                         ? "Destroy"
-                        : currentDoc.fileColor.ToString(); //"File";
+                        : currentDoc.fileColor.ToString();
+            //GameplayController.instance.shiftNum > 0
+            //? Radio.instance.targetFrequency.ToString("F2")
         }
         documentPrefab.SetActive(hasDocument);
         SetState(States.idle);
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
     {
         currentDoc = null;
         hasDocument = false;
-        Radio.instance.InitializeFrequency();
+        //Radio.instance.InitializeFrequency();
     }
 
     public void SetState(States setState)

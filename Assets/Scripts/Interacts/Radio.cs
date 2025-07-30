@@ -8,15 +8,14 @@ public class Radio : InteractObject
     public static Radio instance;
 
     [SerializeField] GameObject dialObj;
-    [SerializeField] List<RadioStation> radioStations;
+    //[SerializeField] List<RadioStation> radioStations;
 
     [SerializeField][Range(0, 25)] float currentFrequency;
     [SerializeField] TMP_Text radioText;
     public float targetFrequency { get; private set; } //public in order to display frequency on document
-    [SerializeField] float rotateSpeed;
+    [SerializeField] float rotateSpeed, focusTime = 3f;
     [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip staticAudio, correctAudio;
-    [SerializeField] List<AudioClip> badAudio;
+    [SerializeField] AudioClip staticAudio, badAudio;
 
     bool interacting;
 
@@ -43,22 +42,22 @@ public class Radio : InteractObject
 
     public void InitializeFrequency()
     {
-        radioStations.Clear();
+        //radioStations.Clear();
 
-        RadioStation newStation = new RadioStation();
+        //RadioStation newStation = new RadioStation();
         targetFrequency = Random.Range(0f, 25f);
-        newStation.frequency = targetFrequency;
-        newStation.clip = correctAudio;
-        radioStations.Add(newStation);
+        //newStation.frequency = targetFrequency;
+        //newStation.clip = correctAudio;
+        //radioStations.Add(newStation);
 
-        for (int i = 0; i < badAudio.Count; i++)
-        {
-            RadioStation newBadStation = new RadioStation();
-            float randomFrequency = Random.Range(0f, 25f);
-            newBadStation.frequency = randomFrequency;
-            newBadStation.clip = badAudio[i];
-            radioStations.Add(newBadStation);
-        }
+        //for (int i = 0; i < badAudio.Count; i++)
+        //{
+        //    RadioStation newBadStation = new RadioStation();
+        //    float randomFrequency = Random.Range(0f, 25f);
+        //    newBadStation.frequency = randomFrequency;
+        //    newBadStation.clip = badAudio[i];
+        //    radioStations.Add(newBadStation);
+        //}
     }
 
     public override void Update()
@@ -86,56 +85,27 @@ public class Radio : InteractObject
             }
         }
 
-        for (int i = 0; i < radioStations.Count; i++)
+        if (GameplayController.instance.spawnStaticMan)
         {
-            if (currentFrequency <= radioStations[i].frequency + 1.5f && currentFrequency >= radioStations[i].frequency - 1.5f)
+            if (currentFrequency <= targetFrequency + 3.5f && currentFrequency >= targetFrequency - 3.5f)
             {
-                if (radioStations[i].frequency <= targetFrequency + 1.5f && radioStations[i].frequency >= targetFrequency - 1.5f)
-                {
-                    if (PlayerController.instance.hasDocument && interacting)
-                    {
-                        //Correct station
-                        DialogueController.instance.UpdateText(
-                            PlayerController.instance.GetCurrentDocument().toBeShredded
-                                ? "This document should be shredded"
-                                : "This document should be filed", true);
-                    }
-                    if (audioSource.clip != correctAudio)
-                    {
-                        audioSource.Stop();
-                        audioSource.clip = correctAudio;
-                        audioSource.Play();
-                    }
-                    break;
-                }
-                else
-                {
-                    GameplayController.instance.LoseSanity();
-                    if (interacting)
-                    {
-                        //Bad station
-                        DialogueController.instance.UpdateText("[TODO]: Bad audio", true);
-                    }
-                    if (audioSource.clip != radioStations[i].clip)
-                    {
-                        audioSource.Stop();
-                        audioSource.clip = radioStations[i].clip;
-                        audioSource.Play();
-                    }
-                    break;
-                }
-            }
-            else
-            {
-                if (interacting)
-                {
-                    //Static
-                    DialogueController.instance.UpdateText(".........", true);
-                }
+                //Safe station
+                DialogueController.instance.UpdateText("Good audio", false);
+                GameplayController.instance.spawnStaticMan = false;
                 if (audioSource.clip != staticAudio)
                 {
                     audioSource.Stop();
                     audioSource.clip = staticAudio;
+                    audioSource.Play();
+                }
+            }
+            else
+            {
+                DialogueController.instance.UpdateText("Bad audio", false);
+                if (audioSource.clip != badAudio)
+                {
+                    audioSource.Stop();
+                    audioSource.clip = badAudio;
                     audioSource.Play();
                 }
             }
