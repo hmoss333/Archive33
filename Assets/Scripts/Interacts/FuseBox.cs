@@ -9,6 +9,9 @@ public class FuseBox : InteractObject
     [SerializeField] List<Fuse> fuses;
     Renderer renderer;
     bool isBroken;
+    AudioSource audioSource;
+    [SerializeField] AudioClip fuseClip;
+    [SerializeField] AudioClip outageClip;
 
     public void Start()
     {
@@ -18,6 +21,8 @@ public class FuseBox : InteractObject
             Destroy(this);
 
         renderer = GetComponent<Renderer>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = fuseClip;
     }
 
     public override void Update()
@@ -36,6 +41,8 @@ public class FuseBox : InteractObject
             int randFuse = Random.Range(0, 3);
             fuses[randFuse].SetBroken();
         }
+
+        audioSource.PlayOneShot(outageClip);
     } 
 
     public override void Interact()
@@ -48,6 +55,7 @@ public class FuseBox : InteractObject
         }
 
         isBroken = false; //should trigger if all fuses are currently not broken
+        audioSource.PlayOneShot(fuseClip);
         GameplayController.instance.RestartPower();
     }
 }

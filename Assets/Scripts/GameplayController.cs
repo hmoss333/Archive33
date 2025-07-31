@@ -12,6 +12,8 @@ public class GameplayController : MonoBehaviour
 
     [Header("Warning References")]
     [SerializeField] List<GameObject> warningLights;
+    [SerializeField] AudioSource incorrectAudio;
+    [SerializeField] AudioClip incorrectClip;
 
     [Header("Prop References")]
     [SerializeField] GameObject radio;
@@ -59,7 +61,7 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 1;// 0;
+        shiftNum = 0;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -271,6 +273,7 @@ public class GameplayController : MonoBehaviour
     public void Failure()
     {
         penalty++;
+        incorrectAudio.PlayOneShot(incorrectClip);
 
         if (penalty >= 5)
             SetState(State.death);

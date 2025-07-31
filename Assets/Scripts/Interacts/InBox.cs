@@ -20,6 +20,11 @@ public class InBox : InteractObject
     [SerializeField] GameObject airArrow;
     [SerializeField] float airTime = 30f;
 
+    [Header("Audio Variables")]
+    [SerializeField] AudioSource doorAudio;
+    [SerializeField] AudioSource documentAudio;
+    [SerializeField] AudioClip doorOpen, takeDocument;
+
 
     float baseTime;
     float aTimer;
@@ -32,6 +37,9 @@ public class InBox : InteractObject
 
         startRotation = door.transform.rotation;
         endRotation = Quaternion.Euler(90, 0, 0);
+
+        doorAudio.clip = doorOpen;
+        documentAudio.clip = takeDocument;
     }
 
     private void OnDisable()
@@ -52,6 +60,7 @@ public class InBox : InteractObject
                 {
                     baseTime = 0f;
                     GenerateNewDocument();
+                    
                 }
             }
 
@@ -78,6 +87,13 @@ public class InBox : InteractObject
             {
                 _lerpTime = 1.0f; // Ensure it reaches the end exactly
             }
+            else
+            {
+                if (!doorAudio.isPlaying)
+                {
+                    doorAudio.PlayOneShot(doorOpen);
+                }
+            }
         }
         else
         {
@@ -86,6 +102,13 @@ public class InBox : InteractObject
             if (_lerpTime <= 0f)
             {
                 _lerpTime = 0f; // Ensure it reaches the start exactly
+            }
+            else
+            {
+                if (!doorAudio.isPlaying)
+                {
+                    doorAudio.PlayOneShot(doorOpen);
+                }
             }
         }
 
@@ -107,6 +130,7 @@ public class InBox : InteractObject
         {
             PlayerController.instance.SetCurrentDocument(documents[documents.Count - 1]);
             documents.RemoveAt(documents.Count - 1);
+            documentAudio.PlayOneShot(takeDocument);
         }
     }
 }

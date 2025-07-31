@@ -6,11 +6,14 @@ public class Lamp : InteractObject
 {
     [SerializeField] Light light;
     private bool isOn;
-
+    AudioSource audioSource;
+    [SerializeField] AudioClip lightToggleClip;
 
     public void Start()
     {
         isOn = true;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = lightToggleClip;
     }
 
     public override void Update()
@@ -22,5 +25,6 @@ public class Lamp : InteractObject
     {
         base.Interact();
         isOn = !isOn;
+        audioSource.PlayOneShot(lightToggleClip);
     }
 }

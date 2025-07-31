@@ -123,7 +123,7 @@ MonoBehaviour:
   focusTime: 3
   audioSource: {fileID: 3656556502706598338}
   staticAudio: {fileID: 8300000, guid: ea24f109dd7d040ed9c875fa3611d5c0, type: 3}
-  badAudio: {fileID: 8300000, guid: fb7ce3dbdbebb4babb5a338d3c2884b4, type: 3}
+  badAudio: {fileID: 8300000, guid: a021612f3eb17438c8da32591b739f5b, type: 3}
 --- !u!82 &3656556502706598338
 AudioSource:
   m_ObjectHideFlags: 0
@@ -136,7 +136,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 0
   Mute: 0
