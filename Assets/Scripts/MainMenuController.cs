@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class MainMenuController : MonoBehaviour
 {
+    [SerializeField] GameObject mainMenu, creditsMenu;
     [SerializeField] TMP_Text versionNumber;
+    [SerializeField] CanvasGroup longNightButtonCanvas;
 
     bool startingGame;
     Coroutine startRoutine;
@@ -19,7 +22,14 @@ public class MainMenuController : MonoBehaviour
         versionNumber.text = $"v{Application.version}";
 
         FadeController.instance.StartFade(0f, 1f);
+
+        longNightButtonCanvas.alpha = 0.5f;
     }
+
+    //private void Update()
+    //{
+    //    longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 1 ? 1f : 0.5f; //This doesn't work with webgl
+    //}
 
     public void StartGame()
     {
@@ -46,6 +56,16 @@ public class MainMenuController : MonoBehaviour
         startRoutine = null;
     }
 
+    public void LongNightMode()
+    {
+        if (PlayerPrefs.GetInt("longNightMode", 0) == 1
+            && !startingGame
+            && !FadeController.instance.isFading)
+        {
+            print("Long Night Mode here");
+        }
+    }
+
     public void Settings()
     {
         if (!startingGame && !FadeController.instance.isFading)
@@ -59,6 +79,14 @@ public class MainMenuController : MonoBehaviour
         if (!startingGame && !FadeController.instance.isFading)
         {
             print("Open credits menu here");
+            mainMenu.SetActive(false);
+            creditsMenu.SetActive(true);
         }
+    }
+
+    public void Back()
+    {
+        mainMenu.SetActive(true);
+        creditsMenu.SetActive(false);
     }
 }
