@@ -18,7 +18,11 @@ public class InBox : InteractObject
 
     [Header("Air Variables")]
     [SerializeField] GameObject airArrow;
+    [SerializeField] float arrowRotSpeed = 1.0f;
     [SerializeField] float airTime = 30f;
+    Vector3 initArrowPos, emptyArrowPos;
+    Quaternion initPos, emptyPos;
+    private float _arrowLerpTime = 0f;
 
     [Header("Audio Variables")]
     [SerializeField] AudioSource doorAudio;
@@ -37,6 +41,12 @@ public class InBox : InteractObject
 
         startRotation = door.transform.rotation;
         endRotation = Quaternion.Euler(90, 0, 0);
+
+        arrowRotSpeed = 200f / airTime / 60f / 5f;
+        initArrowPos = new Vector3(-180, 0, 0);
+        emptyArrowPos = new Vector3(-180, 0, -200);
+        initPos = Quaternion.Euler(initArrowPos.x, initArrowPos.y, initArrowPos.z);
+        emptyPos = Quaternion.Euler(emptyArrowPos.x, emptyArrowPos.y, emptyArrowPos.z);
 
         doorAudio.clip = doorOpen;
         documentAudio.clip = takeDocument;
@@ -66,6 +76,13 @@ public class InBox : InteractObject
 
             if (documents.Count > 0)
             {
+                _arrowLerpTime += arrowRotSpeed * Time.deltaTime;
+                airArrow.transform.localRotation = Quaternion.Slerp(initPos, emptyPos, _arrowLerpTime);
+                if (_arrowLerpTime >= 1.0f)
+                {
+                    _arrowLerpTime = 1.0f; // Ensure it reaches the end exactly
+                }
+
                 airTime -= Time.deltaTime / 2f;
                 if (airTime <= 0)
                 {
@@ -75,6 +92,8 @@ public class InBox : InteractObject
             }
             else
             {
+                _arrowLerpTime = 0f;
+                airArrow.transform.localRotation = initPos;
                 airTime = aTimer;
             }
         }
@@ -112,7 +131,6 @@ public class InBox : InteractObject
             }
         }
 
-        //airArrow.transform.rotation = 
         documentObj.SetActive(documents.Count > 0);
     }
 
