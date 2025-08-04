@@ -265,19 +265,7 @@ MonoBehaviour:
   - {fileID: 1067233628}
   uniqueDialogue:
   - dialogueLines:
-    - Hello! Welcome to your first day as an archivist for---
-    - Lets walk you through the basics of the job
-    - In front of you there should be a pnumatic tube
-    - This is where you will recieve documents from accross the Facility
-    - Your job is to either file these documents or put them in the shredder
-    - Each document is different, but they should indicate what to do on the document
-      itself
-    - Make sure that you're not letting the documents sit too long, though
-    - That pnumatic tube also controls the airflow into your office
-    - Keep the files moving and so will the air
-    - And please, make sure that you are filing all documents correctly
-    - Failure to meet company standards will result in termination
-    - But most importantly, just remember to have fun!
+    - '[TODO]: Shift 1 - explain filing system, pneumatic tube, and 5 strike system'
   - dialogueLines:
     - '[TODO]: Shift 2 - explain radio frequencies and how to tune to the corresponding
       station listed on the documents'
@@ -1981,7 +1969,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3
-  m_Range: 10
+  m_Range: 15
   m_SpotAngle: 125
   m_InnerSpotAngle: 1
   m_CookieSize: 10
@@ -5175,7 +5163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4080497826697025110, guid: 681eb01d4dccb7c46b0810f1408eae7b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.893
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4080497826697025110, guid: 681eb01d4dccb7c46b0810f1408eae7b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5183,7 +5171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4080497826697025110, guid: 681eb01d4dccb7c46b0810f1408eae7b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.013
+      value: 1.365
       objectReference: {fileID: 0}
     - target: {fileID: 4080497826697025110, guid: 681eb01d4dccb7c46b0810f1408eae7b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7118,7 +7106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 411249048129155639, guid: ecc5115345082417a942529e42c254e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.275
+      value: 1.081
       objectReference: {fileID: 0}
     - target: {fileID: 411249048129155639, guid: ecc5115345082417a942529e42c254e3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7126,7 +7114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 411249048129155639, guid: ecc5115345082417a942529e42c254e3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.65
+      value: 1.479
       objectReference: {fileID: 0}
     - target: {fileID: 411249048129155639, guid: ecc5115345082417a942529e42c254e3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7159,10 +7147,6 @@ PrefabInstance:
     - target: {fileID: 5847653687605227963, guid: ecc5115345082417a942529e42c254e3, type: 3}
       propertyPath: m_Name
       value: Tube
-      objectReference: {fileID: 0}
-    - target: {fileID: 8352614375900482040, guid: ecc5115345082417a942529e42c254e3, type: 3}
-      propertyPath: arrowRotSpeed
-      value: 0.035
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecc5115345082417a942529e42c254e3, type: 3}
@@ -7267,7 +7251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5387872318897454152, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_fontSize
-      value: 70
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5387872318897454152, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_fontAsset
@@ -7287,27 +7271,35 @@ PrefabInstance:
       objectReference: {fileID: -1099266064948786653, guid: 151e38c24b8ca4486997fe78026fced9, type: 2}
     - target: {fileID: 5387872318897454152, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_enableAutoSizing
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.78507537
       objectReference: {fileID: 0}
     - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.29688787
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.21492463
       objectReference: {fileID: 0}
     - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.06851259
       objectReference: {fileID: 0}
     - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5387872318897454154, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
@@ -7404,7 +7396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5860009102685607091, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.168
+      value: 1.475
       objectReference: {fileID: 0}
     - target: {fileID: 5860009102685607091, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7412,11 +7404,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5860009102685607091, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.252
+      value: 1.033
       objectReference: {fileID: 0}
     - target: {fileID: 5860009102685607091, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.952449
+      value: 0.8669837
       objectReference: {fileID: 0}
     - target: {fileID: 5860009102685607091, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
       propertyPath: m_LocalRotation.x
@@ -7424,7 +7416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5860009102685607091, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.3046981
+      value: 0.49833643
       objectReference: {fileID: 0}
     - target: {fileID: 5860009102685607091, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
       propertyPath: m_LocalRotation.z
@@ -7436,7 +7428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5860009102685607091, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 35.48
+      value: 59.78
       objectReference: {fileID: 0}
     - target: {fileID: 5860009102685607091, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -7445,6 +7437,10 @@ PrefabInstance:
     - target: {fileID: 5860009102685607094, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
       propertyPath: m_Name
       value: Lamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860009102685607094, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57104adc9c42d4d3fa8fd87ff3222e52, type: 3}

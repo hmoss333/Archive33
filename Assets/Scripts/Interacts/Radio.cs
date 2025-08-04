@@ -42,22 +42,7 @@ public class Radio : InteractObject
 
     public void InitializeFrequency()
     {
-        //radioStations.Clear();
-
-        //RadioStation newStation = new RadioStation();
         targetFrequency = Random.Range(0f, 25f);
-        //newStation.frequency = targetFrequency;
-        //newStation.clip = correctAudio;
-        //radioStations.Add(newStation);
-
-        //for (int i = 0; i < badAudio.Count; i++)
-        //{
-        //    RadioStation newBadStation = new RadioStation();
-        //    float randomFrequency = Random.Range(0f, 25f);
-        //    newBadStation.frequency = randomFrequency;
-        //    newBadStation.clip = badAudio[i];
-        //    radioStations.Add(newBadStation);
-        //}
     }
 
     public override void Update()

@@ -682,7 +682,7 @@ MonoBehaviour:
   documents: []
   documentGenTime: 5.5
   airArrow: {fileID: 6687558012801753492}
-  arrowRotSpeed: 1
+  arrowRotSpeed: 0.035
   airTime: 30
   doorAudio: {fileID: 36001159919433029}
   documentAudio: {fileID: 8865293435173166245}
@@ -811,7 +811,7 @@ Transform:
   m_GameObject: {fileID: 6687558012801753492}
   m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: -0.1938, y: 0.6148, z: 0.0115}
-  m_LocalScale: {x: 0.000058504116, y: 0.000058504116, z: 0.000058504116}
+  m_LocalScale: {x: 0.00007491795, y: 0.00007491795, z: 0.00007491795}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 246126402460082950}

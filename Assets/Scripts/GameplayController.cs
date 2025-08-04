@@ -25,6 +25,7 @@ public class GameplayController : MonoBehaviour
     public int shiftNum { get; private set; }
 
     private int score; //Increments on correct filing; 10 = win
+    private int scoreCheck = 0;
     private int penalty; //Increments on incorrect filing; 5 = death
 
     [NaughtyAttributes.HorizontalLine]
@@ -61,7 +62,7 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 1;//0;
+        shiftNum = 0;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -96,6 +97,8 @@ public class GameplayController : MonoBehaviour
             case State.gameplay:
                 //Handle all gameplay loop logic
                 //Adds more features based on shiftNum count
+                scoreCheck = shiftNum < 1 ? 10 : 15;
+
                 if (shiftNum >= 0)
                 {
                     //Inbox
@@ -120,7 +123,7 @@ public class GameplayController : MonoBehaviour
                         stationResetTimer -= Time.deltaTime;
                         if (stationResetTimer <= 0)
                         {
-                            stationResetTimer = 14f; //Reset to default value
+                            stationResetTimer = Random.Range(10f, 14f);//14f; //Reset to default value
                             spawnStaticMan = true;
                             Radio.instance.InitializeFrequency();
                         }
@@ -145,7 +148,7 @@ public class GameplayController : MonoBehaviour
                         powerOutageTimer -= Time.deltaTime;
                         if (powerOutageTimer <= 0)
                         {
-                            powerOutageTimer = 20f;
+                            powerOutageTimer = Random.Range(15f, 20f);
                             powerOutage = true;
                             FuseBox.instance.SetBroken();
                         }
@@ -262,7 +265,8 @@ public class GameplayController : MonoBehaviour
     {
         score++;
 
-        if (score >= 10)
+
+        if (score >= scoreCheck)
         {
             ToggleInteracts(false);
             FadeController.instance.StartFade(1f, 5f);           
