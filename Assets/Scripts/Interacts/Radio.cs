@@ -8,9 +8,11 @@ public class Radio : InteractObject
     public static Radio instance;
 
     [SerializeField] GameObject dialObj;
+    [SerializeField] SpriteRenderer arrowLeft, arrowRight;
+    [SerializeField] Color arrowDefault, arrowActive;
     //[SerializeField] List<RadioStation> radioStations;
 
-    [SerializeField][Range(0, 25)] float currentFrequency;
+    [SerializeField][Range(88, 108)] float currentFrequency; //88 - 108
     [SerializeField] TMP_Text radioText;
     public float targetFrequency { get; private set; } //public in order to display frequency on document
     [SerializeField] float rotateSpeed, focusTime = 3f;
@@ -31,39 +33,53 @@ public class Radio : InteractObject
         audioSource.clip = staticAudio;
         audioSource.loop = true;
         audioSource.Play();
+        currentFrequency = 88f;
         InitializeFrequency();
     }
 
     private void OnDisable()
     {
-        currentFrequency = 0f;
+        currentFrequency = 88f;
         radioText.text = currentFrequency.ToString("F2");
     }
 
     public void InitializeFrequency()
     {
-        targetFrequency = Random.Range(0f, 25f);
+        print("Updating targetFrequency");
+        float lastFrequency = targetFrequency;
+        targetFrequency = Random.Range(lastFrequency - 20f, lastFrequency + 20f);
+        int randDirection = Random.Range(0, 1);
+        targetFrequency = randDirection == 0
+                                ? targetFrequency + 10f
+                                : targetFrequency - 10f;
+
+        targetFrequency = Mathf.Clamp(targetFrequency, 88f, 108f);
     }
 
     public override void Update()
     {
         base.Update();
 
-        currentFrequency = Mathf.Clamp(currentFrequency, 0f, 25f);
+        currentFrequency = Mathf.Clamp(currentFrequency, 88f, 108f);
         radioText.text = currentFrequency.ToString("F2");
+        arrowLeft.gameObject.SetActive(interacting);
+        arrowRight.gameObject.SetActive(interacting);
 
         //TODO
         //Add logic to have the player tune the radio to a randomized station value in order to get the instructions for the current document
         if (interacting)
         {
             PlayerController.instance.SetState(PlayerController.States.interacting);
+            float xInput = Input.GetAxis("Mouse X");
+            arrowLeft.color = xInput < 0 ? arrowActive : arrowDefault;
+            arrowRight.color = xInput > 0 ? arrowActive : arrowDefault;
 
-            if (Input.GetAxis("Mouse X") > 0)
+            if (xInput > 0)
             {
                 currentFrequency += Time.deltaTime * rotateSpeed;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
             }
-            else if (Input.GetAxis("Mouse X") < 0)
+            else if (xInput < 0)
             {
                 currentFrequency -= Time.deltaTime * rotateSpeed;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
@@ -72,7 +88,7 @@ public class Radio : InteractObject
 
         if (GameplayController.instance.spawnStaticMan)
         {
-            if (currentFrequency <= targetFrequency + 3.5f && currentFrequency >= targetFrequency - 3.5f)
+            if (currentFrequency <= targetFrequency + 0.5f && currentFrequency >= targetFrequency - 0.5f)
             {
                 //Safe station
                 DialogueController.instance.UpdateText("Good audio", false);
