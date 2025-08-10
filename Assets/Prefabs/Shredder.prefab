@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlighted: 0
-  shredClip: {fileID: 8300000, guid: 6d1230b9e441d455ab177ba3a45fc17f, type: 3}
+  shredClip: {fileID: 8300000, guid: e41ce6cd501df43b1a31cfbd5d854e74, type: 3}
 --- !u!82 &2156070018900464910
 AudioSource:
   m_ObjectHideFlags: 0

@@ -34,4 +34,9 @@ public class Fuse : InteractObject
     {
         isBroken = true;
     }
+
+    public void SetFixed()
+    {
+        isBroken = false;
+    }
 }

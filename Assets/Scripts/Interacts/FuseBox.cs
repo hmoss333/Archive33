@@ -43,7 +43,17 @@ public class FuseBox : InteractObject
         }
 
         audioSource.PlayOneShot(outageClip);
-    } 
+    }
+
+    public void SetFixed()
+    {
+        isBroken = false;
+
+        for (int i = 0; i < 2; i++)
+        {
+            fuses[i].SetFixed();
+        }
+    }
 
     public override void Interact()
     {
@@ -58,4 +68,6 @@ public class FuseBox : InteractObject
         audioSource.PlayOneShot(fuseClip);
         GameplayController.instance.RestartPower();
     }
+
+
 }

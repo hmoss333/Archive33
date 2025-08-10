@@ -226,6 +226,7 @@ public class GameplayController : MonoBehaviour
                         spawnStaticMan = false;
                         introDialogueCo = null;
                         shiftNum++;
+                        FuseBox.instance.SetFixed();
                         PlayerController.instance.RemoveCurrentDocument();
                         SetState(State.dialogue);
                     }
