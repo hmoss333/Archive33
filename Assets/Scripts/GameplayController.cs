@@ -109,16 +109,18 @@ public class GameplayController : MonoBehaviour
                 {
                     //Radio
                     //Static man enemy
+                    staticMan.SetActive(spawnStaticMan);
+                    float dist = Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position);
+
                     if (spawnStaticMan)
                     {
-                        staticMan.SetActive(true);
+                        //staticMan.SetActive(true);
                         staticManFlicker.StartFlicker(0.5f);
                         staticMan.transform.position = Vector3.MoveTowards(staticMan.transform.position, PlayerController.instance.transform.position, 1f * Time.deltaTime);
                     }
                     else
                     {
-                        //Default
-                        staticMan.SetActive(false);
+                        //staticMan.SetActive(false);
                         staticMan.transform.position = staticManDefaultPos;
                         stationResetTimer -= Time.deltaTime;
                         if (stationResetTimer <= 0)
@@ -129,8 +131,9 @@ public class GameplayController : MonoBehaviour
                         }
                     }
 
-                    if (Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position) <= 1f)
+                    if (dist <= 1f)
                     {
+                        staticMan.GetComponent<Animator>().SetTrigger("isAttacking");
                         SetState(State.death);
                         //Jump scare
                     }
@@ -179,6 +182,7 @@ public class GameplayController : MonoBehaviour
                             }
                             else
                             {
+                                zombie.GetComponent<Animator>().SetTrigger("isAttacking");
                                 SetState(State.death);
                             }
                         }
