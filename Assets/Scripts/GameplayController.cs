@@ -24,17 +24,16 @@ public class GameplayController : MonoBehaviour
     public State state;
 
     [Header("Shift Variables")]
-    public int shiftNum;// { get; private set; }
-    private float shiftTime = 180f;
-    //private int score; //Increments on correct filing; 10 = win
-    //private int scoreCheck = 0;
+    public int shiftNum; //{ get; private set; }
+    private float shiftTime;
+    [SerializeField] private float shiftDuration;
     private int penalty; //Increments on incorrect filing; 5 = death
 
     [NaughtyAttributes.HorizontalLine]
 
     [Header("Sanity Variables")]
     [SerializeField] float stationResetTimer = 14f;
-    public bool spawnStaticMan = false;// { get; private set; }
+    public bool spawnStaticMan; //{ get; private set; } //TODO create a function to toggle this instead of leaving the variable public
     [SerializeField] GameObject staticMan;
     Vector3 staticManDefaultPos;
     ObjectFlicker staticManFlicker;
@@ -65,6 +64,7 @@ public class GameplayController : MonoBehaviour
             Destroy(this);
 
         //shiftNum = 0; //TODO Uncomment in final release
+        shiftTime = 0f;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -79,6 +79,21 @@ public class GameplayController : MonoBehaviour
     {
         SetProps(shiftNum);
         SetWarningLights(penalty);
+
+        if (state == State.dialogue || state == State.gameplay)
+        {
+            shiftDuration = shiftNum > 0 ? 360f : 90f;
+
+            //Countdown shift timer
+            shiftTime += Time.deltaTime;
+            if (shiftTime >= shiftDuration)
+            {
+                shiftTime = 0f;
+                ToggleInteracts(false);
+                FadeController.instance.StartFade(1f, 5f);
+                SetState(State.victory);
+            }
+        }
 
         switch (state)
         {
@@ -99,14 +114,6 @@ public class GameplayController : MonoBehaviour
             case State.gameplay:
                 //Handle all gameplay loop logic
                 //Adds more features based on shiftNum count
-                shiftTime -= Time.deltaTime;
-                if (shiftTime <= 0f)
-                {
-                    shiftTime = 180f;
-                    ToggleInteracts(false);
-                    FadeController.instance.StartFade(1f, 5f);
-                    SetState(State.victory);
-                }
 
 
                 if (shiftNum >= 0)
@@ -220,7 +227,7 @@ public class GameplayController : MonoBehaviour
                     if (shiftNum < 5)
                     {
                         //score = 0;
-                        shiftTime = 180f;
+                        shiftTime = 0f;
                         penalty = 0;
                         powerOutage = false;
                         spawnStaticMan = false;
@@ -278,11 +285,11 @@ public class GameplayController : MonoBehaviour
         }
     }
 
+    //TODO determine if this is still needed
+    ///Probably can be removed since we're no longer using score
     public void Success()
     {
         //score++;
-
-
         //if (score >= scoreCheck)
         //{
         //    ToggleInteracts(false);

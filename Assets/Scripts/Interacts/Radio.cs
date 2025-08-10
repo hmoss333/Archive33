@@ -10,12 +10,10 @@ public class Radio : InteractObject
     [SerializeField] GameObject dialObj;
     [SerializeField] SpriteRenderer arrowLeft, arrowRight;
     [SerializeField] Color arrowDefault, arrowActive;
-    //[SerializeField] List<RadioStation> radioStations;
-
-    [SerializeField][Range(88, 108)] float currentFrequency; //88 - 108
+    [SerializeField][Range(30, 300)] float currentFrequency; //Use LF (low frequency) band for radio stations
     [SerializeField] TMP_Text radioText;
     public float targetFrequency { get; private set; } //public in order to display frequency on document
-    [SerializeField] float rotateSpeed, focusTime = 3f;
+    [SerializeField] float rotateSpeed, focusTime = 1f;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip staticAudio, badAudio;
 
@@ -39,7 +37,7 @@ public class Radio : InteractObject
 
     private void OnDisable()
     {
-        currentFrequency = 88f;
+        currentFrequency = 36f;
         radioText.text = currentFrequency.ToString("F2");
     }
 
@@ -47,21 +45,24 @@ public class Radio : InteractObject
     {
         print("Updating targetFrequency");
         float lastFrequency = targetFrequency;
-        targetFrequency = Random.Range(lastFrequency - 5f, lastFrequency + 5f);
+        targetFrequency = Random.Range(lastFrequency - 15f, lastFrequency + 15f);
         int randDirection = Random.Range(0, 1);
         targetFrequency = randDirection == 0
-                                ? targetFrequency + 2.5f
-                                : targetFrequency - 2.5f;
+                                ? targetFrequency + 7f
+                                : targetFrequency - 7f;
 
-        targetFrequency = Mathf.Clamp(targetFrequency, 88f, 108f);
+        targetFrequency = Mathf.Clamp(targetFrequency, 30f, 300f);
+
+        if (targetFrequency == 30f || targetFrequency == 300f)
+            InitializeFrequency();
     }
 
     public override void Update()
     {
         base.Update();
 
-        currentFrequency = Mathf.Clamp(currentFrequency, 88f, 108f);
-        radioText.text = currentFrequency.ToString("F2") + "FM";
+        currentFrequency = Mathf.Clamp(currentFrequency, 30f, 300f);
+        radioText.text = currentFrequency.ToString("F2") + "kHz";
         radioText.gameObject.SetActive(interacting);
         arrowLeft.gameObject.SetActive(interacting);
         arrowRight.gameObject.SetActive(interacting);
@@ -89,20 +90,24 @@ public class Radio : InteractObject
 
         if (GameplayController.instance.spawnStaticMan)
         {
-            if (currentFrequency <= targetFrequency + 0.5f && currentFrequency >= targetFrequency - 0.5f)
+            if (currentFrequency <= targetFrequency + 1.125f && currentFrequency >= targetFrequency - 1.125f)
             {
-                //DialogueController.instance.UpdateText("Good audio", false);
-                GameplayController.instance.spawnStaticMan = false;
-                if (audioSource.clip != staticAudio)
+                focusTime -= Time.deltaTime;
+                if (focusTime <= 0f)
                 {
-                    audioSource.Stop();
-                    audioSource.clip = staticAudio;
-                    audioSource.Play();
+                    focusTime = 1f;
+                    GameplayController.instance.spawnStaticMan = false;
+                    if (audioSource.clip != staticAudio)
+                    {
+                        audioSource.Stop();
+                        audioSource.clip = staticAudio;
+                        audioSource.Play();
+                    }
                 }
             }
             else
             {
-                //DialogueController.instance.UpdateText("Bad audio", false);
+                focusTime = 1f;
                 if (audioSource.clip != badAudio)
                 {
                     audioSource.Stop();
