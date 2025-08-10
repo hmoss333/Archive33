@@ -244,6 +244,7 @@ MonoBehaviour:
   fuseBoxCover: {fileID: 1493999351}
   bell: {fileID: 1674158664}
   state: 0
+  shiftNum: 2
   stationResetTimer: 14
   spawnStaticMan: 0
   staticMan: {fileID: 2775949822140155805}
@@ -7451,26 +7452,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3925301610047761933, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
-      propertyPath: m_fontSize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3925301610047761933, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
-      propertyPath: m_margin.w
-      value: -0.24528289
-      objectReference: {fileID: 0}
-    - target: {fileID: 3925301610047761933, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
-      propertyPath: m_fontSizeMax
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3925301610047761933, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3925301610047761933, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6800758720562757210, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -7646,17 +7627,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3125004877336991733, guid: 1d63bff34de7e4a6691d423d902452fa, type: 3}
-      propertyPath: outageClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 40149545c8e3f4433937165a5241c870, type: 3}
     - target: {fileID: 9059372416604665801, guid: 1d63bff34de7e4a6691d423d902452fa, type: 3}
       propertyPath: m_Name
       value: FuseBox
-      objectReference: {fileID: 0}
-    - target: {fileID: 9059372416604665807, guid: 1d63bff34de7e4a6691d423d902452fa, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9059372416605023209, guid: 1d63bff34de7e4a6691d423d902452fa, type: 3}
       propertyPath: m_RootOrder

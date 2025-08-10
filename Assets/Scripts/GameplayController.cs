@@ -22,10 +22,12 @@ public class GameplayController : MonoBehaviour
 
     public enum State { dialogue, gameplay, victory, death }
     public State state;
-    public int shiftNum { get; private set; }
 
-    private int score; //Increments on correct filing; 10 = win
-    private int scoreCheck = 0;
+    [Header("Shift Variables")]
+    public int shiftNum;// { get; private set; }
+    private float shiftTime = 180f;
+    //private int score; //Increments on correct filing; 10 = win
+    //private int scoreCheck = 0;
     private int penalty; //Increments on incorrect filing; 5 = death
 
     [NaughtyAttributes.HorizontalLine]
@@ -62,7 +64,7 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 1;// 0;
+        //shiftNum = 0; //TODO Uncomment in final release
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -97,7 +99,15 @@ public class GameplayController : MonoBehaviour
             case State.gameplay:
                 //Handle all gameplay loop logic
                 //Adds more features based on shiftNum count
-                scoreCheck = shiftNum < 1 ? 10 : 15;
+                shiftTime -= Time.deltaTime;
+                if (shiftTime <= 0f)
+                {
+                    shiftTime = 180f;
+                    ToggleInteracts(false);
+                    FadeController.instance.StartFade(1f, 5f);
+                    SetState(State.victory);
+                }
+
 
                 if (shiftNum >= 0)
                 {
@@ -209,12 +219,14 @@ public class GameplayController : MonoBehaviour
                     //Reset scene for next shift
                     if (shiftNum < 5)
                     {
-                        score = 0;
+                        //score = 0;
+                        shiftTime = 180f;
                         penalty = 0;
                         powerOutage = false;
                         spawnStaticMan = false;
                         introDialogueCo = null;
                         shiftNum++;
+                        PlayerController.instance.RemoveCurrentDocument();
                         SetState(State.dialogue);
                     }
                     //Win game
@@ -267,15 +279,15 @@ public class GameplayController : MonoBehaviour
 
     public void Success()
     {
-        score++;
+        //score++;
 
 
-        if (score >= scoreCheck)
-        {
-            ToggleInteracts(false);
-            FadeController.instance.StartFade(1f, 5f);           
-            SetState(State.victory);
-        }
+        //if (score >= scoreCheck)
+        //{
+        //    ToggleInteracts(false);
+        //    FadeController.instance.StartFade(1f, 5f);           
+        //    SetState(State.victory);
+        //}
     }
 
     public void Failure()

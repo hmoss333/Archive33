@@ -47,11 +47,11 @@ public class Radio : InteractObject
     {
         print("Updating targetFrequency");
         float lastFrequency = targetFrequency;
-        targetFrequency = Random.Range(lastFrequency - 20f, lastFrequency + 20f);
+        targetFrequency = Random.Range(lastFrequency - 5f, lastFrequency + 5f);
         int randDirection = Random.Range(0, 1);
         targetFrequency = randDirection == 0
-                                ? targetFrequency + 10f
-                                : targetFrequency - 10f;
+                                ? targetFrequency + 2.5f
+                                : targetFrequency - 2.5f;
 
         targetFrequency = Mathf.Clamp(targetFrequency, 88f, 108f);
     }
@@ -61,7 +61,7 @@ public class Radio : InteractObject
         base.Update();
 
         currentFrequency = Mathf.Clamp(currentFrequency, 88f, 108f);
-        radioText.text = currentFrequency.ToString("F2");
+        radioText.text = currentFrequency.ToString("F2") + "FM";
         radioText.gameObject.SetActive(interacting);
         arrowLeft.gameObject.SetActive(interacting);
         arrowRight.gameObject.SetActive(interacting);
@@ -91,8 +91,7 @@ public class Radio : InteractObject
         {
             if (currentFrequency <= targetFrequency + 0.5f && currentFrequency >= targetFrequency - 0.5f)
             {
-                //Safe station
-                DialogueController.instance.UpdateText("Good audio", false);
+                //DialogueController.instance.UpdateText("Good audio", false);
                 GameplayController.instance.spawnStaticMan = false;
                 if (audioSource.clip != staticAudio)
                 {
@@ -103,7 +102,7 @@ public class Radio : InteractObject
             }
             else
             {
-                DialogueController.instance.UpdateText("Bad audio", false);
+                //DialogueController.instance.UpdateText("Bad audio", false);
                 if (audioSource.clip != badAudio)
                 {
                     audioSource.Stop();

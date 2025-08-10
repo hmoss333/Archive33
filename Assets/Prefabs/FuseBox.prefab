@@ -820,6 +820,7 @@ MonoBehaviour:
   - {fileID: 1693955163846342331}
   - {fileID: 1568768040613379890}
   fuseClip: {fileID: 8300000, guid: c3bf8736000d94335a8351d5f13f99ad, type: 3}
+  outageClip: {fileID: 8300000, guid: 40149545c8e3f4433937165a5241c870, type: 3}
 --- !u!82 &6370446626496657417
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1714,7 +1715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9059372416605023215
 Transform:
   m_ObjectHideFlags: 0
