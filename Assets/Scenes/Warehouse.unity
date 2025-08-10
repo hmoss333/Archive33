@@ -7451,6 +7451,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3925301610047761933, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: m_fontSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3925301610047761933, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: m_margin.w
+      value: -0.24528289
+      objectReference: {fileID: 0}
+    - target: {fileID: 3925301610047761933, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3925301610047761933, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3925301610047761933, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6800758720562757210, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
       propertyPath: m_Name
       value: Player

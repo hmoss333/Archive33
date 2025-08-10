@@ -51,18 +51,18 @@ public class PlayerController : MonoBehaviour
             interactObj.Interact();
         }
 
-        if (currentDoc != null)
-        {
-            string documentText = currentDoc.toBeShredded
-                                     ? "Destroy"
-                                     : currentDoc.fileColor.ToString();
-            if (GameplayController.instance.shiftNum >= 1)
-                documentText += "\nSafe - " + Radio.instance.targetFrequency.ToString("F2");
+        //if (currentDoc != null)
+        //{
+        //    string documentText = currentDoc.toBeShredded
+        //                             ? "Destroy"
+        //                             : currentDoc.fileColor.ToString();
+        //    if (GameplayController.instance.shiftNum >= 1 && GameplayController.instance.spawnStaticMan)
+        //        documentText += "\nSafe - " + Radio.instance.targetFrequency.ToString("F2");
 
-            documentPrefab.GetComponentInChildren<TMP_Text>().text = documentText;
-            //GameplayController.instance.shiftNum > 0
-            //? Radio.instance.targetFrequency.ToString("F2")
-        }
+        //    documentPrefab.GetComponentInChildren<TMP_Text>().text = documentText;
+        //    //GameplayController.instance.shiftNum > 0
+        //    //? Radio.instance.targetFrequency.ToString("F2")
+        //}
         documentPrefab.SetActive(hasDocument);
         SetState(States.idle);
     }
@@ -118,6 +118,19 @@ public class PlayerController : MonoBehaviour
     {
         currentDoc = newDoc;
         hasDocument = true;
+
+        if (currentDoc != null)
+        {
+            string documentText = currentDoc.toBeShredded
+                                     ? "Destroy"
+                                     : currentDoc.fileColor.ToString();
+            if (GameplayController.instance.shiftNum >= 1 && GameplayController.instance.spawnStaticMan)
+                documentText += "\nSafe - " + Radio.instance.targetFrequency.ToString("F2");
+
+            documentPrefab.GetComponentInChildren<TMP_Text>().text = documentText;
+            //GameplayController.instance.shiftNum > 0
+            //? Radio.instance.targetFrequency.ToString("F2")
+        }
     }
 
     public Document GetCurrentDocument()

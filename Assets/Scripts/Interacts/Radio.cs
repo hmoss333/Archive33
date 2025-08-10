@@ -62,6 +62,7 @@ public class Radio : InteractObject
 
         currentFrequency = Mathf.Clamp(currentFrequency, 88f, 108f);
         radioText.text = currentFrequency.ToString("F2");
+        radioText.gameObject.SetActive(interacting);
         arrowLeft.gameObject.SetActive(interacting);
         arrowRight.gameObject.SetActive(interacting);
 

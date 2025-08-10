@@ -123,7 +123,7 @@ public class GameplayController : MonoBehaviour
                         stationResetTimer -= Time.deltaTime;
                         if (stationResetTimer <= 0)
                         {
-                            stationResetTimer = Random.Range(10f, 14f);//14f; //Reset to default value
+                            stationResetTimer = Random.Range(10f, 14f); //Reset to default value
                             spawnStaticMan = true;
                             Radio.instance.InitializeFrequency();
                         }
