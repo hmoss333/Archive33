@@ -22,9 +22,12 @@ public class GameplayController : MonoBehaviour
 
     public enum State { dialogue, gameplay, victory, death }
     public State state;
-    public int shiftNum { get; private set; }
 
-    private int score; //Increments on correct filing; 10 = win
+    [Header("Shift Variables")]
+    public int shiftNum;// { get; private set; }
+    private float shiftTime = 180f;
+    //private int score; //Increments on correct filing; 10 = win
+    //private int scoreCheck = 0;
     private int penalty; //Increments on incorrect filing; 5 = death
 
     [NaughtyAttributes.HorizontalLine]
@@ -61,7 +64,7 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        shiftNum = 0;
+        //shiftNum = 0; //TODO Uncomment in final release
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -96,6 +99,16 @@ public class GameplayController : MonoBehaviour
             case State.gameplay:
                 //Handle all gameplay loop logic
                 //Adds more features based on shiftNum count
+                shiftTime -= Time.deltaTime;
+                if (shiftTime <= 0f)
+                {
+                    shiftTime = 180f;
+                    ToggleInteracts(false);
+                    FadeController.instance.StartFade(1f, 5f);
+                    SetState(State.victory);
+                }
+
+
                 if (shiftNum >= 0)
                 {
                     //Inbox
@@ -106,28 +119,31 @@ public class GameplayController : MonoBehaviour
                 {
                     //Radio
                     //Static man enemy
+                    staticMan.SetActive(spawnStaticMan);
+                    float dist = Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position);
+
                     if (spawnStaticMan)
                     {
-                        staticMan.SetActive(true);
+                        //staticMan.SetActive(true);
                         staticManFlicker.StartFlicker(0.5f);
                         staticMan.transform.position = Vector3.MoveTowards(staticMan.transform.position, PlayerController.instance.transform.position, 1f * Time.deltaTime);
                     }
                     else
                     {
-                        //Default
-                        staticMan.SetActive(false);
+                        //staticMan.SetActive(false);
                         staticMan.transform.position = staticManDefaultPos;
                         stationResetTimer -= Time.deltaTime;
                         if (stationResetTimer <= 0)
                         {
-                            stationResetTimer = 14f; //Reset to default value
+                            stationResetTimer = Random.Range(10f, 14f); //Reset to default value
                             spawnStaticMan = true;
                             Radio.instance.InitializeFrequency();
                         }
                     }
 
-                    if (Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position) <= 1f)
+                    if (dist <= 1f)
                     {
+                        staticMan.GetComponent<Animator>().SetTrigger("isAttacking");
                         SetState(State.death);
                         //Jump scare
                     }
@@ -145,7 +161,7 @@ public class GameplayController : MonoBehaviour
                         powerOutageTimer -= Time.deltaTime;
                         if (powerOutageTimer <= 0)
                         {
-                            powerOutageTimer = 20f;
+                            powerOutageTimer = Random.Range(15f, 20f);
                             powerOutage = true;
                             FuseBox.instance.SetBroken();
                         }
@@ -176,6 +192,7 @@ public class GameplayController : MonoBehaviour
                             }
                             else
                             {
+                                zombie.GetComponent<Animator>().SetTrigger("isAttacking");
                                 SetState(State.death);
                             }
                         }
@@ -202,12 +219,15 @@ public class GameplayController : MonoBehaviour
                     //Reset scene for next shift
                     if (shiftNum < 5)
                     {
-                        score = 0;
+                        //score = 0;
+                        shiftTime = 180f;
                         penalty = 0;
                         powerOutage = false;
                         spawnStaticMan = false;
                         introDialogueCo = null;
                         shiftNum++;
+                        FuseBox.instance.SetFixed();
+                        PlayerController.instance.RemoveCurrentDocument();
                         SetState(State.dialogue);
                     }
                     //Win game
@@ -260,14 +280,15 @@ public class GameplayController : MonoBehaviour
 
     public void Success()
     {
-        score++;
+        //score++;
 
-        if (score >= 10)
-        {
-            ToggleInteracts(false);
-            FadeController.instance.StartFade(1f, 5f);           
-            SetState(State.victory);
-        }
+
+        //if (score >= scoreCheck)
+        //{
+        //    ToggleInteracts(false);
+        //    FadeController.instance.StartFade(1f, 5f);           
+        //    SetState(State.victory);
+        //}
     }
 
     public void Failure()

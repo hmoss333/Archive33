@@ -43,7 +43,17 @@ public class FuseBox : InteractObject
         }
 
         audioSource.PlayOneShot(outageClip);
-    } 
+    }
+
+    public void SetFixed()
+    {
+        isBroken = false;
+
+        for (int i = 0; i < 2; i++)
+        {
+            fuses[i].SetFixed();
+        }
+    }
 
     public override void Interact()
     {
@@ -51,11 +61,13 @@ public class FuseBox : InteractObject
         for (int i = 0; i < fuses.Count; i++)
         {
             if (fuses[i].isBroken)
-                break;
+                return;
         }
 
         isBroken = false; //should trigger if all fuses are currently not broken
         audioSource.PlayOneShot(fuseClip);
         GameplayController.instance.RestartPower();
     }
+
+
 }

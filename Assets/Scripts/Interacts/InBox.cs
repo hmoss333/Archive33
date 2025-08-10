@@ -18,7 +18,10 @@ public class InBox : InteractObject
 
     [Header("Air Variables")]
     [SerializeField] GameObject airArrow;
+    [SerializeField] float arrowRotSpeed = 1.0f;
     [SerializeField] float airTime = 30f;
+    private Quaternion arrowStartRotation, arrowEndRotation;
+    private float _arrowLerpTime = 0f;
 
     [Header("Audio Variables")]
     [SerializeField] AudioSource doorAudio;
@@ -37,6 +40,10 @@ public class InBox : InteractObject
 
         startRotation = door.transform.rotation;
         endRotation = Quaternion.Euler(90, 0, 0);
+
+        arrowRotSpeed = 250f / airTime / 60f / 5f;
+        arrowStartRotation = Quaternion.Euler(-180, 0, 0);
+        arrowEndRotation = Quaternion.Euler(-180, 0, 250);
 
         doorAudio.clip = doorOpen;
         documentAudio.clip = takeDocument;
@@ -59,13 +66,19 @@ public class InBox : InteractObject
                 if (baseTime >= documentGenTime)
                 {
                     baseTime = 0f;
-                    GenerateNewDocument();
-                    
+                    GenerateNewDocument();                    
                 }
             }
 
             if (documents.Count > 0)
             {
+                _arrowLerpTime += Time.deltaTime * arrowRotSpeed;
+                airArrow.transform.localRotation = Quaternion.Slerp(arrowStartRotation, arrowEndRotation, _arrowLerpTime);
+                if (_arrowLerpTime >= 1.0f)
+                {
+                    _arrowLerpTime = 1.0f; // Ensure it reaches the end exactly
+                }
+
                 airTime -= Time.deltaTime / 2f;
                 if (airTime <= 0)
                 {
@@ -75,6 +88,8 @@ public class InBox : InteractObject
             }
             else
             {
+                _arrowLerpTime = 0f;
+                airArrow.transform.localRotation = arrowStartRotation;
                 airTime = aTimer;
             }
         }
@@ -112,7 +127,6 @@ public class InBox : InteractObject
             }
         }
 
-        //airArrow.transform.rotation = 
         documentObj.SetActive(documents.Count > 0);
     }
 
