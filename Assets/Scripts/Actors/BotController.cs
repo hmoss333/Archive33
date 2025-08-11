@@ -16,6 +16,7 @@ public class BotController : InteractObject
 
     [SerializeField] float speed;
     [SerializeField] float waitTime;
+    [SerializeField] List<Transform> movePoints;
 
 
     private void Start()
