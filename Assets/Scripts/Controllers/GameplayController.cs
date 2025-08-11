@@ -69,6 +69,7 @@ public class GameplayController : MonoBehaviour
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
+        spawnStaticMan = false;
         staticMan.SetActive(false);
         staticManDefaultPos = staticMan.transform.position;
         staticManFlicker = GetComponent<ObjectFlicker>();
@@ -90,7 +91,6 @@ public class GameplayController : MonoBehaviour
             if (shiftTime >= shiftDuration)
             {
                 shiftTime = 0f;
-                ToggleInteracts(false);
                 FadeController.instance.StartFade(1f, 5f);
                 SetState(State.victory);
             }
@@ -99,7 +99,6 @@ public class GameplayController : MonoBehaviour
         switch (state)
         {
             case State.dialogue:
-                ToggleInteracts(false);
                 foreach (Light light in lights)
                 {
                     light.enabled = true;
@@ -133,13 +132,11 @@ public class GameplayController : MonoBehaviour
 
                     if (spawnStaticMan)
                     {
-                        //staticMan.SetActive(true);
                         staticManFlicker.StartFlicker(0.5f);
                         staticMan.transform.position = Vector3.MoveTowards(staticMan.transform.position, PlayerController.instance.transform.position, 1f * Time.deltaTime);
                     }
                     else
                     {
-                        //staticMan.SetActive(false);
                         staticMan.transform.position = staticManDefaultPos;
                         stationResetTimer -= Time.deltaTime;
                         if (stationResetTimer <= 0)
@@ -278,15 +275,6 @@ public class GameplayController : MonoBehaviour
         }
     }
 
-    void ToggleInteracts(bool value)
-    {
-        InteractObject[] interacts = FindObjectsOfType<InteractObject>();
-        foreach (InteractObject interact in interacts)
-        {
-            interact.enabled = value;
-        }
-    }
-
     //TODO determine if this is still needed
     ///Probably can be removed since we're no longer using score
     public void Success()
@@ -325,7 +313,6 @@ public class GameplayController : MonoBehaviour
         }
 
         DialogueController.instance.UpdateText(string.Empty, false);
-        ToggleInteracts(true);
         SetState(State.gameplay);
         introDialogueCo = null;
     }

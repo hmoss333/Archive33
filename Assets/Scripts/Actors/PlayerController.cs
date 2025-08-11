@@ -46,23 +46,13 @@ public class PlayerController : MonoBehaviour
             InteractCheck();
         }
 
-        if (Input.GetMouseButtonUp(0) && interactObj != null)
+        if (GameplayController.instance.state == GameplayController.State.gameplay
+            && Input.GetMouseButtonUp(0)
+            && interactObj != null)
         {
             interactObj.Interact();
         }
 
-        //if (currentDoc != null)
-        //{
-        //    string documentText = currentDoc.toBeShredded
-        //                             ? "Destroy"
-        //                             : currentDoc.fileColor.ToString();
-        //    if (GameplayController.instance.shiftNum >= 1 && GameplayController.instance.spawnStaticMan)
-        //        documentText += "\nSafe - " + Radio.instance.targetFrequency.ToString("F2");
-
-        //    documentPrefab.GetComponentInChildren<TMP_Text>().text = documentText;
-        //    //GameplayController.instance.shiftNum > 0
-        //    //? Radio.instance.targetFrequency.ToString("F2")
-        //}
         documentPrefab.SetActive(hasDocument);
         SetState(States.idle);
     }
