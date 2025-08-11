@@ -31,7 +31,8 @@ public class GameplayController : MonoBehaviour
 
     [NaughtyAttributes.HorizontalLine]
 
-    [Header("Sanity Variables")]
+    [Header("Radio Static Variables")]
+    [SerializeField] CamEffectController camEffectController;
     [SerializeField] float stationResetTimer = 14f;
     public bool spawnStaticMan; //{ get; private set; } //TODO create a function to toggle this instead of leaving the variable public
     [SerializeField] GameObject staticMan;
@@ -43,7 +44,7 @@ public class GameplayController : MonoBehaviour
     [Header("Power Outage Variables")]
     [SerializeField] private float powerOutageTimer = 20f;
     private bool powerOutage;
-    private float zombieMoveTimer = 5f;
+    private float zombieMoveTimer = 3.5f;
     private int zombieMoveNum;
     [SerializeField] GameObject zombie;
     [SerializeField] List<Transform> zombiePoints;
@@ -80,7 +81,7 @@ public class GameplayController : MonoBehaviour
         SetProps(shiftNum);
         SetWarningLights(penalty);
 
-        if (state == State.dialogue || state == State.gameplay)
+        if (state == State.dialogue || state == State.gameplay && shiftNum < 5)
         {
             shiftDuration = shiftNum > 0 ? 360f : 90f;
 
@@ -127,6 +128,7 @@ public class GameplayController : MonoBehaviour
                     //Radio
                     //Static man enemy
                     staticMan.SetActive(spawnStaticMan);
+                    camEffectController.SetEffectState(spawnStaticMan);
                     float dist = Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position);
 
                     if (spawnStaticMan)
@@ -195,7 +197,7 @@ public class GameplayController : MonoBehaviour
                             if (zombieMoveNum < zombiePoints.Count - 1)
                             {
                                 zombieMoveNum++;
-                                zombieMoveTimer = 5f;
+                                zombieMoveTimer = 3.5f;
                             }
                             else
                             {

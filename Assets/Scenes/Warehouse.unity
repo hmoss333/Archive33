@@ -246,8 +246,9 @@ MonoBehaviour:
   fuseBoxCover: {fileID: 1493999351}
   bell: {fileID: 1674158664}
   state: 0
-  shiftNum: 1
+  shiftNum: 5
   shiftDuration: 0
+  camEffectController: {fileID: 1508664987}
   stationResetTimer: 14
   spawnStaticMan: 0
   staticMan: {fileID: 2775949822140155805}
@@ -284,6 +285,8 @@ MonoBehaviour:
     - '[TODO]: Shift 5 - explain the site has gone into emergency lockdown and that
       you must complete your shift in order to escape'
     - '[TODO]: Shift 5 - increased difficulty/adjusted timing values for all interactions'
+  - dialogueLines:
+    - '[TODO]: Shift 6 - explain endless shift mode'
 --- !u!114 &39588187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,7 +615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40423186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.25, y: 0, z: 15.5}
+  m_LocalPosition: {x: -1.25, y: 0, z: 14.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2122,7 +2125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388082710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0, z: 11}
+  m_LocalPosition: {x: 1.25, y: 0, z: 10.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3503,7 +3506,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 881110212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 7.5}
+  m_LocalPosition: {x: 0, y: 0, z: 7.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4707,7 +4710,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410217636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5041,6 +5044,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4349689160829392, guid: 7f0c31dcd24808146bd2f1b4545c5787, type: 3}
   m_PrefabInstance: {fileID: 828770457}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1508664987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4554600073901165245, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+  m_PrefabInstance: {fileID: 6800758720321417595}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0809929ef42e647ee84fe91902443453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1519982443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7702,6 +7716,22 @@ PrefabInstance:
     - target: {fileID: 6800758720562757214, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017842189570814505, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: _colorDrift
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017842189570814505, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: _verticalJump
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017842189570814505, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: _scanLineJitter
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017842189570814505, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: _horizontalShake
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
