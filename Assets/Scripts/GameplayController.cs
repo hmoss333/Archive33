@@ -24,17 +24,17 @@ public class GameplayController : MonoBehaviour
     public State state;
 
     [Header("Shift Variables")]
-    public int shiftNum;// { get; private set; }
-    private float shiftTime = 180f;
-    //private int score; //Increments on correct filing; 10 = win
-    //private int scoreCheck = 0;
+    public int shiftNum; //{ get; private set; }
+    private float shiftTime;
+    [SerializeField] private float shiftDuration;
     private int penalty; //Increments on incorrect filing; 5 = death
 
     [NaughtyAttributes.HorizontalLine]
 
-    [Header("Sanity Variables")]
+    [Header("Radio Static Variables")]
+    [SerializeField] CamEffectController camEffectController;
     [SerializeField] float stationResetTimer = 14f;
-    public bool spawnStaticMan = false;// { get; private set; }
+    public bool spawnStaticMan; //{ get; private set; } //TODO create a function to toggle this instead of leaving the variable public
     [SerializeField] GameObject staticMan;
     Vector3 staticManDefaultPos;
     ObjectFlicker staticManFlicker;
@@ -44,7 +44,7 @@ public class GameplayController : MonoBehaviour
     [Header("Power Outage Variables")]
     [SerializeField] private float powerOutageTimer = 20f;
     private bool powerOutage;
-    private float zombieMoveTimer = 5f;
+    private float zombieMoveTimer = 3.5f;
     private int zombieMoveNum;
     [SerializeField] GameObject zombie;
     [SerializeField] List<Transform> zombiePoints;
@@ -65,6 +65,7 @@ public class GameplayController : MonoBehaviour
             Destroy(this);
 
         //shiftNum = 0; //TODO Uncomment in final release
+        shiftTime = 0f;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -79,6 +80,21 @@ public class GameplayController : MonoBehaviour
     {
         SetProps(shiftNum);
         SetWarningLights(penalty);
+
+        if (state == State.dialogue || state == State.gameplay && shiftNum < 5)
+        {
+            shiftDuration = shiftNum > 0 ? 360f : 90f;
+
+            //Countdown shift timer
+            shiftTime += Time.deltaTime;
+            if (shiftTime >= shiftDuration)
+            {
+                shiftTime = 0f;
+                ToggleInteracts(false);
+                FadeController.instance.StartFade(1f, 5f);
+                SetState(State.victory);
+            }
+        }
 
         switch (state)
         {
@@ -99,14 +115,6 @@ public class GameplayController : MonoBehaviour
             case State.gameplay:
                 //Handle all gameplay loop logic
                 //Adds more features based on shiftNum count
-                shiftTime -= Time.deltaTime;
-                if (shiftTime <= 0f)
-                {
-                    shiftTime = 180f;
-                    ToggleInteracts(false);
-                    FadeController.instance.StartFade(1f, 5f);
-                    SetState(State.victory);
-                }
 
 
                 if (shiftNum >= 0)
@@ -120,6 +128,7 @@ public class GameplayController : MonoBehaviour
                     //Radio
                     //Static man enemy
                     staticMan.SetActive(spawnStaticMan);
+                    camEffectController.SetEffectState(spawnStaticMan);
                     float dist = Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position);
 
                     if (spawnStaticMan)
@@ -188,7 +197,7 @@ public class GameplayController : MonoBehaviour
                             if (zombieMoveNum < zombiePoints.Count - 1)
                             {
                                 zombieMoveNum++;
-                                zombieMoveTimer = 5f;
+                                zombieMoveTimer = 3.5f;
                             }
                             else
                             {
@@ -220,7 +229,7 @@ public class GameplayController : MonoBehaviour
                     if (shiftNum < 5)
                     {
                         //score = 0;
-                        shiftTime = 180f;
+                        shiftTime = 0f;
                         penalty = 0;
                         powerOutage = false;
                         spawnStaticMan = false;
@@ -278,11 +287,11 @@ public class GameplayController : MonoBehaviour
         }
     }
 
+    //TODO determine if this is still needed
+    ///Probably can be removed since we're no longer using score
     public void Success()
     {
         //score++;
-
-
         //if (score >= scoreCheck)
         //{
         //    ToggleInteracts(false);
