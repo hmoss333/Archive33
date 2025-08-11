@@ -5,21 +5,22 @@ using UnityEngine;
 public class CallBell : InteractObject
 {
     public AudioSource audioSource;
-[SerializeField]  public AudioClip sound;
+    [SerializeField]  public AudioClip sound;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        
+        audioSource = GetComponent<AudioSource>();      
     }
-
-    public override void Update()
-    {}
 
     public override void Interact()
     {
         base.Interact();
         audioSource.PlayOneShot(sound, 0.7F);
+
+        if (BotController.instance.state == BotController.State.idle)
+            BotController.instance.CallBot();
     }
 }
+
+
 
