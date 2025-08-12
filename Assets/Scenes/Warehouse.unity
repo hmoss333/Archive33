@@ -269,7 +269,7 @@ MonoBehaviour:
   - {fileID: 127660266}
   - {fileID: 1067233628}
   robot: {fileID: 1115475089}
-  robotSpeed: 1
+  robotSpeed: 2
   robotWaitTime: 6
   robotMovePoints:
   - {fileID: 1654682205}
@@ -296,6 +296,9 @@ MonoBehaviour:
     - '[TODO]: Shift 5 - increased difficulty/adjusted timing values for all interactions'
   - dialogueLines:
     - '[TODO]: Shift 6 - explain endless shift mode'
+  documentTextContainer:
+    documentText: []
+    corruptedText: []
 --- !u!114 &39588187
 MonoBehaviour:
   m_ObjectHideFlags: 0

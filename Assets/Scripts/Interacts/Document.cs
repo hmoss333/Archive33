@@ -11,7 +11,8 @@ public class Document
     public FileColor fileColor;
     public bool toBeShredded { get; private set; }
     public bool corrupted { get; private set; }
-    [SerializeField] Material defaultMat, corruptedMat;
+    public string documentText;
+
 
     public void InitializeDoc()
     {
@@ -19,7 +20,6 @@ public class Document
         int randomIndex = UnityEngine.Random.Range(0, enumValues.Length);
         FileColor randomColor = (FileColor)enumValues.GetValue(randomIndex);
         fileColor = randomColor;
-
 
         int randVal = (int)UnityEngine.Random.Range(0, 2);
         toBeShredded =
@@ -29,23 +29,17 @@ public class Document
 
         if (GameplayController.instance.shiftNum > 3)
         {
-            int randVal_Corrupted = (int)UnityEngine.Random.Range(0, 2);
+            int randVal_Corrupted = (int)UnityEngine.Random.Range(0, 10);
             corrupted =
                 randVal_Corrupted == 0
-                    ? false
-                    : true;
+                    ? true
+                    : false;
         }
         else
         {
             corrupted = false;
         }
 
-        //TODO: Modify document material and text based on values
-        UpdateDocVisuals(fileColor, corrupted);
-    }
-
-    void UpdateDocVisuals(FileColor color, bool isCorrupted)
-    {
-
+        documentText = GameplayController.instance.GetDocumentText(corrupted);
     }
 }

@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     public bool hasDocument { get; private set; }
     [SerializeField] Document currentDoc;
     [SerializeField] GameObject documentPrefab;
+    [SerializeField] TMP_Text documentInstructions;
+    [SerializeField] TMP_Text documentText;
 
     Vector2 viewPos;
 
@@ -111,15 +113,14 @@ public class PlayerController : MonoBehaviour
 
         if (currentDoc != null)
         {
-            string documentText = currentDoc.toBeShredded
+            string s_documentText = currentDoc.toBeShredded
                                      ? "Destroy"
                                      : currentDoc.fileColor.ToString();
             if (GameplayController.instance.shiftNum >= 1 && GameplayController.instance.spawnStaticMan)
-                documentText += "\nSafe - " + Radio.instance.targetFrequency.ToString("F2");
+                s_documentText += "\nSafe - " + Radio.instance.targetFrequency.ToString("F2");
 
-            documentPrefab.GetComponentInChildren<TMP_Text>().text = documentText;
-            //GameplayController.instance.shiftNum > 0
-            //? Radio.instance.targetFrequency.ToString("F2")
+            documentInstructions.text = s_documentText;
+            documentText.text = currentDoc.documentText;
         }
     }
 

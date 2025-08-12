@@ -1,3 +1,4 @@
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,6 +67,12 @@ public class GameplayController : MonoBehaviour
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     Coroutine introDialogueCo;
 
+    [HorizontalLine]
+
+    [Header("Document Text")]
+    [SerializeField] DocumentTextContainer documentTextContainer;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +80,8 @@ public class GameplayController : MonoBehaviour
             instance = this;
         else
             Destroy(this);
+
+        LoadDocumentText();
 
         //shiftNum = 0; //TODO Uncomment in final release
         shiftTime = 0f;
@@ -310,6 +319,27 @@ public class GameplayController : MonoBehaviour
         }
     }
 
+    private void LoadDocumentText()
+    {
+        string documentTextLocation = Path.Combine(Application.streamingAssetsPath, "documentText.json");
+
+        print("Loading documentText data");
+        string jsonData = "";
+        jsonData = File.ReadAllText(documentTextLocation);
+        documentTextContainer.documentText = JsonUtility.FromJson<DocumentTextContainer>(jsonData).documentText;
+        documentTextContainer.corruptedText = JsonUtility.FromJson<DocumentTextContainer>(jsonData).corruptedText;
+    }
+
+    public string GetDocumentText(bool isCorrupted)
+    {
+        string returnString = "";
+        int randVal;
+        randVal = Random.Range(0, isCorrupted ? documentTextContainer.corruptedText.Count : documentTextContainer.documentText.Count);
+        returnString = isCorrupted ? documentTextContainer.corruptedText[randVal] : documentTextContainer.documentText[randVal];
+
+        return returnString;
+    }
+
     public void SetState(State stateVal)
     {
         state = stateVal;
@@ -391,4 +421,11 @@ public class GameplayController : MonoBehaviour
 class DialogueContainer
 {
     public List<string> dialogueLines;
+}
+
+[System.Serializable]
+class DocumentTextContainer
+{
+    public List<string> documentText;
+    public List<string> corruptedText;
 }

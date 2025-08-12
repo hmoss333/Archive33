@@ -22,7 +22,7 @@ public class OutBox : InteractObject
         {
             Document currentDoc = PlayerController.instance.GetCurrentDocument();
             if (!currentDoc.toBeShredded
-                && currentDoc.corrupted
+                && !currentDoc.corrupted
                 && currentDoc.fileColor.ToString() == fileColor.ToString())
             {
                 DialogueController.instance.UpdateText("Document filed", true);
