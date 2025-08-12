@@ -2678,9 +2678,9 @@ Transform:
   - {fileID: 1416798540}
   - {fileID: 1980809969}
   - {fileID: 984565473}
-  - {fileID: 2044021651}
   - {fileID: 1895412655}
   - {fileID: 1523045337}
+  - {fileID: 2044021651}
   - {fileID: 1382162609}
   - {fileID: 1017626631}
   - {fileID: 463349786}
@@ -4480,6 +4480,7 @@ GameObject:
   - component: {fileID: 1382162608}
   - component: {fileID: 1382162607}
   - component: {fileID: 1382162606}
+  - component: {fileID: 1382162610}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -4521,7 +4522,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 353ae514aade3f54c97ef9d62bfb54c7, type: 2}
+  - {fileID: 2100000, guid: e0b43b53005a61044bf8129ebca8698d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4566,6 +4567,18 @@ Transform:
   m_Father: {fileID: 586539055}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1382162610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382162605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045511fbf5b7a41a89019b9888641482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1386027438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4349689160829392, guid: 7f0c31dcd24808146bd2f1b4545c5787, type: 3}
@@ -5130,7 +5143,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 586539055}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1523045338
 MeshCollider:
@@ -6212,7 +6225,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 586539055}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1895412656
 MeshCollider:
@@ -6867,8 +6880,9 @@ GameObject:
   - component: {fileID: 2044021654}
   - component: {fileID: 2044021653}
   - component: {fileID: 2044021652}
+  - component: {fileID: 2044021655}
   m_Layer: 0
-  m_Name: Wall (3)
+  m_Name: Ceiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6887,7 +6901,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 586539055}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
 --- !u!64 &2044021652
 MeshCollider:
@@ -6953,6 +6967,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044021650}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2044021655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044021650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045511fbf5b7a41a89019b9888641482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2062389868
 PrefabInstance:
   m_ObjectHideFlags: 0

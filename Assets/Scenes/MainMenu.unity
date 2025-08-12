@@ -7859,6 +7859,7 @@ GameObject:
   - component: {fileID: 2130417593}
   - component: {fileID: 2130417592}
   - component: {fileID: 2130417591}
+  - component: {fileID: 2130417594}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -7915,7 +7916,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 353ae514aade3f54c97ef9d62bfb54c7, type: 2}
+  - {fileID: 2100000, guid: e0b43b53005a61044bf8129ebca8698d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7945,6 +7946,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130417589}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2130417594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130417589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045511fbf5b7a41a89019b9888641482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2140791504
 GameObject:
   m_ObjectHideFlags: 0
@@ -10188,7 +10201,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1682ea1fe11dc4d1c9dc757b9c665e59, type: 2}
+  - {fileID: 2100000, guid: a59b742fa98914e83a688e24d6334046, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
