@@ -19,7 +19,8 @@ public class Shredder : InteractObject
         base.Interact();
         if (PlayerController.instance.hasDocument)
         {
-            if (PlayerController.instance.GetCurrentDocument().toBeShredded)
+            Document currentDoc = PlayerController.instance.GetCurrentDocument();
+            if (currentDoc.toBeShredded && !currentDoc.corrupted)
             {
                 DialogueController.instance.UpdateText("Document destroyed", true);
                 GameplayController.instance.Success();

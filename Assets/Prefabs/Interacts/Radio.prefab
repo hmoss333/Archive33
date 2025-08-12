@@ -206,7 +206,7 @@ MonoBehaviour:
   arrowRight: {fileID: 805287522009720820}
   arrowDefault: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 0.49019608}
   arrowActive: {r: 0, g: 0.8156863, b: 1, a: 0.49019608}
-  currentFrequency: 88
+  currentFrequency: 36
   radioText: {fileID: 1185434254820822383}
   rotateSpeed: 10
   focusTime: 3

@@ -17,8 +17,7 @@ public class CallBell : InteractObject
         base.Interact();
         audioSource.PlayOneShot(sound, 0.7F);
 
-        if (BotController.instance.state == BotController.State.idle)
-            BotController.instance.CallBot();
+        GameplayController.instance.CallBot();
     }
 }
 

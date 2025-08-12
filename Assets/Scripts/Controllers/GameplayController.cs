@@ -34,7 +34,7 @@ public class GameplayController : MonoBehaviour
     [Header("Radio Static Variables")]
     [SerializeField] CamEffectController camEffectController;
     [SerializeField] float stationResetTimer = 14f;
-    public bool spawnStaticMan; //{ get; private set; } //TODO create a function to toggle this instead of leaving the variable public
+    public bool spawnStaticMan { get; private set; } //TODO create a function to toggle this instead of leaving the variable public
     [SerializeField] GameObject staticMan;
     Vector3 staticManDefaultPos;
     ObjectFlicker staticManFlicker;
@@ -49,6 +49,16 @@ public class GameplayController : MonoBehaviour
     [SerializeField] GameObject zombie;
     [SerializeField] List<Transform> zombiePoints;
     [SerializeField] List<Light> lights;
+
+    [NaughtyAttributes.HorizontalLine]
+
+    [Header("Bell and Robot Variables")]
+    [SerializeField] GameObject robot;
+    private bool moveRobot;
+    [SerializeField] float robotSpeed = 1f;
+    [SerializeField] float robotWaitTime = 6f;
+    [SerializeField] List<Transform> robotMovePoints;
+    private int currentPoint;
 
     [NaughtyAttributes.HorizontalLine]
 
@@ -69,10 +79,13 @@ public class GameplayController : MonoBehaviour
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
-        spawnStaticMan = false;
+        ToggleStaticMan(false);
         staticMan.SetActive(false);
         staticManDefaultPos = staticMan.transform.position;
         staticManFlicker = GetComponent<ObjectFlicker>();
+        moveRobot = false;
+        robotWaitTime = 6f;
+        currentPoint = 0;
         FadeController.instance.StartFade(1f, 0.01f);
         state = State.dialogue;
     }
@@ -142,7 +155,7 @@ public class GameplayController : MonoBehaviour
                         if (stationResetTimer <= 0)
                         {
                             stationResetTimer = Random.Range(10f, 14f); //Reset to default value
-                            spawnStaticMan = true;
+                            ToggleStaticMan(true);
                             Radio.instance.InitializeFrequency();
                         }
                     }
@@ -208,6 +221,45 @@ public class GameplayController : MonoBehaviour
                 {
                     //'The Button'
                     //Malformed Documents
+                    if (moveRobot)
+                    {
+                        robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotMovePoints[currentPoint].position, robotSpeed * Time.deltaTime);
+
+                        Vector3 lookDirection = robotMovePoints[currentPoint].position - robot.transform.position;
+                        Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                        robot.transform.rotation = Quaternion.RotateTowards(robot.transform.rotation, targetRotation, 150f * Time.deltaTime);
+
+                        if (robot.transform.position == robotMovePoints[currentPoint].position)
+                        {
+                            currentPoint++;
+                            if (currentPoint == 3)
+                            {
+                                moveRobot = false;
+                            }
+                            else if (currentPoint == 5)
+                            {
+                                robot.transform.position = robotMovePoints[0].position;
+                                currentPoint = 0;
+                                moveRobot = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (currentPoint == 3)
+                        {
+                            robotWaitTime -= Time.deltaTime;
+                            if (robotWaitTime <= 0)
+                            {
+                                robotWaitTime = 6f;
+                                //SetState(State.attack);
+                                currentPoint++; //testing update logic
+                                moveRobot = true;
+                            }
+                        }
+                    }
+
+                    robot.GetComponent<BotController>().enabled = !moveRobot;
                 }
                 if (shiftNum >= 4)
                 {
@@ -229,10 +281,13 @@ public class GameplayController : MonoBehaviour
                         shiftTime = 0f;
                         penalty = 0;
                         powerOutage = false;
-                        spawnStaticMan = false;
+                        ToggleStaticMan(false);
                         introDialogueCo = null;
                         shiftNum++;
                         FuseBox.instance.SetFixed();
+                        moveRobot = false;
+                        robotWaitTime = 6f;
+                        currentPoint = 0;
                         PlayerController.instance.RemoveCurrentDocument();
                         SetState(State.dialogue);
                     }
@@ -300,6 +355,20 @@ public class GameplayController : MonoBehaviour
     public void RestartPower()
     {
         powerOutage = false;
+    }
+
+    public void ToggleStaticMan(bool value)
+    {
+        spawnStaticMan = value;
+    }
+
+    public void CallBot()
+    {
+        if (moveRobot != true)
+        {
+            moveRobot = true;
+            robotWaitTime = 6f;
+        }
     }
 
     IEnumerator IntroDialogueRoutine(List<string> dialogueItems)

@@ -20,8 +20,10 @@ public class OutBox : InteractObject
         base.Interact();
         if (PlayerController.instance.hasDocument)
         {
-            if (!PlayerController.instance.GetCurrentDocument().toBeShredded
-                && PlayerController.instance.GetCurrentDocument().fileColor.ToString() == fileColor.ToString())
+            Document currentDoc = PlayerController.instance.GetCurrentDocument();
+            if (!currentDoc.toBeShredded
+                && currentDoc.corrupted
+                && currentDoc.fileColor.ToString() == fileColor.ToString())
             {
                 DialogueController.instance.UpdateText("Document filed", true);
                 GameplayController.instance.Success();

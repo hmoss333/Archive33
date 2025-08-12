@@ -31,7 +31,7 @@ public class Radio : InteractObject
         audioSource.clip = staticAudio;
         audioSource.loop = true;
         audioSource.Play();
-        currentFrequency = 88f;
+        currentFrequency = 36f;
         InitializeFrequency();
     }
 
@@ -45,7 +45,7 @@ public class Radio : InteractObject
     {
         print("Updating targetFrequency");
         float lastFrequency = targetFrequency;
-        targetFrequency = Random.Range(lastFrequency - 15f, lastFrequency + 15f);
+        targetFrequency = Random.Range(lastFrequency - 20f, lastFrequency + 20f);
         int randDirection = Random.Range(0, 1);
         targetFrequency = randDirection == 0
                                 ? targetFrequency + 7f
@@ -96,7 +96,7 @@ public class Radio : InteractObject
                 if (focusTime <= 0f)
                 {
                     focusTime = 1f;
-                    GameplayController.instance.spawnStaticMan = false;
+                    GameplayController.instance.ToggleStaticMan(false);
                     if (audioSource.clip != staticAudio)
                     {
                         audioSource.Stop();
