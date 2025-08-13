@@ -59,7 +59,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] float robotSpeed = 1f;
     [SerializeField] float robotWaitTime = 6f;
     [SerializeField] List<Transform> robotMovePoints;
-    private int currentPoint;
+    [SerializeField] private int currentPoint;
 
     [NaughtyAttributes.HorizontalLine]
 
@@ -230,22 +230,24 @@ public class GameplayController : MonoBehaviour
                 {
                     //'The Button'
                     //Malformed Documents
+                    int midPoint = (int)robotMovePoints.Count / 2 + 1;
+
                     if (moveRobot)
                     {
                         robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotMovePoints[currentPoint].position, robotSpeed * Time.deltaTime);
 
                         Vector3 lookDirection = robotMovePoints[currentPoint].position - robot.transform.position;
                         Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-                        robot.transform.rotation = Quaternion.RotateTowards(robot.transform.rotation, targetRotation, 150f * Time.deltaTime);
+                        robot.transform.rotation = Quaternion.RotateTowards(robot.transform.rotation, targetRotation, 350f * Time.deltaTime);
 
                         if (robot.transform.position == robotMovePoints[currentPoint].position)
                         {
                             currentPoint++;
-                            if (currentPoint == 3)
+                            if (currentPoint == midPoint)
                             {
                                 moveRobot = false;
                             }
-                            else if (currentPoint == 5)
+                            else if (currentPoint == robotMovePoints.Count)
                             {
                                 robot.transform.position = robotMovePoints[0].position;
                                 currentPoint = 0;
@@ -255,19 +257,21 @@ public class GameplayController : MonoBehaviour
                     }
                     else
                     {
-                        if (currentPoint == 3)
+                        if (currentPoint == midPoint)
                         {
                             robotWaitTime -= Time.deltaTime;
                             if (robotWaitTime <= 0)
                             {
                                 robotWaitTime = 6f;
                                 //SetState(State.attack);
-                                currentPoint++; //testing update logic
+                                currentPoint++;
                                 moveRobot = true;
                             }
                         }
                     }
 
+                    robot.GetComponent<Animator>().SetBool("isMoving", moveRobot);
+                    robot.GetComponent<Animator>().SetBool("isWaiting", currentPoint == midPoint && !moveRobot);
                     robot.GetComponent<BotController>().enabled = currentPoint == 3;
                 }
                 if (shiftNum >= 4)
@@ -286,7 +290,6 @@ public class GameplayController : MonoBehaviour
                     //Reset scene for next shift
                     if (shiftNum < 5)
                     {
-                        //score = 0;
                         shiftTime = 0f;
                         penalty = 0;
                         powerOutage = false;
@@ -364,13 +367,7 @@ public class GameplayController : MonoBehaviour
     ///Probably can be removed since we're no longer using score
     public void Success()
     {
-        //score++;
-        //if (score >= scoreCheck)
-        //{
-        //    ToggleInteracts(false);
-        //    FadeController.instance.StartFade(1f, 5f);           
-        //    SetState(State.victory);
-        //}
+
     }
 
     public void Failure()

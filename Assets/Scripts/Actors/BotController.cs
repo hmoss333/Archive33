@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class BotController : InteractObject
 {
+    private void OnDisable()
+    {
+        if (TryGetComponent<Outline>(out Outline outline))
+        {
+            Destroy(outline);
+        }
+    }
+
     public override void Interact()
     {
         if (isActiveAndEnabled)
