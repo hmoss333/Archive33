@@ -7244,10 +7244,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1008057610729641694, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 12d445d04830946a5ab1e136a6fedd7a, type: 2}
     - target: {fileID: 5789002895523763742, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
       propertyPath: m_Name
       value: Robot Kyle
@@ -7257,20 +7253,8 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6565540011730963620, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565540011730963620, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565540011730963620, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565540011730963620, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.773
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 6565540011730963620, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7308,26 +7292,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7872961678429535757, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
-      propertyPath: movePoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1654682205}
-    - target: {fileID: 7872961678429535757, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
-      propertyPath: movePoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 493724648}
-    - target: {fileID: 7872961678429535757, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
-      propertyPath: movePoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 1800627486}
-    - target: {fileID: 7872961678429535757, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
-      propertyPath: movePoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 1189648008}
-    - target: {fileID: 7872961678429535757, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
-      propertyPath: movePoints.Array.data[4]
-      value: 
-      objectReference: {fileID: 1974550631}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6eb58bcfd41e742f0a4a2073b9aac6e2, type: 3}
 --- !u!1001 &2775949822140155804
