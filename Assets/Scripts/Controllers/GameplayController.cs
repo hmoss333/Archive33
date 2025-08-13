@@ -268,7 +268,7 @@ public class GameplayController : MonoBehaviour
                         }
                     }
 
-                    robot.GetComponent<BotController>().enabled = !moveRobot;
+                    robot.GetComponent<BotController>().enabled = currentPoint == 3;
                 }
                 if (shiftNum >= 4)
                 {

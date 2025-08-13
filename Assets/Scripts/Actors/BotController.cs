@@ -10,12 +10,13 @@ public class BotController : InteractObject
         if (isActiveAndEnabled)
         {
             base.Interact();
-            //TODO: if the player has a corrupted document they can hand it off to the bot here
-            /// If the document is not corrupted, count as a failure (not instant death)
             if (PlayerController.instance.hasDocument)
             {
                 if (!PlayerController.instance.GetCurrentDocument().corrupted)
+                {
                     GameplayController.instance.Failure();
+                    GameplayController.instance.CallBot();
+                }
 
                 PlayerController.instance.RemoveCurrentDocument();
             }

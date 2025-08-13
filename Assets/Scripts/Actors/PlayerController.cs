@@ -45,14 +45,17 @@ public class PlayerController : MonoBehaviour
         if (state == States.idle)
         {
             UpdateLook();
-            InteractCheck();
         }
 
-        if (GameplayController.instance.state == GameplayController.State.gameplay
-            && Input.GetMouseButtonUp(0)
-            && interactObj != null)
+        if (GameplayController.instance.state == GameplayController.State.gameplay)
         {
-            interactObj.Interact();
+            InteractCheck();
+
+            if (Input.GetMouseButtonUp(0)
+                && interactObj != null)
+            {
+                interactObj.Interact();
+            }
         }
 
         documentPrefab.SetActive(hasDocument);
