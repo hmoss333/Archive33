@@ -269,7 +269,7 @@ MonoBehaviour:
   - {fileID: 127660266}
   - {fileID: 1067233628}
   robot: {fileID: 1115475089}
-  robotSpeed: 2
+  robotSpeed: 2.5
   robotWaitTime: 6
   robotMovePoints:
   - {fileID: 1654682205}

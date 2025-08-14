@@ -5,6 +5,15 @@ using UnityEngine;
 
 public class BotController : InteractObject
 {
+    AudioSource audioSource;
+    [SerializeField] AudioClip correctClip, incorrectClip;
+
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnDisable()
     {
         if (TryGetComponent<Outline>(out Outline outline))
@@ -22,10 +31,15 @@ public class BotController : InteractObject
             {
                 if (!PlayerController.instance.GetCurrentDocument().corrupted)
                 {
+                    audioSource.PlayOneShot(incorrectClip);
                     GameplayController.instance.Failure();
-                    GameplayController.instance.CallBot();
+                }
+                else
+                {
+                    audioSource.PlayOneShot(correctClip);
                 }
 
+                GameplayController.instance.CallBot();
                 PlayerController.instance.RemoveCurrentDocument();
             }
         }

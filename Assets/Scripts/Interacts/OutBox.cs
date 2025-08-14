@@ -25,12 +25,12 @@ public class OutBox : InteractObject
                 && !currentDoc.corrupted
                 && currentDoc.fileColor.ToString() == fileColor.ToString())
             {
-                DialogueController.instance.UpdateText("Document filed", true);
+                //DialogueController.instance.UpdateText("Document filed", true);
                 GameplayController.instance.Success();
             }
             else
             {
-                DialogueController.instance.UpdateText("That one should not have been sent out...", true);
+                //DialogueController.instance.UpdateText("That one should not have been sent out...", true);
                 GameplayController.instance.Failure();
             }
             audioSource.PlayOneShot(fileClip);

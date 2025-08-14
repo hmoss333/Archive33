@@ -135,6 +135,8 @@ public class InBox : InteractObject
         Document newDoc = new Document();
         newDoc.InitializeDoc();
         documents.Add(newDoc);
+
+        documentGenTime = Random.Range(3.5f, 5.5f);
     }
 
     public override void Interact()

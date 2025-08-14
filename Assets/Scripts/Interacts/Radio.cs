@@ -31,13 +31,13 @@ public class Radio : InteractObject
         audioSource.clip = staticAudio;
         audioSource.loop = true;
         audioSource.Play();
-        currentFrequency = 36f;
+        currentFrequency = 36.9f;
         InitializeFrequency();
     }
 
     private void OnDisable()
     {
-        currentFrequency = 36f;
+        currentFrequency = 36.9f;
         radioText.text = currentFrequency.ToString("F2");
     }
 
@@ -45,11 +45,13 @@ public class Radio : InteractObject
     {
         print("Updating targetFrequency");
         float lastFrequency = targetFrequency;
-        targetFrequency = Random.Range(lastFrequency - 20f, lastFrequency + 20f);
-        int randDirection = Random.Range(0, 1);
+        //targetFrequency = Random.Range(lastFrequency - 20f, lastFrequency + 20f);
+        float offsetVal = Random.Range(20f, 25f);
+        int randDirection = Random.Range(0, 2);
+        print($"Rand Radio Dir: {randDirection}");
         targetFrequency = randDirection == 0
-                                ? targetFrequency + 7f
-                                : targetFrequency - 7f;
+                                ? lastFrequency + offsetVal
+                                : lastFrequency - offsetVal;
 
         targetFrequency = Mathf.Clamp(targetFrequency, 30f, 300f);
 
