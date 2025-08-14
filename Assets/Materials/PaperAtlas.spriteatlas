@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PaperAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: c145dd5b23c21453d85cb0946b0c048d, type: 3}
+    - {fileID: 2800000, guid: 187531a1f753a40ceb168fffe9fb4ff2, type: 3}
+    - {fileID: 2800000, guid: a81de4ba3d24445aeb0dc9c2d454acce, type: 3}
+    - {fileID: 2800000, guid: 726810792f25449669e24bb9573336d2, type: 3}
+    - {fileID: 2800000, guid: dc39d0fcc26ba4d6696d70588d022e6d, type: 3}
+    - {fileID: 2800000, guid: 185b98a60456645aabfcf7010b787b5d, type: 3}
+    - {fileID: 2800000, guid: 061d3c8b1e0574ee5b387f82cf6e6b8e, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
+  m_RenderDataMap: {}
+  m_Tag: PaperAtlas
+  m_IsVariant: 0
