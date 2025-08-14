@@ -32,6 +32,7 @@ public class Radio : InteractObject
         audioSource.loop = true;
         audioSource.Play();
         currentFrequency = 36.9f;
+        targetFrequency = currentFrequency;
         InitializeFrequency();
     }
 
@@ -44,19 +45,20 @@ public class Radio : InteractObject
     public void InitializeFrequency()
     {
         print("Updating targetFrequency");
-        float lastFrequency = targetFrequency;
-        //targetFrequency = Random.Range(lastFrequency - 20f, lastFrequency + 20f);
-        float offsetVal = Random.Range(20f, 25f);
+        float returnFrequency = targetFrequency;
+        float offsetVal = Random.Range(10f, 25f);
         int randDirection = Random.Range(0, 2);
-        print($"Rand Radio Dir: {randDirection}");
-        targetFrequency = randDirection == 0
-                                ? lastFrequency + offsetVal
-                                : lastFrequency - offsetVal;
+        returnFrequency = randDirection == 0
+                                ? returnFrequency + offsetVal
+                                : returnFrequency - offsetVal;
 
-        targetFrequency = Mathf.Clamp(targetFrequency, 30f, 300f);
+        returnFrequency = Mathf.Clamp(returnFrequency, 30f, 300f);
 
-        if (targetFrequency == 30f || targetFrequency == 300f)
+        //If result is at either the max or min, re-roll the new station
+        if (returnFrequency == 30f || returnFrequency == 300f)
             InitializeFrequency();
+        else
+            targetFrequency = returnFrequency;
     }
 
     public override void Update()

@@ -29,7 +29,7 @@ public class Document
 
         if (GameplayController.instance.shiftNum > 3)
         {
-            int randVal_Corrupted = (int)UnityEngine.Random.Range(0, 10);
+            int randVal_Corrupted = (int)UnityEngine.Random.Range(0, 5);
             corrupted =
                 randVal_Corrupted == 0
                     ? true

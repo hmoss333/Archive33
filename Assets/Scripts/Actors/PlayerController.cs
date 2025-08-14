@@ -64,8 +64,8 @@ public class PlayerController : MonoBehaviour
 
     void UpdateLook()
     {
-        viewPos.x += Input.GetAxis("Mouse X") * mouseSensitivity / 20f;
-        viewPos.y += Input.GetAxis("Mouse Y") * mouseSensitivity / 20f;
+        viewPos.x += Input.GetAxis("Mouse X") * mouseSensitivity / 2f;
+        viewPos.y += Input.GetAxis("Mouse Y") * mouseSensitivity / 2f;
 
         viewPos.y = Mathf.Clamp(viewPos.y, -89f, 89f);
 
@@ -92,7 +92,6 @@ public class PlayerController : MonoBehaviour
                         Outline OL = R.GetComponent<Outline>();
                         if (OL == null) // if no script is attached, attach one
                         {
-                            print($"Adding autotransparent from {this.name}");
                             OL = R.gameObject.AddComponent<Outline>();
                         }
                     }
@@ -117,12 +116,12 @@ public class PlayerController : MonoBehaviour
         if (currentDoc != null)
         {
             string s_documentText = currentDoc.toBeShredded
-                                     ? "Destroy"
-                                     : currentDoc.fileColor.ToString();
+                                      ? "Destroy"
+                                      : currentDoc.fileColor.ToString();
             if (GameplayController.instance.shiftNum >= 1 && GameplayController.instance.spawnStaticMan)
-                s_documentText += "\nSafe - " + Radio.instance.targetFrequency.ToString("F2");
+                s_documentText += "\nStation: " + Radio.instance.targetFrequency.ToString("F2");
 
-            documentInstructions.text = s_documentText;
+            documentInstructions.text = $"File: {s_documentText}";
             documentText.text = currentDoc.documentText;
         }
     }
