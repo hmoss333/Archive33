@@ -247,7 +247,7 @@ MonoBehaviour:
   fuseBoxCover: {fileID: 1493999351}
   bell: {fileID: 1674158664}
   state: 0
-  shiftNum: 4
+  shiftNum: 0
   shiftDuration: 0
   clockText: {fileID: 218819513}
   camEffectController: {fileID: 1508664987}

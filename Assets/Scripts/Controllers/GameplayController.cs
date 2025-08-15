@@ -242,7 +242,7 @@ public class GameplayController : MonoBehaviour
                         }
                     }
                 }
-                if (shiftNum >= 3)
+                if (shiftNum >= 3 || penalty >= 5)
                 {
                     //'The Button'
                     //Malformed Documents
@@ -275,19 +275,19 @@ public class GameplayController : MonoBehaviour
                     {
                         if (currentPoint == midPoint)
                         {
+                            //If robot is in front of the player and they reach 5 penalties, trigger jump scare
+                            if (penalty >= 5)
+                            {
+                                js_ModelNum = 1;
+                                SetState(State.death);
+                            }
+
                             robotWaitTime -= Time.deltaTime;
                             if (robotWaitTime <= 0)
                             {
                                 robotWaitTime = 6f;
                                 currentPoint++;
                                 moveRobot = true;
-
-                                //penalty++;
-                                //if (penalty >= 5)
-                                //{
-                                //    js_ModelNum = 1;
-                                //    SetState(State.death);
-                                //}
                             }
                         }
                     }
@@ -408,8 +408,19 @@ public class GameplayController : MonoBehaviour
 
         if (penalty >= 5)
         {
-            js_ModelNum = 0; //Need model/animation for death animation
-            SetState(State.death);
+            //If robot is in front of the player, trigger jump scare
+            if (currentPoint == 2 || currentPoint == 3)
+            {
+                js_ModelNum = 1;
+                SetState(State.death);
+            }
+            //Reset robot if he is not already in front of the player
+            else
+            {
+                currentPoint = 0;
+                robot.transform.position = robotMovePoints[currentPoint].transform.position;
+                CallBot();
+            }
         }
     }
 
