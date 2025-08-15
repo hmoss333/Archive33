@@ -135,7 +135,6 @@ public class PlayerController : MonoBehaviour
     {
         currentDoc = null;
         hasDocument = false;
-        //Radio.instance.InitializeFrequency();
     }
 
     public void SetState(States setState)

@@ -33,7 +33,7 @@ public class Radio : InteractObject
         audioSource.Play();
         currentFrequency = 36.9f;
         targetFrequency = currentFrequency;
-        InitializeFrequency();
+        //InitializeFrequency();
     }
 
     private void OnDisable()
@@ -47,12 +47,14 @@ public class Radio : InteractObject
         print("Updating targetFrequency");
         float returnFrequency = targetFrequency;
         float offsetVal = Random.Range(10f, 25f);
+        print($"Station offset: {offsetVal}");
         int randDirection = Random.Range(0, 2);
         returnFrequency = randDirection == 0
                                 ? returnFrequency + offsetVal
                                 : returnFrequency - offsetVal;
 
         returnFrequency = Mathf.Clamp(returnFrequency, 30f, 300f);
+        print($"Return Frequency: {returnFrequency}");
 
         //If result is at either the max or min, re-roll the new station
         if (returnFrequency == 30f || returnFrequency == 300f)

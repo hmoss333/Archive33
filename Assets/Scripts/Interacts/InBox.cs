@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class InBox : InteractObject
 {
+    public static InBox instance;
+
     [Header("Door Variables")]
     [SerializeField] GameObject door;
     private Quaternion startRotation;
@@ -15,11 +18,13 @@ public class InBox : InteractObject
     [SerializeField] GameObject documentObj;
     [SerializeField] List<Document> documents;
     [SerializeField] float documentGenTime = 7.5f;
+    [SerializeField] TMP_Text documentCount;
+
 
     [Header("Air Variables")]
     [SerializeField] GameObject airArrow;
     [SerializeField] float arrowRotSpeed = 1.0f;
-    [SerializeField] float airTime = 30f;
+    [SerializeField] float airTime;// = 30f;
     private Quaternion arrowStartRotation, arrowEndRotation;
     private float _arrowLerpTime = 0f;
 
@@ -34,6 +39,11 @@ public class InBox : InteractObject
 
     public void Start()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+
         baseTime = 0f;
         aTimer = airTime;
         documentObj.SetActive(false);
@@ -47,12 +57,6 @@ public class InBox : InteractObject
 
         doorAudio.clip = doorOpen;
         documentAudio.clip = takeDocument;
-    }
-
-    private void OnDisable()
-    {
-        documents.Clear();
-        documentObj.SetActive(false);
     }
 
     public override void Update()
@@ -128,6 +132,7 @@ public class InBox : InteractObject
         }
 
         documentObj.SetActive(documents.Count > 0);
+        documentCount.text = documents.Count.ToString();
     }
 
     public void GenerateNewDocument()
@@ -136,7 +141,7 @@ public class InBox : InteractObject
         newDoc.InitializeDoc();
         documents.Add(newDoc);
 
-        documentGenTime = Random.Range(3.5f, 7.5f);
+        documentGenTime = Random.Range(3f, 7.5f);
     }
 
     public override void Interact()
@@ -148,5 +153,11 @@ public class InBox : InteractObject
             documents.RemoveAt(documents.Count - 1);
             documentAudio.PlayOneShot(takeDocument);
         }
+    }
+
+    public void Reset()
+    {
+        documents.Clear();
+        documentObj.SetActive(false);
     }
 }

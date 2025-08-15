@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using NaughtyAttributes;
+using TMPro;
 
 public class GameplayController : MonoBehaviour
 {
@@ -24,25 +25,26 @@ public class GameplayController : MonoBehaviour
     public enum State { dialogue, gameplay, victory, death }
     public State state;
 
-    [Header("Shift Variables")]
+    [Header("Shift Values")]
     public int shiftNum; //{ get; private set; }
     private float shiftTime;
     [SerializeField] private float shiftDuration;
     private int penalty; //Increments on incorrect filing; 5 = death
+    [SerializeField] TMP_Text clockText;
 
     [NaughtyAttributes.HorizontalLine]
 
-    [Header("Radio Static Variables")]
+    [Header("Radio Static Values")]
     [SerializeField] CamEffectController camEffectController;
     [SerializeField] float stationResetTimer = 14f;
-    public bool spawnStaticMan { get; private set; } //TODO create a function to toggle this instead of leaving the variable public
+    public bool spawnStaticMan { get; private set; }
     [SerializeField] GameObject staticMan;
     Vector3 staticManDefaultPos;
     ObjectFlicker staticManFlicker;
 
     [NaughtyAttributes.HorizontalLine]
 
-    [Header("Power Outage Variables")]
+    [Header("Power Outage Values")]
     [SerializeField] private float powerOutageTimer = 20f;
     private bool powerOutage;
     private float zombieMoveTimer = 3.5f;
@@ -53,7 +55,7 @@ public class GameplayController : MonoBehaviour
 
     [NaughtyAttributes.HorizontalLine]
 
-    [Header("Bell and Robot Variables")]
+    [Header("Bell and Robot Values")]
     [SerializeField] GameObject robot;
     private bool moveRobot;
     [SerializeField] float robotSpeed = 1f;
@@ -63,7 +65,7 @@ public class GameplayController : MonoBehaviour
 
     [NaughtyAttributes.HorizontalLine]
 
-    [Header("Jump Scare Variables")]
+    [Header("Jump Scare Values")]
     [SerializeField] GameObject jumpScare;
     [SerializeField] List<GameObject> js_Models;
     private int js_ModelNum;
@@ -73,7 +75,7 @@ public class GameplayController : MonoBehaviour
 
     [NaughtyAttributes.HorizontalLine]
 
-    [Header("Dialogue Variables")]
+    [Header("Dialogue Values")]
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     Coroutine introDialogueCo;
 
@@ -106,6 +108,7 @@ public class GameplayController : MonoBehaviour
         moveRobot = false;
         robotWaitTime = 6f;
         currentPoint = 0;
+        InBox.instance.Reset();
         FadeController.instance.StartFade(1f, 0.01f);
         state = State.dialogue;
     }
@@ -115,9 +118,11 @@ public class GameplayController : MonoBehaviour
         SetProps(shiftNum);
         SetWarningLights(penalty);
 
-        if (state == State.dialogue || state == State.gameplay && shiftNum < 5)
+        if ((state == State.dialogue || state == State.gameplay) && shiftNum < 5)
         {
             shiftDuration = shiftNum > 0 ? 360f : 90f;
+            System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
+            clockText.text = time.ToString(@"mm\:ss");
 
             //Countdown shift timer
             shiftTime += Time.deltaTime;
@@ -182,7 +187,6 @@ public class GameplayController : MonoBehaviour
 
                     if (dist <= 2.5f)
                     {
-                        staticMan.GetComponent<Animator>().SetTrigger("isAttacking");
                         js_ModelNum = 2;
                         SetState(State.death);
                         //Jump scare
@@ -232,7 +236,6 @@ public class GameplayController : MonoBehaviour
                             }
                             else
                             {
-                                zombie.GetComponent<Animator>().SetTrigger("isAttacking");
                                 js_ModelNum = 0;
                                 SetState(State.death);
                             }
@@ -276,7 +279,6 @@ public class GameplayController : MonoBehaviour
                             if (robotWaitTime <= 0)
                             {
                                 robotWaitTime = 6f;
-                                //SetState(State.attack);
                                 currentPoint++;
                                 moveRobot = true;
 
@@ -321,6 +323,7 @@ public class GameplayController : MonoBehaviour
                         robotWaitTime = 6f;
                         currentPoint = 0;
                         PlayerController.instance.RemoveCurrentDocument();
+                        InBox.instance.Reset();
                         SetState(State.dialogue);
                     }
                     //Win game
