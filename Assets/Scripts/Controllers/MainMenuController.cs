@@ -16,6 +16,9 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         startingGame = false;
         startRoutine = null;
 
@@ -24,6 +27,8 @@ public class MainMenuController : MonoBehaviour
         FadeController.instance.StartFade(0f, 1f);
 
         PlayerPrefs.SetInt("longNightMode", 1); //TODO: remove this from final build
+        if (PlayerPrefs.GetInt("longNightMode") > 0)
+            PlayerPrefs.SetInt("longNightMode", 1);
         longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
         longNightButtonCanvas.interactable = PlayerPrefs.GetInt("longNightMode", 0) == 1;
     }

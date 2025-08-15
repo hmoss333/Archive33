@@ -21,13 +21,18 @@ public class FadeController : MonoBehaviour
             Destroy(this.gameObject);
     }
 
+    //private void Update()
+    //{
+    //    print($"IsFading is {isFading}");
+    //}
+
     public void StartFade(float aValue, float aTime)
     {
         if (fadeRoutine == null)
             fadeRoutine = StartCoroutine(FadeTo(aValue, aTime));
     }
 
-    public void StartFadeText(TextMeshProUGUI fadeGUI, float aValue, float aTime)
+    public void StartFadeText(TMP_Text fadeGUI, float aValue, float aTime)
     {
         if (fadeTextRoutine == null)
             fadeTextRoutine = StartCoroutine(FadeText(fadeGUI, aValue, aTime));
@@ -50,7 +55,7 @@ public class FadeController : MonoBehaviour
         fadeRoutine = null;
     }
 
-    IEnumerator FadeText(TextMeshProUGUI fadeGUI, float aValue, float aTime)
+    IEnumerator FadeText(TMP_Text fadeGUI, float aValue, float aTime)
     {
         isFading = true;
 

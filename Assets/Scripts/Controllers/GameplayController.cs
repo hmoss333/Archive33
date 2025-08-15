@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using NaughtyAttributes;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameplayController : MonoBehaviour
 {
@@ -26,9 +27,9 @@ public class GameplayController : MonoBehaviour
     public State state;
 
     [Header("Shift Values")]
-    public int shiftNum; //{ get; private set; }
-    private float shiftTime;
     [SerializeField] private float shiftDuration;
+    private float shiftTime;
+    public int shiftNum { get; private set; }
     private int penalty; //Increments on incorrect filing; 5 = death
     [SerializeField] TMP_Text clockText;
 
@@ -71,13 +72,15 @@ public class GameplayController : MonoBehaviour
     private int js_ModelNum;
     AudioSource jumpScareAudio;
     [SerializeField] AudioClip jumpScareClip;
-    private bool playJumpScare = false;
 
     [NaughtyAttributes.HorizontalLine]
 
     [Header("Dialogue Values")]
+    [SerializeField] TMP_Text shiftOverText;
+    [SerializeField] TMP_Text shiftCompleteText;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     Coroutine introDialogueCo;
+    Coroutine gameOverCo;
 
     [HorizontalLine]
 
@@ -92,6 +95,10 @@ public class GameplayController : MonoBehaviour
             instance = this;
         else
             Destroy(this);
+
+        //TODO set the lock state based on pause menu
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
 
         LoadDocumentText();
         jumpScareAudio = jumpScare.GetComponent<AudioSource>();
@@ -132,6 +139,7 @@ public class GameplayController : MonoBehaviour
             {
                 shiftTime = 0f;
                 FadeController.instance.StartFade(1f, 5f);
+                FadeController.instance.StartFadeText(shiftCompleteText, 1f, 1f);
                 SetState(State.victory);
             }
         }
@@ -332,6 +340,7 @@ public class GameplayController : MonoBehaviour
                     {
                         //TODO add win game logic here
                         PlayerPrefs.SetInt("longNightMode", 1);
+                        SceneManager.LoadScene(0);
                     }
                 }
                 break;
@@ -339,15 +348,8 @@ public class GameplayController : MonoBehaviour
                 //Logic for if the player dies
                 //Other hazards will change the state from gameplay to this
                 //DialogueController.instance.UpdateText("[TODO]: handle death logic here", true);
-                //FadeController.instance.StartFade(1f, 3f);
-                if (!playJumpScare)
-                {
-                    JumpScare(js_ModelNum);
-                }
-                else
-                {
-                    FadeController.instance.StartFade(1f, 2f);
-                }
+                if (gameOverCo == null)
+                    gameOverCo = StartCoroutine(GameOverRoutine());
                 break;
             default:
                 DialogueController.instance.UpdateText($"Current state: {state}", true);
@@ -450,7 +452,6 @@ public class GameplayController : MonoBehaviour
         js_Models[js_num].SetActive(true);
         jumpScare.SetActive(true);
         jumpScareAudio.PlayOneShot(jumpScareClip);
-        playJumpScare = true;
     }
 
     IEnumerator IntroDialogueRoutine(List<string> dialogueItems)
@@ -466,6 +467,25 @@ public class GameplayController : MonoBehaviour
         DialogueController.instance.UpdateText(string.Empty, false);
         SetState(State.gameplay);
         introDialogueCo = null;
+    }
+
+    IEnumerator GameOverRoutine()
+    {
+        JumpScare(js_ModelNum);
+
+        FadeController.instance.StartFade(1f, 3f);
+        FadeController.instance.StartFadeText(shiftOverText, 1f, 1f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (FadeController.instance.isFading)
+            yield return null;
+
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene(0);
+
+        gameOverCo = null;
     }
 }
 
