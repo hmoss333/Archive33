@@ -44,17 +44,14 @@ public class Radio : InteractObject
 
     public void InitializeFrequency()
     {
-        print("Updating targetFrequency");
         float returnFrequency = targetFrequency;
         float offsetVal = Random.Range(10f, 25f);
-        print($"Station offset: {offsetVal}");
         int randDirection = Random.Range(0, 2);
         returnFrequency = randDirection == 0
                                 ? returnFrequency + offsetVal
                                 : returnFrequency - offsetVal;
 
         returnFrequency = Mathf.Clamp(returnFrequency, 30f, 300f);
-        print($"Return Frequency: {returnFrequency}");
 
         //If result is at either the max or min, re-roll the new station
         if (returnFrequency == 30f || returnFrequency == 300f)
@@ -78,16 +75,16 @@ public class Radio : InteractObject
         if (interacting)
         {
             PlayerController.instance.SetState(PlayerController.States.interacting);
-            float xInput = Input.GetAxis("Mouse X");
-            arrowLeft.color = xInput < 0 ? arrowActive : arrowDefault;
-            arrowRight.color = xInput > 0 ? arrowActive : arrowDefault;
+            float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
+            arrowLeft.color = scrollDelta < 0 ? arrowActive : arrowDefault;
+            arrowRight.color = scrollDelta > 0 ? arrowActive : arrowDefault;
 
-            if (xInput > 0)
+            if (scrollDelta > 0)
             {
                 currentFrequency += Time.deltaTime * rotateSpeed;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
             }
-            else if (xInput < 0)
+            else if (scrollDelta < 0)
             {
                 currentFrequency -= Time.deltaTime * rotateSpeed;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
