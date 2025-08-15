@@ -96,7 +96,9 @@ public class GameplayController : MonoBehaviour
         LoadDocumentText();
         jumpScareAudio = jumpScare.GetComponent<AudioSource>();
 
-        //shiftNum = 0; //TODO Uncomment in final release
+        shiftNum = PlayerPrefs.GetInt("longNightMode") == 2
+            ? 5 //if longNightMode is enabled, skip to last night
+            : PlayerPrefs.GetInt("shiftNum", 0); //else load last completed night; default to first night
         shiftTime = 0f;
         powerOutage = false;
         zombieMoveNum = 0;
@@ -151,9 +153,6 @@ public class GameplayController : MonoBehaviour
                 break;
             case State.gameplay:
                 //Handle all gameplay loop logic
-                //Adds more features based on shiftNum count
-
-
                 if (shiftNum >= 0)
                 {
                     //Inbox
@@ -312,6 +311,7 @@ public class GameplayController : MonoBehaviour
                     //Reset scene for next shift
                     if (shiftNum < 5)
                     {
+                        PlayerPrefs.SetInt("shiftNum", shiftNum);
                         shiftTime = 0f;
                         penalty = 0;
                         powerOutage = false;
@@ -325,11 +325,13 @@ public class GameplayController : MonoBehaviour
                         PlayerController.instance.RemoveCurrentDocument();
                         InBox.instance.Reset();
                         SetState(State.dialogue);
+                        //TODO: Add sequence showing end of day/change of shift number
                     }
                     //Win game
                     else
                     {
                         //TODO add win game logic here
+                        PlayerPrefs.SetInt("longNightMode", 1);
                     }
                 }
                 break;

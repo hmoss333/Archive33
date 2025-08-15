@@ -23,13 +23,10 @@ public class MainMenuController : MonoBehaviour
 
         FadeController.instance.StartFade(0f, 1f);
 
-        longNightButtonCanvas.alpha = 0.5f;
+        PlayerPrefs.SetInt("longNightMode", 1); //TODO: remove this from final build
+        longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
+        longNightButtonCanvas.interactable = PlayerPrefs.GetInt("longNightMode", 0) == 1;
     }
-
-    //private void Update()
-    //{
-    //    longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 1 ? 1f : 0.5f; //This doesn't work with webgl
-    //}
 
     public void StartGame()
     {
@@ -58,11 +55,19 @@ public class MainMenuController : MonoBehaviour
 
     public void LongNightMode()
     {
-        if (PlayerPrefs.GetInt("longNightMode", 0) == 1
-            && !startingGame
-            && !FadeController.instance.isFading)
+        if (!startingGame && !FadeController.instance.isFading)
         {
-            print("Long Night Mode here");
+            PlayerPrefs.SetInt("longNightMode", 2);
+            StartGame();
+        }
+    }
+
+    public void SelectNight(int shiftNum)
+    {
+        if (!startingGame && !FadeController.instance.isFading)
+        {
+            PlayerPrefs.SetInt("shiftNum", shiftNum);
+            StartGame();
         }
     }
 
