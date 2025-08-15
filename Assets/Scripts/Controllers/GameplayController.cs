@@ -63,6 +63,16 @@ public class GameplayController : MonoBehaviour
 
     [NaughtyAttributes.HorizontalLine]
 
+    [Header("Jump Scare Variables")]
+    [SerializeField] GameObject jumpScare;
+    [SerializeField] List<GameObject> js_Models;
+    private int js_ModelNum;
+    AudioSource jumpScareAudio;
+    [SerializeField] AudioClip jumpScareClip;
+    private bool playJumpScare = false;
+
+    [NaughtyAttributes.HorizontalLine]
+
     [Header("Dialogue Variables")]
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     Coroutine introDialogueCo;
@@ -82,6 +92,7 @@ public class GameplayController : MonoBehaviour
             Destroy(this);
 
         LoadDocumentText();
+        jumpScareAudio = jumpScare.GetComponent<AudioSource>();
 
         //shiftNum = 0; //TODO Uncomment in final release
         shiftTime = 0f;
@@ -169,9 +180,10 @@ public class GameplayController : MonoBehaviour
                         }
                     }
 
-                    if (dist <= 1f)
+                    if (dist <= 2.5f)
                     {
                         staticMan.GetComponent<Animator>().SetTrigger("isAttacking");
+                        js_ModelNum = 2;
                         SetState(State.death);
                         //Jump scare
                     }
@@ -221,6 +233,7 @@ public class GameplayController : MonoBehaviour
                             else
                             {
                                 zombie.GetComponent<Animator>().SetTrigger("isAttacking");
+                                js_ModelNum = 0;
                                 SetState(State.death);
                             }
                         }
@@ -266,6 +279,13 @@ public class GameplayController : MonoBehaviour
                                 //SetState(State.attack);
                                 currentPoint++;
                                 moveRobot = true;
+
+                                //penalty++;
+                                //if (penalty >= 5)
+                                //{
+                                //    js_ModelNum = 1;
+                                //    SetState(State.death);
+                                //}
                             }
                         }
                     }
@@ -313,8 +333,16 @@ public class GameplayController : MonoBehaviour
             case State.death:
                 //Logic for if the player dies
                 //Other hazards will change the state from gameplay to this
-                DialogueController.instance.UpdateText("[TODO]: handle death logic here", true);
-                FadeController.instance.StartFade(1f, 3f);
+                //DialogueController.instance.UpdateText("[TODO]: handle death logic here", true);
+                //FadeController.instance.StartFade(1f, 3f);
+                if (!playJumpScare)
+                {
+                    JumpScare(js_ModelNum);
+                }
+                else
+                {
+                    FadeController.instance.StartFade(1f, 2f);
+                }
                 break;
             default:
                 DialogueController.instance.UpdateText($"Current state: {state}", true);
@@ -376,7 +404,10 @@ public class GameplayController : MonoBehaviour
         incorrectAudio.PlayOneShot(incorrectClip);
 
         if (penalty >= 5)
+        {
+            js_ModelNum = 0; //Need model/animation for death animation
             SetState(State.death);
+        }
     }
 
     public void RestartPower()
@@ -396,6 +427,14 @@ public class GameplayController : MonoBehaviour
             moveRobot = true;
             robotWaitTime = 6f;
         }
+    }
+
+    void JumpScare(int js_num)
+    {
+        js_Models[js_num].SetActive(true);
+        jumpScare.SetActive(true);
+        jumpScareAudio.PlayOneShot(jumpScareClip);
+        playJumpScare = true;
     }
 
     IEnumerator IntroDialogueRoutine(List<string> dialogueItems)
