@@ -497,6 +497,7 @@ public class GameplayController : MonoBehaviour
         PlayerController.instance.RemoveCurrentDocument();
         InBox.instance.Reset();
         PlayerPrefs.SetInt("shiftNum", shiftNum);
+        PlayerPrefs.SetInt("maxShift", shiftNum);
         foreach (Light light in lights)
         {
             light.enabled = true;

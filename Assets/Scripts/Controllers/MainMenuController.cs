@@ -7,9 +7,12 @@ using TMPro;
 
 public class MainMenuController : MonoBehaviour
 {
-    [SerializeField] GameObject mainMenu, creditsMenu;
+    [SerializeField] GameObject mainMenu, shiftSelectMenu, creditsMenu;
+    [SerializeField] TMP_Text shiftSelectText;
     [SerializeField] TMP_Text versionNumber;
+    [SerializeField] CanvasGroup selectShiftButtonCanvas;
     [SerializeField] CanvasGroup longNightButtonCanvas;
+    int shiftSelectNum;
 
     bool startingGame;
     Coroutine startRoutine;
@@ -22,11 +25,17 @@ public class MainMenuController : MonoBehaviour
         startingGame = false;
         startRoutine = null;
 
+        shiftSelectNum = 0;
+        shiftSelectText.text = $"Shift: {shiftSelectNum}";
         versionNumber.text = $"v{Application.version}";
 
         FadeController.instance.StartFade(0f, 1f);
 
-        PlayerPrefs.SetInt("longNightMode", 1); //TODO: remove this from final build
+        //PlayerPrefs.SetInt("maxShift", 0); //TODO: remove this from final build
+        selectShiftButtonCanvas.alpha = PlayerPrefs.GetInt("maxShift", 0) == 0 ? 0.5f : 1f;
+        selectShiftButtonCanvas.interactable = PlayerPrefs.GetInt("maxShift", 0) >= 1;
+
+        //PlayerPrefs.SetInt("longNightMode", 0); //TODO: remove this from final build
         if (PlayerPrefs.GetInt("longNightMode") > 0)
             PlayerPrefs.SetInt("longNightMode", 1);
         longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
@@ -67,9 +76,24 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    public void SelectNight(int shiftNum)
+    public void SelectShiftMenu()
     {
-        if (!startingGame && !FadeController.instance.isFading)
+        mainMenu.SetActive(false);
+        shiftSelectMenu.SetActive(true);
+        creditsMenu.SetActive(false);
+    }
+
+    public void ModifyShiftNum(int shiftNum)
+    {
+        shiftSelectNum += shiftNum;
+        shiftSelectNum = Mathf.Clamp(shiftSelectNum, 0, PlayerPrefs.GetInt("maxShift", 0));
+        shiftSelectText.text = $"Shift: {shiftSelectNum}";
+    }
+
+    public void SelectNight()
+    {
+        int shiftNum = shiftSelectNum;
+        if (!FadeController.instance.isFading)
         {
             PlayerPrefs.SetInt("shiftNum", shiftNum);
             StartGame();
@@ -90,6 +114,7 @@ public class MainMenuController : MonoBehaviour
         {
             print("Open credits menu here");
             mainMenu.SetActive(false);
+            shiftSelectMenu.SetActive(false);
             creditsMenu.SetActive(true);
         }
     }
@@ -97,6 +122,7 @@ public class MainMenuController : MonoBehaviour
     public void Back()
     {
         mainMenu.SetActive(true);
+        shiftSelectMenu.SetActive(false);
         creditsMenu.SetActive(false);
     }
 }
