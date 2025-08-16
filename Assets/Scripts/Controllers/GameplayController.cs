@@ -106,9 +106,9 @@ public class GameplayController : MonoBehaviour
         LoadDocumentText();
         jumpScareAudio = jumpScare.GetComponent<AudioSource>();
 
-        shiftNum = 0;//PlayerPrefs.GetInt("longNightMode") == 2
-            //? 5 //if longNightMode is enabled, skip to last night
-            //: PlayerPrefs.GetInt("shiftNum", 0); //else load last completed night; default to first night
+        shiftNum = PlayerPrefs.GetInt("longNightMode") == 2
+            ? 5 //if longNightMode is enabled, skip to last night
+            : PlayerPrefs.GetInt("shiftNum", 0); //else load last completed night; default to first night
         shiftTime = 0f;
         powerOutage = false;
         zombieMoveNum = 0;
@@ -121,7 +121,6 @@ public class GameplayController : MonoBehaviour
         robotWaitTime = 6f;
         currentPoint = 0;
         InBox.instance.Reset();
-        //FadeController.instance.StartFade(1f, 0.01f);
         state = State.dialogue;
 
 
@@ -188,7 +187,7 @@ public class GameplayController : MonoBehaviour
                         stationResetTimer -= Time.deltaTime;
                         if (stationResetTimer <= 0)
                         {
-                            stationResetTimer = Random.Range(10f, 14f); //Reset to default value
+                            stationResetTimer = Random.Range(10f, 14f);
                             ToggleStaticMan(true);
                             Radio.instance.InitializeFrequency();
                         }
@@ -198,7 +197,6 @@ public class GameplayController : MonoBehaviour
                     {
                         js_ModelNum = 2;
                         SetState(State.death);
-                        //Jump scare
                     }
                 }
                 if (shiftNum >= 2)

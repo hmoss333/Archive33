@@ -23,6 +23,6 @@ public class InteractObject : MonoBehaviour
 
     public virtual void Interact()
     {
-        print($"Put interact logic for {this.gameObject.name} here");
+        print($"Interacted with {this.gameObject.name}");
     }
 }
