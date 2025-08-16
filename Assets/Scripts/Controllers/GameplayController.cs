@@ -79,6 +79,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] TMP_Text shiftOverText;
     [SerializeField] TMP_Text shiftCompleteText;
     [SerializeField] TMP_Text winGameText;
+    [SerializeField] GameObject retryMenu;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     Coroutine introDialogueCo;
     Coroutine nextNightCo;
@@ -121,6 +122,7 @@ public class GameplayController : MonoBehaviour
         robotWaitTime = 6f;
         currentPoint = 0;
         InBox.instance.Reset();
+        retryMenu.SetActive(false);
         state = State.dialogue;
 
 
@@ -435,6 +437,18 @@ public class GameplayController : MonoBehaviour
         jumpScareAudio.PlayOneShot(jumpScareClip);
     }
 
+    public void MainMenu()
+    {
+        retryMenu.SetActive(false);
+        SceneManager.LoadScene(0);
+    }
+
+    public void Retry()
+    {
+        retryMenu.SetActive(false);
+        SceneManager.LoadScene(1);
+    }
+
     IEnumerator IntroDialogueRoutine(List<string> dialogueItems)
     {
         yield return new WaitForSeconds(3.5f);
@@ -464,7 +478,11 @@ public class GameplayController : MonoBehaviour
 
         yield return new WaitForSeconds(2.5f);
 
-        SceneManager.LoadScene(0);
+        retryMenu.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+
+        while (retryMenu.activeSelf)
+            yield return null;
 
         gameOverCo = null;
     }
