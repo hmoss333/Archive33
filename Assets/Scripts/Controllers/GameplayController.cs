@@ -78,8 +78,11 @@ public class GameplayController : MonoBehaviour
     [Header("Dialogue Values")]
     [SerializeField] TMP_Text shiftOverText;
     [SerializeField] TMP_Text shiftCompleteText;
+    [SerializeField] TMP_Text winGameText;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     Coroutine introDialogueCo;
+    Coroutine nextNightCo;
+    Coroutine winGameCo;
     Coroutine gameOverCo;
 
     [HorizontalLine]
@@ -103,9 +106,9 @@ public class GameplayController : MonoBehaviour
         LoadDocumentText();
         jumpScareAudio = jumpScare.GetComponent<AudioSource>();
 
-        shiftNum = PlayerPrefs.GetInt("longNightMode") == 2
-            ? 5 //if longNightMode is enabled, skip to last night
-            : PlayerPrefs.GetInt("shiftNum", 0); //else load last completed night; default to first night
+        shiftNum = 0;//PlayerPrefs.GetInt("longNightMode") == 2
+            //? 5 //if longNightMode is enabled, skip to last night
+            //: PlayerPrefs.GetInt("shiftNum", 0); //else load last completed night; default to first night
         shiftTime = 0f;
         powerOutage = false;
         zombieMoveNum = 0;
@@ -118,8 +121,17 @@ public class GameplayController : MonoBehaviour
         robotWaitTime = 6f;
         currentPoint = 0;
         InBox.instance.Reset();
-        FadeController.instance.StartFade(1f, 0.01f);
+        //FadeController.instance.StartFade(1f, 0.01f);
         state = State.dialogue;
+
+
+        foreach (Light light in lights)
+        {
+            light.enabled = true;
+            light.GetComponent<LightFlicker>().enabled = false;
+            light.intensity = 3f;
+        }
+        FadeController.instance.StartFade(0f, 2f);
     }
 
     private void Update()
@@ -138,8 +150,6 @@ public class GameplayController : MonoBehaviour
             if (shiftTime >= shiftDuration)
             {
                 shiftTime = 0f;
-                FadeController.instance.StartFade(1f, 5f);
-                FadeController.instance.StartFadeText(shiftCompleteText, 1f, 1f);
                 SetState(State.victory);
             }
         }
@@ -147,14 +157,6 @@ public class GameplayController : MonoBehaviour
         switch (state)
         {
             case State.dialogue:
-                foreach (Light light in lights)
-                {
-                    light.enabled = true;
-                    light.GetComponent<LightFlicker>().enabled = false;
-                    light.intensity = 3f;
-                }
-                FadeController.instance.StartFade(0f, 2f);
-
                 //Play dialogue set for current shift
                 if (introDialogueCo == null)
                     introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
@@ -310,44 +312,25 @@ public class GameplayController : MonoBehaviour
                 break;
             case State.victory:
                 //Logic for if the player makes it to the end of their shift
-                DialogueController.instance.UpdateText("[TODO]: display win screen here", true);
-
                 if (!FadeController.instance.isFading)
                 {
-                    DialogueController.instance.UpdateText(string.Empty, false);
-
                     //Reset scene for next shift
                     if (shiftNum < 5)
                     {
-                        PlayerPrefs.SetInt("shiftNum", shiftNum);
-                        shiftTime = 0f;
-                        penalty = 0;
-                        powerOutage = false;
-                        ToggleStaticMan(false);
-                        introDialogueCo = null;
-                        shiftNum++;
-                        FuseBox.instance.SetFixed();
-                        moveRobot = false;
-                        robotWaitTime = 6f;
-                        currentPoint = 0;
-                        PlayerController.instance.RemoveCurrentDocument();
-                        InBox.instance.Reset();
-                        SetState(State.dialogue);
-                        //TODO: Add sequence showing end of day/change of shift number
+                        if (nextNightCo == null)
+                            nextNightCo = StartCoroutine(EndOfNightRoutine());
                     }
                     //Win game
                     else
                     {
-                        //TODO add win game logic here
-                        PlayerPrefs.SetInt("longNightMode", 1);
-                        SceneManager.LoadScene(0);
+                        if (winGameCo == null)
+                            winGameCo = StartCoroutine(WinGameRoutine());
                     }
                 }
                 break;
             case State.death:
                 //Logic for if the player dies
                 //Other hazards will change the state from gameplay to this
-                //DialogueController.instance.UpdateText("[TODO]: handle death logic here", true);
                 if (gameOverCo == null)
                     gameOverCo = StartCoroutine(GameOverRoutine());
                 break;
@@ -476,16 +459,78 @@ public class GameplayController : MonoBehaviour
         FadeController.instance.StartFade(1f, 3f);
         FadeController.instance.StartFadeText(shiftOverText, 1f, 1f);
 
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
 
-        if (FadeController.instance.isFading)
-            yield return null;
+        //while (FadeController.instance.isFading)
+        //    yield return null;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
 
         SceneManager.LoadScene(0);
 
         gameOverCo = null;
+    }
+
+    IEnumerator EndOfNightRoutine()
+    {
+        FadeController.instance.StartFade(1f, 1f);
+        FadeController.instance.StartFadeText(shiftCompleteText, 1f, 1f);
+
+        while (FadeController.instance.isFading)
+            yield return null;
+
+        yield return new WaitForSeconds(3f);
+
+        FadeController.instance.StartFadeText(shiftCompleteText, 0f, 1f);
+
+        while (FadeController.instance.isFading)
+            yield return null;
+
+        shiftTime = 0f;
+        penalty = 0;
+        powerOutage = false;
+        ToggleStaticMan(false);
+        introDialogueCo = null;
+        shiftNum++;
+        FuseBox.instance.SetFixed();
+        moveRobot = false;
+        robotWaitTime = 6f;
+        currentPoint = 0;
+        PlayerController.instance.RemoveCurrentDocument();
+        InBox.instance.Reset();
+        PlayerPrefs.SetInt("shiftNum", shiftNum);
+        foreach (Light light in lights)
+        {
+            light.enabled = true;
+            light.GetComponent<LightFlicker>().enabled = false;
+            light.intensity = 3f;
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        FadeController.instance.StartFade(0f, 2f);
+
+        while (FadeController.instance.isFading)
+            yield return null;
+
+        SetState(State.dialogue);
+        nextNightCo = null;
+    }
+
+    IEnumerator WinGameRoutine()
+    {
+        FadeController.instance.StartFade(1f, 3f);
+        FadeController.instance.StartFadeText(winGameText, 1f, 1f);
+
+        while (FadeController.instance.isFading)
+            yield return null;
+
+        yield return new WaitForSeconds(6f);
+
+        PlayerPrefs.SetInt("longNightMode", 1);
+        SceneManager.LoadScene(0);
+
+        winGameCo = null;
     }
 }
 

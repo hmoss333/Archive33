@@ -247,7 +247,6 @@ MonoBehaviour:
   fuseBoxCover: {fileID: 1493999351}
   bell: {fileID: 1674158664}
   state: 0
-  shiftNum: 0
   shiftDuration: 0
   clockText: {fileID: 218819513}
   camEffectController: {fileID: 1508664987}
@@ -287,6 +286,7 @@ MonoBehaviour:
   jumpScareClip: {fileID: 8300000, guid: 3be95760e14f2493bad5f6cf8a5dfcbe, type: 3}
   shiftOverText: {fileID: 539787073}
   shiftCompleteText: {fileID: 994384694}
+  winGameText: {fileID: 1552791967}
   uniqueDialogue:
   - dialogueLines:
     - '[TODO]: Shift 1 - explain filing system, pneumatic tube, and 5 strike system'
@@ -5973,6 +5973,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4349689160829392, guid: 7f0c31dcd24808146bd2f1b4545c5787, type: 3}
   m_PrefabInstance: {fileID: 1882339028}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1552791967 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1552791967, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+  m_PrefabInstance: {fileID: 5387872318316655436}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1568897842
 GameObject:
   m_ObjectHideFlags: 0
