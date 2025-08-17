@@ -45,7 +45,7 @@ public class Radio : InteractObject
     public void InitializeFrequency()
     {
         float returnFrequency = targetFrequency;
-        float offsetVal = Random.Range(10f, 25f);
+        float offsetVal = Random.Range(35f, 50f);
         int randDirection = Random.Range(0, 2);
         returnFrequency = randDirection == 0
                                 ? returnFrequency + offsetVal
@@ -93,7 +93,7 @@ public class Radio : InteractObject
 
         if (GameplayController.instance.spawnStaticMan)
         {
-            if (currentFrequency <= targetFrequency + 1.125f && currentFrequency >= targetFrequency - 1.125f)
+            if (currentFrequency <= targetFrequency + 0.75f && currentFrequency >= targetFrequency - 0.75f)
             {
                 focusTime -= Time.deltaTime;
                 if (focusTime <= 0f)

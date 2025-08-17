@@ -141,7 +141,8 @@ public class InBox : InteractObject
         newDoc.InitializeDoc();
         documents.Add(newDoc);
 
-        documentGenTime = Random.Range(3f, 7.5f);
+        float maxTime = GameplayController.instance.shiftNum >= 3 ? 5.5f : 7.5f;
+        documentGenTime = Random.Range(3f, maxTime);
     }
 
     public override void Interact()

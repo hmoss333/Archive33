@@ -142,7 +142,7 @@ public class GameplayController : MonoBehaviour
 
         if ((state == State.dialogue || state == State.gameplay) && shiftNum < 5)
         {
-            shiftDuration = shiftNum > 0 ? 360f : 90f;
+            shiftDuration = shiftNum > 0 ? 360f : 240f;
             System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
             clockText.text = time.ToString(@"mm\:ss");
 
@@ -164,13 +164,13 @@ public class GameplayController : MonoBehaviour
                 break;
             case State.gameplay:
                 //Handle all gameplay loop logic
-                if (shiftNum >= 0)
-                {
-                    //Inbox
-                    //Outbox
-                    //Shredder
-                }
-                if (shiftNum >= 1)
+                //if (shiftNum >= 0)
+                //{
+                //    //Inbox
+                //    //Outbox
+                //    //Shredder
+                //}
+                if (shiftNum >= 0)//1)
                 {
                     //Radio
                     //Static man enemy
@@ -189,7 +189,8 @@ public class GameplayController : MonoBehaviour
                         stationResetTimer -= Time.deltaTime;
                         if (stationResetTimer <= 0)
                         {
-                            stationResetTimer = Random.Range(10f, 14f);
+                            float maxStationResetTime = shiftNum >= 3 ? 12f : 14f;
+                            stationResetTimer = Random.Range(10f, maxStationResetTime);
                             ToggleStaticMan(true);
                             Radio.instance.InitializeFrequency();
                         }
@@ -201,7 +202,7 @@ public class GameplayController : MonoBehaviour
                         SetState(State.death);
                     }
                 }
-                if (shiftNum >= 2)
+                if (shiftNum >= 1)//2)
                 {
                     //Power outage
                     //FuseBox + fuses
@@ -214,6 +215,7 @@ public class GameplayController : MonoBehaviour
                         powerOutageTimer -= Time.deltaTime;
                         if (powerOutageTimer <= 0)
                         {
+                            float maxPowerOutageTime = shiftNum >= 3 ? 17f : 20f;
                             powerOutageTimer = Random.Range(15f, 20f);
                             powerOutage = true;
                             FuseBox.instance.SetBroken();
@@ -251,7 +253,7 @@ public class GameplayController : MonoBehaviour
                         }
                     }
                 }
-                if (shiftNum >= 3 || penalty >= 5)
+                if (shiftNum >= 2 || penalty >= 5)//3)
                 {
                     //'The Button'
                     //Malformed Documents
@@ -305,7 +307,7 @@ public class GameplayController : MonoBehaviour
                     robot.GetComponent<Animator>().SetBool("isWaiting", currentPoint == midPoint && !moveRobot);
                     robot.GetComponent<BotController>().enabled = currentPoint == 3;
                 }
-                if (shiftNum >= 4)
+                if (shiftNum >= 3)
                 {
                     //Lower timers for all hazards
                 }
@@ -315,7 +317,7 @@ public class GameplayController : MonoBehaviour
                 if (!FadeController.instance.isFading)
                 {
                     //Reset scene for next shift
-                    if (shiftNum < 5)
+                    if (shiftNum < 4)//5)
                     {
                         if (nextNightCo == null)
                             nextNightCo = StartCoroutine(EndOfNightRoutine());
@@ -368,9 +370,9 @@ public class GameplayController : MonoBehaviour
 
     void SetProps(int shiftVal)
     {
-        radio.SetActive(shiftVal >= 1);
-        fuseBoxCover.SetActive(shiftVal < 2);
-        bell.SetActive(shiftVal >= 3);
+        radio.SetActive(shiftVal >= 0);//1);
+        fuseBoxCover.SetActive(shiftVal < 1);//2);
+        bell.SetActive(shiftVal >= 2);//3);
     }
 
     void SetWarningLights(int penaltyVal)
@@ -470,11 +472,6 @@ public class GameplayController : MonoBehaviour
 
         FadeController.instance.StartFade(1f, 3f);
         FadeController.instance.StartFadeText(shiftOverText, 1f, 1f);
-
-        //yield return new WaitForSeconds(0.5f);
-
-        //while (FadeController.instance.isFading)
-        //    yield return null;
 
         yield return new WaitForSeconds(2.5f);
 

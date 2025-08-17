@@ -290,8 +290,6 @@ MonoBehaviour:
   retryMenu: {fileID: 1931230139}
   uniqueDialogue:
   - dialogueLines:
-    - '[TODO]: Shift 1 - explain filing system, pneumatic tube, and 5 strike system'
-  - dialogueLines:
     - '[TODO]: Shift 2 - explain radio frequencies and how to tune to the corresponding
       station listed on the documents'
   - dialogueLines:
@@ -307,6 +305,8 @@ MonoBehaviour:
     - '[TODO]: Shift 5 - increased difficulty/adjusted timing values for all interactions'
   - dialogueLines:
     - '[TODO]: Shift 6 - explain endless shift mode'
+  - dialogueLines:
+    - '[TODO]: Shift 1 - explain filing system, pneumatic tube, and 5 strike system'
   documentTextContainer:
     documentText: []
     corruptedText: []

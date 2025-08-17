@@ -27,9 +27,10 @@ public class Document
                 ? false
                 : true;
 
-        if (GameplayController.instance.shiftNum > 3)
+        if (GameplayController.instance.shiftNum >= 2)//3)
         {
-            int randVal_Corrupted = (int)UnityEngine.Random.Range(0, 5);
+            int maxCorruptPercent = GameplayController.instance.shiftNum >= 3 ? 4 : 5;
+            int randVal_Corrupted = (int)UnityEngine.Random.Range(0, maxCorruptPercent);
             corrupted =
                 randVal_Corrupted == 0
                     ? true

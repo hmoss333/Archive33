@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
             string s_documentText = currentDoc.toBeShredded
                                       ? "Destroy"
                                       : currentDoc.fileColor.ToString();
-            if (GameplayController.instance.shiftNum >= 1 && GameplayController.instance.spawnStaticMan)
+            if (GameplayController.instance.spawnStaticMan) //GameplayController.instance.shiftNum >= 1 && 
                 s_documentText += "\nStation: " + Radio.instance.targetFrequency.ToString("F2");
 
             documentInstructions.text = $"File: {s_documentText}";
