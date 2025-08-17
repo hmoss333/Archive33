@@ -250,6 +250,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6800758719896149007}
     m_Modifications:
+    - target: {fileID: 1605877541073675992, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -1099266064948786653, guid: 151e38c24b8ca4486997fe78026fced9, type: 2}
     - target: {fileID: 2730605817567717532, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -302,6 +306,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5595802564363315504, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -1099266064948786653, guid: 151e38c24b8ca4486997fe78026fced9, type: 2}
     - target: {fileID: 7615092512427165923, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_Name
       value: Document
