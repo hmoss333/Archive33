@@ -115,6 +115,8 @@ MonoBehaviour:
   highlighted: 0
   shredClip: {fileID: 8300000, guid: e41ce6cd501df43b1a31cfbd5d854e74, type: 3}
   incorrectClip: {fileID: 8300000, guid: 863aa883c1a3c4c74a3a1d18c942f5c7, type: 3}
+  shredderOne: {fileID: 0}
+  shredderTwo: {fileID: 0}
 --- !u!82 &2156070018900464910
 AudioSource:
   m_ObjectHideFlags: 0
@@ -266,6 +268,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5548565154391236255, guid: 9d7046e62f2acc64ab3a7fb1a316fe28, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c6d72c7a49f483c468ef4c1066ba90e4, type: 2}
+    - target: {fileID: 5730180583938373035, guid: 9d7046e62f2acc64ab3a7fb1a316fe28, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d74faae064ecd4832bc38a8dca4b0c50, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d7046e62f2acc64ab3a7fb1a316fe28, type: 3}
 --- !u!4 &9106440125383167215 stripped

@@ -7,12 +7,22 @@ public class Shredder : InteractObject
     AudioSource audioSource;
     [SerializeField] AudioClip shredClip, incorrectClip;
     [SerializeField] GameObject shredderOne, shredderTwo;
+    Animator[] animators;
 
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = shredClip;
+        animators = GetComponentsInChildren<Animator>();
+    }
+
+    private void Update()
+    {
+        foreach (Animator animator in animators)
+        {
+            animator.SetBool("Shredding", audioSource.isPlaying);
+        }
     }
 
     public override void Interact()
