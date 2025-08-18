@@ -27,19 +27,29 @@ public class Radio : InteractObject
         else
             Destroy(this);
 
-        interacting = false;
-        audioSource.clip = staticAudio;
-        audioSource.loop = true;
-        audioSource.Play();
-        currentFrequency = 36.9f;
-        targetFrequency = currentFrequency;
-        //InitializeFrequency();
+        //interacting = false;
+        //audioSource.clip = staticAudio;
+        //audioSource.loop = true;
+        //audioSource.Play();
+        //currentFrequency = 36.9f;
+        //targetFrequency = currentFrequency;
+        InitializeRadio();
     }
 
     private void OnDisable()
     {
         currentFrequency = 36.9f;
         radioText.text = currentFrequency.ToString("F2");
+    }
+
+    public void InitializeRadio()
+    {
+        interacting = false;
+        audioSource.clip = staticAudio;
+        audioSource.loop = true;
+        audioSource.Play();
+        currentFrequency = 36.9f;
+        targetFrequency = currentFrequency;
     }
 
     public void InitializeFrequency()
@@ -93,7 +103,7 @@ public class Radio : InteractObject
 
         if (GameplayController.instance.spawnStaticMan)
         {
-            if (currentFrequency <= targetFrequency + 0.75f && currentFrequency >= targetFrequency - 0.75f)
+            if (currentFrequency <= targetFrequency + 1f && currentFrequency >= targetFrequency - 1f)
             {
                 focusTime -= Time.deltaTime;
                 if (focusTime <= 0f)

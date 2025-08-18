@@ -506,6 +506,7 @@ public class GameplayController : MonoBehaviour
         introDialogueCo = null;
         shiftNum++;
         FuseBox.instance.SetFixed();
+        Radio.instance.InitializeRadio();
         moveRobot = false;
         robotWaitTime = 6f;
         currentPoint = 0;

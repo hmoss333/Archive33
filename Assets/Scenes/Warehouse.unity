@@ -9253,6 +9253,18 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 3656556502706598338, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656556502706598338, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656556502706598338, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5768634394724422485, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
       propertyPath: m_Name
       value: Radio
