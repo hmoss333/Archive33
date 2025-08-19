@@ -29,7 +29,7 @@ public class MainMenuController : MonoBehaviour
         shiftSelectText.text = $"Shift: {shiftSelectNum}";
         versionNumber.text = $"v{Application.version}";
 
-        FadeController.instance.StartFade(0f, 1f);
+        FadeController.instance.StartFade(0f, 3f);
 
         //PlayerPrefs.SetInt("maxShift", 0); //TODO: remove this from final build
         selectShiftButtonCanvas.alpha = PlayerPrefs.GetInt("maxShift", 0) == 0 ? 0.5f : 1f;
@@ -45,7 +45,6 @@ public class MainMenuController : MonoBehaviour
     public void StartGame()
     {
         if (!startingGame
-            && !FadeController.instance.isFading
             && startRoutine == null)
         {
             startingGame = true;
@@ -69,7 +68,7 @@ public class MainMenuController : MonoBehaviour
 
     public void LongNightMode()
     {
-        if (!startingGame && !FadeController.instance.isFading)
+        if (!startingGame)
         {
             PlayerPrefs.SetInt("longNightMode", 2);
             StartGame();
@@ -93,16 +92,13 @@ public class MainMenuController : MonoBehaviour
     public void SelectNight()
     {
         int shiftNum = shiftSelectNum;
-        if (!FadeController.instance.isFading)
-        {
-            PlayerPrefs.SetInt("shiftNum", shiftNum);
-            StartGame();
-        }
+        PlayerPrefs.SetInt("shiftNum", shiftNum);
+        StartGame();
     }
 
     public void Settings()
     {
-        if (!startingGame && !FadeController.instance.isFading)
+        if (!startingGame)
         {
             print("Open settings menu here");
         }
@@ -110,7 +106,7 @@ public class MainMenuController : MonoBehaviour
 
     public void Credits()
     {
-        if (!startingGame && !FadeController.instance.isFading)
+        if (!startingGame)
         {
             print("Open credits menu here");
             mainMenu.SetActive(false);
@@ -124,5 +120,10 @@ public class MainMenuController : MonoBehaviour
         mainMenu.SetActive(true);
         shiftSelectMenu.SetActive(false);
         creditsMenu.SetActive(false);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }

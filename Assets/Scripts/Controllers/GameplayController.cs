@@ -159,6 +159,9 @@ public class GameplayController : MonoBehaviour
         {
             case State.dialogue:
                 //Play dialogue set for current shift
+                if (shiftNum > uniqueDialogue.Count - 1)
+                    shiftNum = uniqueDialogue.Count - 1;
+
                 if (introDialogueCo == null)
                     introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
                 break;
