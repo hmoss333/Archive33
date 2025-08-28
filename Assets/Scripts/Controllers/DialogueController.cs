@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DialogueController : MonoBehaviour
@@ -8,7 +9,8 @@ public class DialogueController : MonoBehaviour
     public static DialogueController instance;
 
     [SerializeField] TMP_Text textUI;
-    [SerializeField] float fadeTime = 3.5f;
+    [SerializeField] Image background;
+    [SerializeField] float fadeTime = 4.5f;
     float timer;
     bool fade;
 
@@ -25,6 +27,8 @@ public class DialogueController : MonoBehaviour
 
     private void Update()
     {
+        background.gameObject.SetActive(textUI.text != string.Empty);
+
         if (fade && textUI.text != string.Empty)
         {
             timer += Time.deltaTime;

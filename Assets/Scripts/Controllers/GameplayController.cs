@@ -142,7 +142,7 @@ public class GameplayController : MonoBehaviour
 
         if ((state == State.dialogue || state == State.gameplay) && shiftNum < 5)
         {
-            shiftDuration = shiftNum > 0 ? 360f : 240f;
+            shiftDuration = shiftNum > 0 ? 360f : 300f;
             System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
             clockText.text = time.ToString(@"mm\:ss");
 
