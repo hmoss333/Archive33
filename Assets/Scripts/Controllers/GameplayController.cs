@@ -123,7 +123,7 @@ public class GameplayController : MonoBehaviour
         currentPoint = 0;
         InBox.instance.Reset();
         retryMenu.SetActive(false);
-        state = State.gameplay;//State.dialogue;
+        state = State.dialogue;
 
 
         foreach (Light light in lights)
@@ -167,14 +167,11 @@ public class GameplayController : MonoBehaviour
                 break;
             case State.gameplay:
                 //Handle all gameplay loop logic
-                //if (shiftNum >= 0)
-                //{
-                //    //Inbox
-                //    //Outbox
-                //    //Shredder
-                //}
-                if (shiftNum >= 0)//1)
+                if (shiftNum >= 0)
                 {
+                    //Inbox
+                    //Outbox
+                    //Shredder
                     //Radio
                     //Static man enemy
                     staticMan.SetActive(spawnStaticMan);
@@ -204,7 +201,7 @@ public class GameplayController : MonoBehaviour
                         SetState(State.death);
                     }
                 }
-                if (shiftNum >= 1)//2)
+                if (shiftNum >= 1)
                 {
                     //Power outage
                     //FuseBox + fuses
@@ -255,7 +252,7 @@ public class GameplayController : MonoBehaviour
                         }
                     }
                 }
-                if (shiftNum >= 2 || penalty >= 5)//3)
+                if (shiftNum >= 2 || penalty >= 5)
                 {
                     //'The Button'
                     //Malformed Documents
@@ -319,7 +316,7 @@ public class GameplayController : MonoBehaviour
                 if (!FadeController.instance.isFading)
                 {
                     //Reset scene for next shift
-                    if (shiftNum < 4)//5)
+                    if (shiftNum < 4)
                     {
                         if (nextNightCo == null)
                             nextNightCo = StartCoroutine(EndOfNightRoutine());
@@ -372,9 +369,9 @@ public class GameplayController : MonoBehaviour
 
     void SetProps(int shiftVal)
     {
-        radio.SetActive(shiftVal >= 0);//1);
-        fuseBoxCover.SetActive(shiftVal < 1);//2);
-        bell.SetActive(shiftVal >= 2);//3);
+        radio.SetActive(shiftVal >= 0);
+        fuseBoxCover.SetActive(shiftVal < 1);
+        bell.SetActive(shiftVal >= 2);
     }
 
     void SetWarningLights(int penaltyVal)
