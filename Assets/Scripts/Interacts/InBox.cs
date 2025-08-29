@@ -17,7 +17,7 @@ public class InBox : InteractObject
     [Header("Document Variables")]
     [SerializeField] GameObject documentObj;
     [SerializeField] List<Document> documents;
-    [SerializeField] float documentGenTime = 7.5f;
+    [SerializeField] float documentGenTime = 12.5f;
     [SerializeField] TMP_Text documentCount;
 
 
@@ -87,7 +87,8 @@ public class InBox : InteractObject
                 if (airTime <= 0)
                 {
                     airTime = aTimer;
-                    GameplayController.instance.SetState(GameplayController.State.death);
+                    //GameplayController.instance.SetState(GameplayController.State.death);
+                    //TODO have this fade the player's vision instead of killing them
                 }
             }
             else
@@ -141,7 +142,7 @@ public class InBox : InteractObject
         newDoc.InitializeDoc();
         documents.Add(newDoc);
 
-        float maxTime = GameplayController.instance.shiftNum >= 3 ? 5.5f : 7.5f;
+        float maxTime = GameplayController.instance.shiftNum >= 3 ? 10.5f : 12.5f;
         documentGenTime = Random.Range(3f, maxTime);
     }
 

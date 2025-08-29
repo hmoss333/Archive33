@@ -207,10 +207,18 @@ MonoBehaviour:
   arrowDefault: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 0.49019608}
   arrowActive: {r: 0, g: 0.8156863, b: 1, a: 0.49019608}
   currentFrequency: 36
+  activeStations: []
+  stationClips:
+  - {fileID: 8300000, guid: b4dd2310a58c84b4586e3dbcef3363ec, type: 3}
+  - {fileID: 8300000, guid: b4dd2310a58c84b4586e3dbcef3363ec, type: 3}
+  - {fileID: 8300000, guid: b4dd2310a58c84b4586e3dbcef3363ec, type: 3}
+  - {fileID: 8300000, guid: b4dd2310a58c84b4586e3dbcef3363ec, type: 3}
+  - {fileID: 8300000, guid: b4dd2310a58c84b4586e3dbcef3363ec, type: 3}
   radioText: {fileID: 1185434254820822383}
-  rotateSpeed: 10
-  focusTime: 3
+  rotateSpeed: 25
+  focusTime: 1
   audioSource: {fileID: 3656556502706598338}
+  targetAudio: {fileID: 8300000, guid: d9fe638ba1ce545e5b7ed1f888cbc1cc, type: 3}
   staticAudio: {fileID: 8300000, guid: ea24f109dd7d040ed9c875fa3611d5c0, type: 3}
   badAudio: {fileID: 8300000, guid: a021612f3eb17438c8da32591b739f5b, type: 3}
 --- !u!82 &3656556502706598338
@@ -224,10 +232,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.75
+  m_PlayOnAwake: 1
+  m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

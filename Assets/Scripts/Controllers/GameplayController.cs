@@ -142,7 +142,7 @@ public class GameplayController : MonoBehaviour
 
         if ((state == State.dialogue || state == State.gameplay) && shiftNum < 5)
         {
-            shiftDuration = shiftNum > 0 ? 360f : 300f;
+            shiftDuration = 360f; //shiftNum > 0 ? 360f : 300f;
             System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
             clockText.text = time.ToString(@"mm\:ss");
 
@@ -192,10 +192,9 @@ public class GameplayController : MonoBehaviour
                         stationResetTimer -= Time.deltaTime;
                         if (stationResetTimer <= 0)
                         {
-                            float maxStationResetTime = shiftNum >= 3 ? 12f : 14f;
+                            float maxStationResetTime = shiftNum >= 3 ? 25f : 28f;
                             stationResetTimer = Random.Range(10f, maxStationResetTime);
                             ToggleStaticMan(true);
-                            Radio.instance.InitializeFrequency();
                         }
                     }
 

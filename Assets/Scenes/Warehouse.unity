@@ -250,7 +250,7 @@ MonoBehaviour:
   shiftDuration: 0
   clockText: {fileID: 218819513}
   camEffectController: {fileID: 1508664987}
-  stationResetTimer: 14
+  stationResetTimer: 28
   staticMan: {fileID: 2775949822140155805}
   powerOutageTimer: 20
   zombie: {fileID: 1118018747008711890}
@@ -9534,26 +9534,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1234618964487236697, guid: ecc5115345082417a942529e42c254e3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4436502981899838426, guid: ecc5115345082417a942529e42c254e3, type: 3}
-      propertyPath: m_fontSize
-      value: 8.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 4436502981899838426, guid: ecc5115345082417a942529e42c254e3, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 4436502981899838426, guid: ecc5115345082417a942529e42c254e3, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 5101982228472891242, guid: ecc5115345082417a942529e42c254e3, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5847653687605227963, guid: ecc5115345082417a942529e42c254e3, type: 3}
       propertyPath: m_Name
       value: Tube
@@ -9721,30 +9701,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1038284207437855169, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 1185434254820822383, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 1185434254820822383, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 3656556502706598338, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3656556502706598338, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
-      propertyPath: m_Volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3656556502706598338, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5768634394724422485, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
       propertyPath: m_Name
       value: Radio
@@ -9792,18 +9748,6 @@ PrefabInstance:
     - target: {fileID: 5768634394724422488, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5768634394724422491, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
-      propertyPath: focusTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5768634394724422491, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
-      propertyPath: rotateSpeed
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7904118900746251388, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
@@ -9940,10 +9884,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 822094084782383603, guid: c6bed506aaa6b4f9d87d918d6bc9c529, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 582c261d2ca4242d1a8f798684bf3d75, type: 2}
     - target: {fileID: 7067290427019987210, guid: c6bed506aaa6b4f9d87d918d6bc9c529, type: 3}
       propertyPath: m_RootOrder
       value: 4

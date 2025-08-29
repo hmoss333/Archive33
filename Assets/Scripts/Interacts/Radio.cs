@@ -11,11 +11,14 @@ public class Radio : InteractObject
     [SerializeField] SpriteRenderer arrowLeft, arrowRight;
     [SerializeField] Color arrowDefault, arrowActive;
     [SerializeField][Range(30, 300)] float currentFrequency; //Use LF (low frequency) band for radio stations
+    [SerializeField] List<RadioStation> activeStations;
+    [SerializeField] List<AudioClip> stationClips;
+
     [SerializeField] TMP_Text radioText;
     public float targetFrequency { get; private set; } //public in order to display frequency on document
     [SerializeField] float rotateSpeed, focusTime = 1f;
     [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip staticAudio, badAudio;
+    [SerializeField] AudioClip targetAudio, staticAudio, badAudio;
 
     bool interacting;
 
@@ -27,12 +30,6 @@ public class Radio : InteractObject
         else
             Destroy(this);
 
-        //interacting = false;
-        //audioSource.clip = staticAudio;
-        //audioSource.loop = true;
-        //audioSource.Play();
-        //currentFrequency = 36.9f;
-        //targetFrequency = currentFrequency;
         InitializeRadio();
     }
 
@@ -50,9 +47,10 @@ public class Radio : InteractObject
         audioSource.Play();
         currentFrequency = 36.9f;
         targetFrequency = currentFrequency;
+        GenerateActiveStations();
     }
 
-    public void InitializeFrequency()
+    private void InitializeFrequency()
     {
         float returnFrequency = targetFrequency;
         float offsetVal = Random.Range(35f, 50f);
@@ -68,6 +66,41 @@ public class Radio : InteractObject
             InitializeFrequency();
         else
             targetFrequency = returnFrequency;
+    }
+
+    public void GenerateActiveStations()
+    {
+        activeStations.Clear();
+        InitializeFrequency();
+        RadioStation targetStation = new RadioStation();
+        targetStation.frequency = targetFrequency;
+        targetStation.message = PlayerController.instance.GetCurrentDocument().toBeShredded ? "Shred File" : PlayerController.instance.GetCurrentDocument().fileColor.ToString();
+        targetStation.clip = targetAudio;
+        activeStations.Add(targetStation);
+
+        //Active stations include Red, Blue, Yellow, Destroy, and Bad
+        for (int i = 0; i < 4; i++)
+        {
+            float randFrequency = Random.Range(30f, 300f);
+            print ($"RandFrequency: {randFrequency}");
+            foreach (RadioStation station in activeStations)
+            {
+                if (station.frequency < randFrequency + 7.5f && station.frequency > randFrequency - 7.5f)
+                {
+                    print("Station already exists in range");
+                }
+                else
+                {
+                    print("Added station");
+                    RadioStation newStation = new RadioStation();
+                    newStation.frequency = randFrequency;
+                    newStation.message = PlayerController.instance.GetRandomColor().ToString();
+                    newStation.clip = stationClips[i];
+                    activeStations.Add(newStation);
+                    break;
+                }
+            }
+        }
     }
 
     public override void Update()
@@ -99,33 +132,46 @@ public class Radio : InteractObject
                 currentFrequency -= Time.deltaTime * rotateSpeed;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
             }
-        }
 
-        if (GameplayController.instance.spawnStaticMan)
-        {
-            if (currentFrequency <= targetFrequency + 1f && currentFrequency >= targetFrequency - 1f)
+
+
+            //Check active stations
+            foreach (RadioStation station in activeStations)
             {
-                focusTime -= Time.deltaTime;
-                if (focusTime <= 0f)
+                if (currentFrequency <= station.frequency + 1.5f && currentFrequency >= station.frequency - 1.5f)
                 {
+                    if (!audioSource.isPlaying)
+                        audioSource.PlayOneShot(station.clip);
+                    DialogueController.instance.UpdateText(station.message, false);
+                    if (GameplayController.instance.spawnStaticMan)
+                    {
+                        focusTime -= Time.deltaTime;
+                        if (focusTime <= 0f)
+                        {
+                            focusTime = 1f;
+                            GameplayController.instance.ToggleStaticMan(false);
+                            if (audioSource.clip != staticAudio)
+                            {
+                                audioSource.Stop();
+                                audioSource.clip = staticAudio;
+                                audioSource.Play();
+                            }
+                        }
+                    }
+                    break;
+                }
+                else
+                {
+                    if (!audioSource.isPlaying)
+                        audioSource.PlayOneShot(staticAudio);
+                    DialogueController.instance.UpdateText("......", false);
                     focusTime = 1f;
-                    GameplayController.instance.ToggleStaticMan(false);
-                    if (audioSource.clip != staticAudio)
+                    if (audioSource.clip != badAudio)
                     {
                         audioSource.Stop();
-                        audioSource.clip = staticAudio;
+                        audioSource.clip = badAudio;
                         audioSource.Play();
                     }
-                }
-            }
-            else
-            {
-                focusTime = 1f;
-                if (audioSource.clip != badAudio)
-                {
-                    audioSource.Stop();
-                    audioSource.clip = badAudio;
-                    audioSource.Play();
                 }
             }
         }
@@ -134,7 +180,8 @@ public class Radio : InteractObject
     public override void Interact()
     {
         base.Interact();
-        interacting = !interacting;       
+        interacting = !interacting;
+        DialogueController.instance.UpdateText(string.Empty, false);
     }
 }
 
@@ -143,5 +190,6 @@ public class Radio : InteractObject
 class RadioStation
 {
     public float frequency;
+    public string message;
     public AudioClip clip;
 }

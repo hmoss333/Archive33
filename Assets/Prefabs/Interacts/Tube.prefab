@@ -951,7 +951,7 @@ MonoBehaviour:
   rotationSpeed: 0.5
   documentObj: {fileID: 4513695086653049962}
   documents: []
-  documentGenTime: 5.5
+  documentGenTime: 12.5
   documentCount: {fileID: 4436502981899838426}
   airArrow: {fileID: 6687558012801753492}
   arrowRotSpeed: 0.035

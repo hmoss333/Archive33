@@ -110,16 +110,11 @@ public class PlayerController : MonoBehaviour
     {
         currentDoc = newDoc;
         hasDocument = true;
+        Radio.instance.GenerateActiveStations();
 
         if (currentDoc != null)
         {
-            string s_documentText = currentDoc.toBeShredded
-                                      ? "Destroy"
-                                      : currentDoc.fileColor.ToString();
-            if (GameplayController.instance.spawnStaticMan) //GameplayController.instance.shiftNum >= 1 && 
-                s_documentText += "\nStation: " + Radio.instance.targetFrequency.ToString("F2");
-
-            documentInstructions.text = $"File: {s_documentText}";
+            documentInstructions.text = "Station: " + Radio.instance.targetFrequency.ToString("F2");
             documentText.text = currentDoc.documentText;
         }
     }
@@ -133,6 +128,17 @@ public class PlayerController : MonoBehaviour
     {
         currentDoc = null;
         hasDocument = false;
+    }
+
+    public Document.FileColor GetRandomColor()
+    {
+        System.Array enumValues = System.Enum.GetValues(typeof(Document.FileColor));
+
+        // Generate a random index within the array's bounds
+        int randomIndex = UnityEngine.Random.Range(0, enumValues.Length);
+
+        // Retrieve the value at the random index and cast it to the enum type
+        return (Document.FileColor)enumValues.GetValue(randomIndex);
     }
 
     public void SetState(States setState)
