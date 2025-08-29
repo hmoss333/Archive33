@@ -123,7 +123,7 @@ public class GameplayController : MonoBehaviour
         currentPoint = 0;
         InBox.instance.Reset();
         retryMenu.SetActive(false);
-        state = State.dialogue;
+        state = State.gameplay;//State.dialogue;
 
 
         foreach (Light light in lights)

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6800758719896149001}
   - component: {fileID: 4554600073901165245}
   - component: {fileID: 8017842189570814505}
+  - component: {fileID: 6470421558955177304}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -117,6 +118,22 @@ MonoBehaviour:
   _horizontalShake: 0.05
   _colorDrift: 0.25
   _shader: {fileID: 4800000, guid: da33272284ea24f208f36998880990be, type: 3}
+--- !u!114 &6470421558955177304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6800758719896149002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb969a8f062e42819ac299366906a36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postShader: {fileID: 4800000, guid: ef5d0ce70bdf64409a2ee8ecce3545fe, type: 3}
+  radius: 1
+  feather: 1
+  tintColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6800758720562757210
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +270,7 @@ PrefabInstance:
     - target: {fileID: 1605877541073675992, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -1099266064948786653, guid: 151e38c24b8ca4486997fe78026fced9, type: 2}
+      objectReference: {fileID: -1099266064948786653, guid: 28ab9fc86e0f64bae87ca99422e30788, type: 2}
     - target: {fileID: 2730605817567717532, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -309,7 +326,7 @@ PrefabInstance:
     - target: {fileID: 5595802564363315504, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -1099266064948786653, guid: 151e38c24b8ca4486997fe78026fced9, type: 2}
+      objectReference: {fileID: -1099266064948786653, guid: 28ab9fc86e0f64bae87ca99422e30788, type: 2}
     - target: {fileID: 7615092512427165923, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_Name
       value: Document

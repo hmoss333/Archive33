@@ -24,7 +24,7 @@ public class InBox : InteractObject
     [Header("Air Variables")]
     [SerializeField] GameObject airArrow;
     [SerializeField] float arrowRotSpeed = 1.0f;
-    [SerializeField] float airTime;// = 30f;
+    public float airTime { get; private set; } //; = 30f;
     private Quaternion arrowStartRotation, arrowEndRotation;
     private float _arrowLerpTime = 0f;
 
@@ -45,6 +45,7 @@ public class InBox : InteractObject
             Destroy(this);
 
         baseTime = 0f;
+        airTime = 30f;
         aTimer = airTime;
         documentObj.SetActive(false);
 
@@ -84,18 +85,22 @@ public class InBox : InteractObject
                 }
 
                 airTime -= Time.deltaTime / 2f;
-                if (airTime <= 0)
-                {
-                    airTime = aTimer;
-                    //GameplayController.instance.SetState(GameplayController.State.death);
-                    //TODO have this fade the player's vision instead of killing them
-                }
+                //if (airTime <= 0)
+                //{
+                //    //airTime = aTimer;
+                //    //GameplayController.instance.SetState(GameplayController.State.death);
+                //    //TODO have this fade the player's vision instead of killing them
+                //}
             }
             else
             {
                 _arrowLerpTime = 0f;
                 airArrow.transform.localRotation = arrowStartRotation;
-                airTime = aTimer;
+                airTime += Time.deltaTime * 5f;
+                if (airTime >= aTimer)
+                {
+                    airTime = aTimer;
+                }
             }
         }
 

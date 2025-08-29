@@ -82,7 +82,6 @@ public class Radio : InteractObject
         for (int i = 0; i < 4; i++)
         {
             float randFrequency = Random.Range(30f, 300f);
-            print ($"RandFrequency: {randFrequency}");
             foreach (RadioStation station in activeStations)
             {
                 if (station.frequency < randFrequency + 7.5f && station.frequency > randFrequency - 7.5f)
@@ -165,7 +164,6 @@ public class Radio : InteractObject
                     if (!audioSource.isPlaying)
                         audioSource.PlayOneShot(staticAudio);
                     DialogueController.instance.UpdateText("......", false);
-                    focusTime = 1f;
                     if (audioSource.clip != badAudio)
                     {
                         audioSource.Stop();
