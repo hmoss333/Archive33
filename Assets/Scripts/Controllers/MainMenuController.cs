@@ -7,6 +7,9 @@ using TMPro;
 
 public class MainMenuController : MonoBehaviour
 {
+    [SerializeField] Transform titleCamPos, menuCamPos;
+    private bool movingCamera = false;
+
     [SerializeField] GameObject mainMenu, shiftSelectMenu, creditsMenu;
     [SerializeField] TMP_Text shiftSelectText;
     [SerializeField] TMP_Text versionNumber;
@@ -40,6 +43,35 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetInt("longNightMode", 1);
         longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
         longNightButtonCanvas.interactable = PlayerPrefs.GetInt("longNightMode", 0) == 1;
+
+        mainMenu.SetActive(false);
+        shiftSelectMenu.SetActive(false);
+        creditsMenu.SetActive(false);
+
+        Camera.main.transform.position = titleCamPos.position;
+        Camera.main.transform.rotation = titleCamPos.rotation;
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetMouseButtonDown(0)
+            && Camera.main.transform.position != menuCamPos.position
+            && !movingCamera)
+        {
+            movingCamera = true;
+        }
+
+        if (movingCamera)
+        {
+            Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, menuCamPos.position, 2.5f * Time.deltaTime);
+            Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, menuCamPos.rotation, 2.5f * Time.deltaTime);
+            mainMenu.SetActive(true);
+
+            if (Camera.main.transform.position == menuCamPos.position)
+            {
+                movingCamera = false;
+            }
+        }
     }
 
     public void StartGame()
