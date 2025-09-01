@@ -130,7 +130,7 @@ public class GameplayController : MonoBehaviour
         {
             light.enabled = true;
             light.GetComponent<LightFlicker>().enabled = false;
-            light.intensity = 3f;
+            light.intensity = 1.5f;
         }
         FadeController.instance.StartFade(0f, 2f);
     }
@@ -224,7 +224,7 @@ public class GameplayController : MonoBehaviour
                         {
                             light.enabled = true;
                             light.GetComponent<LightFlicker>().enabled = false;
-                            light.intensity = 3f;
+                            light.intensity = 1.5f;
                         }
                     }
                     else
@@ -517,7 +517,7 @@ public class GameplayController : MonoBehaviour
         {
             light.enabled = true;
             light.GetComponent<LightFlicker>().enabled = false;
-            light.intensity = 3f;
+            light.intensity = 1.5f;
         }
 
         yield return new WaitForSeconds(2f);
