@@ -209,11 +209,10 @@ MonoBehaviour:
   currentFrequency: 36
   activeStations: []
   stationClips:
-  - {fileID: 8300000, guid: b4dd2310a58c84b4586e3dbcef3363ec, type: 3}
-  - {fileID: 8300000, guid: b4dd2310a58c84b4586e3dbcef3363ec, type: 3}
-  - {fileID: 8300000, guid: b4dd2310a58c84b4586e3dbcef3363ec, type: 3}
-  - {fileID: 8300000, guid: b4dd2310a58c84b4586e3dbcef3363ec, type: 3}
-  - {fileID: 8300000, guid: b4dd2310a58c84b4586e3dbcef3363ec, type: 3}
+  - {fileID: 8300000, guid: 9b0291a7a73d64d7ab4f89de9f16b46e, type: 3}
+  - {fileID: 8300000, guid: bf381d33bacac420695906d368385b6b, type: 3}
+  - {fileID: 8300000, guid: b28be12ec454a482eaa91d783c2c8fd9, type: 3}
+  - {fileID: 8300000, guid: fc6264c3c679745788b1680ce1a9f453, type: 3}
   radioText: {fileID: 1185434254820822383}
   rotateSpeed: 25
   focusTime: 1

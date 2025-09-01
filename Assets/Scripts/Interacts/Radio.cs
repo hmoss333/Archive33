@@ -20,7 +20,7 @@ public class Radio : InteractObject
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip targetAudio, staticAudio, badAudio;
 
-    bool interacting;
+    [SerializeField] bool interacting, tunedToStation;
 
 
     public void Start()
@@ -165,18 +165,21 @@ public class Radio : InteractObject
 
 
             //Check active stations
-            foreach (RadioStation station in activeStations)
+            //foreach (RadioStation station in activeStations)
+            for (int i = 0; i < activeStations.Count; i++)
             {
-                if (currentFrequency <= station.frequency + 1.5f && currentFrequency >= station.frequency - 1.5f)
+                if (currentFrequency <= activeStations[i].frequency + 1.5f && currentFrequency >= activeStations[i].frequency - 1.5f)
                 {
+                    tunedToStation = true;
+
                     //Play station audio
-                    if (audioSource.clip != station.clip)
+                    if (audioSource.clip != activeStations[i].clip)
                     {
                         audioSource.Stop();
-                        audioSource.clip = station.clip;
+                        audioSource.clip = activeStations[i].clip;
                         audioSource.Play();
                     }
-                    DialogueController.instance.UpdateText(station.message, false);
+                    DialogueController.instance.UpdateText(activeStations[i].message, false);
                     if (GameplayController.instance.spawnStaticMan)
                     {
                         focusTime -= Time.deltaTime;
@@ -190,29 +193,18 @@ public class Radio : InteractObject
                 }
                 else
                 {
+                    tunedToStation = false;
                     DialogueController.instance.UpdateText("......", false);
-                    if (GameplayController.instance.spawnStaticMan)
-                    {
-                        if (audioSource.clip != badAudio)
-                        {
-                            audioSource.Stop();
-                            audioSource.clip = badAudio;
-                            audioSource.Play();
-                        }
-                    }
-                    else
-                    {
-                        if (audioSource.clip != staticAudio)
-                        {
-                            audioSource.Stop();
-                            audioSource.clip = staticAudio;
-                            audioSource.Play();
-                        }
-                    }
                 }
             }
         }
         else
+        {
+            tunedToStation = false;
+        }
+
+        //else
+        if (!tunedToStation)
         {
             //If not interacting, play default audio
             if (GameplayController.instance.spawnStaticMan)
