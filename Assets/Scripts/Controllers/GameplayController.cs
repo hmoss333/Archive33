@@ -135,6 +135,11 @@ public class GameplayController : MonoBehaviour
         FadeController.instance.StartFade(0f, 2f);
     }
 
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("newGame", 0);
+    }
+
     private void Update()
     {
         SetProps(shiftNum);
@@ -333,7 +338,7 @@ public class GameplayController : MonoBehaviour
                 //Logic for if the player dies
                 //Other hazards will change the state from gameplay to this
                 if (gameOverCo == null)
-                    gameOverCo = StartCoroutine(GameOverRoutine());
+                    gameOverCo = StartCoroutine(GameOverRoutine(true));
                 break;
             default:
                 DialogueController.instance.UpdateText($"Current state: {state}", true);
@@ -341,6 +346,8 @@ public class GameplayController : MonoBehaviour
         }
     }
 
+
+    //Document Text Functions
     private void LoadDocumentText()
     {
         string documentTextLocation = Path.Combine(Application.streamingAssetsPath, "documentText.json");
@@ -362,6 +369,8 @@ public class GameplayController : MonoBehaviour
         return returnString;
     }
 
+
+    //Initialization Functions
     public void SetState(State stateVal)
     {
         state = stateVal;
@@ -382,6 +391,8 @@ public class GameplayController : MonoBehaviour
         }
     }
 
+
+    //Gameplay Functions
     //TODO determine if this is still needed
     ///Probably can be removed since we're no longer using score
     public void Success()
@@ -431,6 +442,8 @@ public class GameplayController : MonoBehaviour
         }
     }
 
+
+    //Death Functions
     void JumpScare(int js_num)
     {
         js_Models[js_num].SetActive(true);
@@ -438,6 +451,16 @@ public class GameplayController : MonoBehaviour
         jumpScareAudio.PlayOneShot(jumpScareClip);
     }
 
+    public void Suffocate()
+    {
+        if (gameOverCo == null)
+            gameOverCo = StartCoroutine(GameOverRoutine(false));
+
+        SetState(State.death);
+    }
+
+
+    //Retry Menu Buttons
     public void MainMenu()
     {
         retryMenu.SetActive(false);
@@ -450,6 +473,8 @@ public class GameplayController : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+
+    //Coroutines
     IEnumerator IntroDialogueRoutine(List<string> dialogueItems)
     {
         yield return new WaitForSeconds(3.5f);
@@ -465,9 +490,10 @@ public class GameplayController : MonoBehaviour
         introDialogueCo = null;
     }
 
-    IEnumerator GameOverRoutine()
+    IEnumerator GameOverRoutine(bool jumpScare)
     {
-        JumpScare(js_ModelNum);
+        if (jumpScare)
+            JumpScare(js_ModelNum);
 
         FadeController.instance.StartFade(1f, 3f);
         FadeController.instance.StartFadeText(shiftOverText, 1f, 1f);
@@ -545,11 +571,6 @@ public class GameplayController : MonoBehaviour
         SceneManager.LoadScene(0);
 
         winGameCo = null;
-    }
-
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.SetInt("newGame", 0);
     }
 }
 

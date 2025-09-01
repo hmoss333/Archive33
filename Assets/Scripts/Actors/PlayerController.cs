@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
 
-    public enum States { idle, interacting, attacked };
+    public enum States { idle, interacting };
     public States state;
 
     [SerializeField] Transform camTransform;
@@ -106,6 +106,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    //Document Functions
     public void SetCurrentDocument(Document newDoc)
     {
         currentDoc = newDoc;

@@ -85,12 +85,10 @@ public class InBox : InteractObject
                 }
 
                 airTime -= Time.deltaTime / 2f;
-                //if (airTime <= 0)
-                //{
-                //    //airTime = aTimer;
-                //    //GameplayController.instance.SetState(GameplayController.State.death);
-                //    //TODO have this fade the player's vision instead of killing them
-                //}
+                if (airTime <= 0)
+                {
+                    GameplayController.instance.Suffocate();
+                }
             }
             else
             {
