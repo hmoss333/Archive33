@@ -20,7 +20,7 @@ public class Radio : InteractObject
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip targetAudio, staticAudio, badAudio;
 
-    [SerializeField] bool interacting, tunedToStation;
+    bool interacting, tunedToStation;
 
 
     public void Start()
@@ -75,7 +75,6 @@ public class Radio : InteractObject
         RadioStation targetStation = new RadioStation();
         targetStation.frequency = targetFrequency;
         targetStation.message = PlayerController.instance.GetCurrentDocument().toBeShredded ? "Shred File" : PlayerController.instance.GetCurrentDocument().fileColor.ToString();
-        //targetStation.clip = targetAudio;
         switch (targetStation.message.ToLower())
         {
             case "red":
@@ -109,7 +108,6 @@ public class Radio : InteractObject
                     RadioStation newStation = new RadioStation();
                     newStation.frequency = randFrequency;
                     newStation.message = PlayerController.instance.GetRandomColor().ToString();
-                    //newStation.clip = stationClips[i];
                     switch (newStation.message.ToLower())
                     {
                         case "red":
@@ -203,10 +201,9 @@ public class Radio : InteractObject
             tunedToStation = false;
         }
 
-        //else
         if (!tunedToStation)
         {
-            //If not interacting, play default audio
+            //If not tuned to a specific station, play default audio
             if (GameplayController.instance.spawnStaticMan)
             {
                 if (audioSource.clip != badAudio)
