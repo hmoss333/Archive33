@@ -33,7 +33,7 @@ public class GameplayController : MonoBehaviour
     private int penalty; //Increments on incorrect filing; 5 = death
     [SerializeField] TMP_Text clockText;
 
-    [NaughtyAttributes.HorizontalLine]
+    [HorizontalLine]
 
     [Header("Radio Static Values")]
     [SerializeField] CamEffectController camEffectController;
@@ -43,7 +43,7 @@ public class GameplayController : MonoBehaviour
     Vector3 staticManDefaultPos;
     ObjectFlicker staticManFlicker;
 
-    [NaughtyAttributes.HorizontalLine]
+    [HorizontalLine]
 
     [Header("Power Outage Values")]
     [SerializeField] private float powerOutageTimer = 20f;
@@ -54,7 +54,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] List<Transform> zombiePoints;
     [SerializeField] List<Light> lights;
 
-    [NaughtyAttributes.HorizontalLine]
+    [HorizontalLine]
 
     [Header("Bell and Robot Values")]
     [SerializeField] GameObject robot;
@@ -64,7 +64,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] List<Transform> robotMovePoints;
     private int currentPoint;
 
-    [NaughtyAttributes.HorizontalLine]
+    [HorizontalLine]
 
     [Header("Jump Scare Values")]
     [SerializeField] GameObject jumpScare;
@@ -73,7 +73,13 @@ public class GameplayController : MonoBehaviour
     AudioSource jumpScareAudio;
     [SerializeField] AudioClip jumpScareClip;
 
-    [NaughtyAttributes.HorizontalLine]
+    [HorizontalLine]
+
+    [Header("Suffocate Values")]
+    [SerializeField] AudioSource suffocateAudio;
+    [SerializeField] AudioClip suffocateClip;
+
+    [HorizontalLine]
 
     [Header("Dialogue Values")]
     [SerializeField] TMP_Text shiftOverText;
@@ -453,6 +459,7 @@ public class GameplayController : MonoBehaviour
 
     public void Suffocate()
     {
+        suffocateAudio.PlayOneShot(suffocateClip);
         if (gameOverCo == null)
             gameOverCo = StartCoroutine(GameOverRoutine(false));
 

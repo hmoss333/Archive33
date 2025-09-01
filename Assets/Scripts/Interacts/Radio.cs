@@ -75,7 +75,22 @@ public class Radio : InteractObject
         RadioStation targetStation = new RadioStation();
         targetStation.frequency = targetFrequency;
         targetStation.message = PlayerController.instance.GetCurrentDocument().toBeShredded ? "Shred File" : PlayerController.instance.GetCurrentDocument().fileColor.ToString();
-        targetStation.clip = targetAudio;
+        //targetStation.clip = targetAudio;
+        switch (targetStation.message.ToLower())
+        {
+            case "red":
+                targetStation.clip = stationClips[0];
+                break;
+            case "yellow":
+                targetStation.clip = stationClips[1];
+                break;
+            case "blue":
+                targetStation.clip = stationClips[2];
+                break;
+            default:
+                targetStation.clip = stationClips[3];
+                break;
+        }
         activeStations.Add(targetStation);
 
         //Active stations include Red, Blue, Yellow, Destroy, and Bad
@@ -94,7 +109,22 @@ public class Radio : InteractObject
                     RadioStation newStation = new RadioStation();
                     newStation.frequency = randFrequency;
                     newStation.message = PlayerController.instance.GetRandomColor().ToString();
-                    newStation.clip = stationClips[i];
+                    //newStation.clip = stationClips[i];
+                    switch (newStation.message.ToLower())
+                    {
+                        case "red":
+                            newStation.clip = stationClips[0];
+                            break;
+                        case "yellow":
+                            newStation.clip = stationClips[1];
+                            break;
+                        case "blue":
+                            newStation.clip = stationClips[2];
+                            break;
+                        default:
+                            newStation.clip = stationClips[3];
+                            break;
+                    }
                     activeStations.Add(newStation);
                     break;
                 }
@@ -139,8 +169,13 @@ public class Radio : InteractObject
             {
                 if (currentFrequency <= station.frequency + 1.5f && currentFrequency >= station.frequency - 1.5f)
                 {
-                    if (!audioSource.isPlaying)
-                        audioSource.PlayOneShot(station.clip);
+                    //Play station audio
+                    if (audioSource.clip != station.clip)
+                    {
+                        audioSource.Stop();
+                        audioSource.clip = station.clip;
+                        audioSource.Play();
+                    }
                     DialogueController.instance.UpdateText(station.message, false);
                     if (GameplayController.instance.spawnStaticMan)
                     {
@@ -149,27 +184,53 @@ public class Radio : InteractObject
                         {
                             focusTime = 1f;
                             GameplayController.instance.ToggleStaticMan(false);
-                            if (audioSource.clip != staticAudio)
-                            {
-                                audioSource.Stop();
-                                audioSource.clip = staticAudio;
-                                audioSource.Play();
-                            }
                         }
                     }
                     break;
                 }
                 else
                 {
-                    if (!audioSource.isPlaying)
-                        audioSource.PlayOneShot(staticAudio);
                     DialogueController.instance.UpdateText("......", false);
-                    if (audioSource.clip != badAudio)
+                    if (GameplayController.instance.spawnStaticMan)
                     {
-                        audioSource.Stop();
-                        audioSource.clip = badAudio;
-                        audioSource.Play();
+                        if (audioSource.clip != badAudio)
+                        {
+                            audioSource.Stop();
+                            audioSource.clip = badAudio;
+                            audioSource.Play();
+                        }
                     }
+                    else
+                    {
+                        if (audioSource.clip != staticAudio)
+                        {
+                            audioSource.Stop();
+                            audioSource.clip = staticAudio;
+                            audioSource.Play();
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            //If not interacting, play default audio
+            if (GameplayController.instance.spawnStaticMan)
+            {
+                if (audioSource.clip != badAudio)
+                {
+                    audioSource.Stop();
+                    audioSource.clip = badAudio;
+                    audioSource.Play();
+                }
+            }
+            else
+            {
+                if (audioSource.clip != staticAudio)
+                {
+                    audioSource.Stop();
+                    audioSource.clip = staticAudio;
+                    audioSource.Play();
                 }
             }
         }
