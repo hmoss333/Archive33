@@ -17,14 +17,14 @@ public class InBox : InteractObject
     [Header("Document Variables")]
     [SerializeField] GameObject documentObj;
     [SerializeField] List<Document> documents;
-    [SerializeField] float documentGenTime = 7.5f;
+    [SerializeField] float documentGenTime = 12.5f;
     [SerializeField] TMP_Text documentCount;
 
 
     [Header("Air Variables")]
     [SerializeField] GameObject airArrow;
     [SerializeField] float arrowRotSpeed = 1.0f;
-    [SerializeField] float airTime;// = 30f;
+    public float airTime { get; private set; } //; = 30f;
     private Quaternion arrowStartRotation, arrowEndRotation;
     private float _arrowLerpTime = 0f;
 
@@ -45,6 +45,7 @@ public class InBox : InteractObject
             Destroy(this);
 
         baseTime = 0f;
+        airTime = 30f;
         aTimer = airTime;
         documentObj.SetActive(false);
 
@@ -84,17 +85,22 @@ public class InBox : InteractObject
                 }
 
                 airTime -= Time.deltaTime / 2f;
-                if (airTime <= 0)
-                {
-                    airTime = aTimer;
-                    GameplayController.instance.SetState(GameplayController.State.death);
-                }
+                //if (airTime <= 0)
+                //{
+                //    //airTime = aTimer;
+                //    //GameplayController.instance.SetState(GameplayController.State.death);
+                //    //TODO have this fade the player's vision instead of killing them
+                //}
             }
             else
             {
                 _arrowLerpTime = 0f;
                 airArrow.transform.localRotation = arrowStartRotation;
-                airTime = aTimer;
+                airTime += Time.deltaTime * 5f;
+                if (airTime >= aTimer)
+                {
+                    airTime = aTimer;
+                }
             }
         }
 
@@ -141,7 +147,7 @@ public class InBox : InteractObject
         newDoc.InitializeDoc();
         documents.Add(newDoc);
 
-        float maxTime = GameplayController.instance.shiftNum >= 3 ? 5.5f : 7.5f;
+        float maxTime = GameplayController.instance.shiftNum >= 3 ? 10.5f : 12.5f;
         documentGenTime = Random.Range(3f, maxTime);
     }
 

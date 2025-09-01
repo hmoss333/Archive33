@@ -142,7 +142,7 @@ public class GameplayController : MonoBehaviour
 
         if ((state == State.dialogue || state == State.gameplay) && shiftNum < 5)
         {
-            shiftDuration = shiftNum > 0 ? 360f : 240f;
+            shiftDuration = 360f; //shiftNum > 0 ? 360f : 300f;
             System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
             clockText.text = time.ToString(@"mm\:ss");
 
@@ -167,14 +167,11 @@ public class GameplayController : MonoBehaviour
                 break;
             case State.gameplay:
                 //Handle all gameplay loop logic
-                //if (shiftNum >= 0)
-                //{
-                //    //Inbox
-                //    //Outbox
-                //    //Shredder
-                //}
-                if (shiftNum >= 0)//1)
+                if (shiftNum >= 0)
                 {
+                    //Inbox
+                    //Outbox
+                    //Shredder
                     //Radio
                     //Static man enemy
                     staticMan.SetActive(spawnStaticMan);
@@ -192,10 +189,9 @@ public class GameplayController : MonoBehaviour
                         stationResetTimer -= Time.deltaTime;
                         if (stationResetTimer <= 0)
                         {
-                            float maxStationResetTime = shiftNum >= 3 ? 12f : 14f;
+                            float maxStationResetTime = shiftNum >= 3 ? 25f : 28f;
                             stationResetTimer = Random.Range(10f, maxStationResetTime);
                             ToggleStaticMan(true);
-                            Radio.instance.InitializeFrequency();
                         }
                     }
 
@@ -205,7 +201,7 @@ public class GameplayController : MonoBehaviour
                         SetState(State.death);
                     }
                 }
-                if (shiftNum >= 1)//2)
+                if (shiftNum >= 1)
                 {
                     //Power outage
                     //FuseBox + fuses
@@ -256,7 +252,7 @@ public class GameplayController : MonoBehaviour
                         }
                     }
                 }
-                if (shiftNum >= 2 || penalty >= 5)//3)
+                if (shiftNum >= 2 || penalty >= 5)
                 {
                     //'The Button'
                     //Malformed Documents
@@ -320,7 +316,7 @@ public class GameplayController : MonoBehaviour
                 if (!FadeController.instance.isFading)
                 {
                     //Reset scene for next shift
-                    if (shiftNum < 4)//5)
+                    if (shiftNum < 4)
                     {
                         if (nextNightCo == null)
                             nextNightCo = StartCoroutine(EndOfNightRoutine());
@@ -373,9 +369,9 @@ public class GameplayController : MonoBehaviour
 
     void SetProps(int shiftVal)
     {
-        radio.SetActive(shiftVal >= 0);//1);
-        fuseBoxCover.SetActive(shiftVal < 1);//2);
-        bell.SetActive(shiftVal >= 2);//3);
+        radio.SetActive(shiftVal >= 0);
+        fuseBoxCover.SetActive(shiftVal < 1);
+        bell.SetActive(shiftVal >= 2);
     }
 
     void SetWarningLights(int penaltyVal)

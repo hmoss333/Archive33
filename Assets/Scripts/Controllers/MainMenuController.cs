@@ -26,7 +26,7 @@ public class MainMenuController : MonoBehaviour
         startRoutine = null;
 
         shiftSelectNum = 0;
-        shiftSelectText.text = $"Shift: {shiftSelectNum}";
+        shiftSelectText.text = $"Shift: {shiftSelectNum + 1}";
         versionNumber.text = $"v{Application.version}";
 
         FadeController.instance.StartFade(0f, 3f);
@@ -86,7 +86,7 @@ public class MainMenuController : MonoBehaviour
     {
         shiftSelectNum += shiftNum;
         shiftSelectNum = Mathf.Clamp(shiftSelectNum, 0, PlayerPrefs.GetInt("maxShift", 0));
-        shiftSelectText.text = $"Shift: {shiftSelectNum}";
+        shiftSelectText.text = $"Shift: {shiftSelectNum + 1}";
     }
 
     public void SelectNight()
