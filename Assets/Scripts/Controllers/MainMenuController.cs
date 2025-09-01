@@ -44,15 +44,23 @@ public class MainMenuController : MonoBehaviour
         longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
         longNightButtonCanvas.interactable = PlayerPrefs.GetInt("longNightMode", 0) == 1;
 
-        mainMenu.SetActive(false);
-        shiftSelectMenu.SetActive(false);
-        creditsMenu.SetActive(false);
-
-        Camera.main.transform.position = titleCamPos.position;
-        Camera.main.transform.rotation = titleCamPos.rotation;
+        if (PlayerPrefs.GetInt("newGame", 0) == 0)
+        {
+            mainMenu.SetActive(false);
+            shiftSelectMenu.SetActive(false);
+            creditsMenu.SetActive(false);
+            Camera.main.transform.position = titleCamPos.position;
+            Camera.main.transform.rotation = titleCamPos.rotation;
+        }
+        else
+        {
+            mainMenu.SetActive(true);
+            Camera.main.transform.position = menuCamPos.position;
+            Camera.main.transform.rotation = menuCamPos.rotation;
+        }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0)
             && Camera.main.transform.position != menuCamPos.position
@@ -66,6 +74,7 @@ public class MainMenuController : MonoBehaviour
             Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, menuCamPos.position, 2.5f * Time.deltaTime);
             Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, menuCamPos.rotation, 2.5f * Time.deltaTime);
             mainMenu.SetActive(true);
+            PlayerPrefs.SetInt("newGame", 1);
 
             if (Camera.main.transform.position == menuCamPos.position)
             {
@@ -157,5 +166,10 @@ public class MainMenuController : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("newGame", 0);
     }
 }

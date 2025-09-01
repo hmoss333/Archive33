@@ -546,6 +546,11 @@ public class GameplayController : MonoBehaviour
 
         winGameCo = null;
     }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("newGame", 0);
+    }
 }
 
 [System.Serializable]
