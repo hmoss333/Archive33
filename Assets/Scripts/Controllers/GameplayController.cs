@@ -62,7 +62,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] float robotSpeed = 1f;
     [SerializeField] float robotWaitTime = 6f;
     [SerializeField] List<Transform> robotMovePoints;
-    [SerializeField] private int currentPoint;
+    private int currentPoint;
 
     [NaughtyAttributes.HorizontalLine]
 
@@ -123,7 +123,7 @@ public class GameplayController : MonoBehaviour
         currentPoint = 0;
         InBox.instance.Reset();
         retryMenu.SetActive(false);
-        state = State.dialogue;
+        state = State.gameplay;//State.dialogue;
 
 
         foreach (Light light in lights)

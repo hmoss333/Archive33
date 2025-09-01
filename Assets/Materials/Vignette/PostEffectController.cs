@@ -19,9 +19,9 @@ public class PostEffectController : MonoBehaviour
     private void Update()
     {
         //Player max stamina = 30f
-        radius = InBox.instance.airTime / 30f;
-        if (radius > 1f)
-            radius = 1f;
+        radius = InBox.instance.airTime / 60f;
+        if (radius > 0.5f)
+            radius = 0.5f;
         if (radius < 0)
             radius = 0;
     }

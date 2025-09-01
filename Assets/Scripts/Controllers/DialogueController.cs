@@ -10,7 +10,7 @@ public class DialogueController : MonoBehaviour
 
     [SerializeField] TMP_Text textUI;
     [SerializeField] Image background;
-    [SerializeField] float fadeTime = 4.5f;
+    [SerializeField] float fadeTime = 5f;
     float timer;
     bool fade;
 

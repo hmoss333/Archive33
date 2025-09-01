@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float mouseSensitivity = 3f;
     [SerializeField] float checkDist = 10f;
     [SerializeField] LayerMask layer;
-    [SerializeField] InteractObject interactObj;
+    InteractObject interactObj;
 
     public bool hasDocument { get; private set; }
     [SerializeField] Document currentDoc;
