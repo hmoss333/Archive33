@@ -2238,8 +2238,6 @@ PrefabInstance:
 
 
 
-
-
         One
         subject exhibited brief arrhythmic fluctuations during initial induction,
         resolved without intervention. Uniformity remained intact thereafter. Long-term
@@ -2347,7 +2345,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7500849641943102841, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_text
-      value: Archive 11
+      value: 'TLB: Archives'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500849641943102841, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
+      propertyPath: m_fontSize
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500849641943102841, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500849641943102841, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7615092512427165923, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_Name
