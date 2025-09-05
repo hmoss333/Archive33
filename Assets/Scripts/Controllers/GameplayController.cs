@@ -49,6 +49,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] private float powerOutageTimer = 20f;
     private bool powerOutage;
     private float zombieMoveTimer = 3.5f;
+    private float lightOutTimer = 0.35f;
     private int zombieMoveNum;
     [SerializeField] GameObject zombie;
     [SerializeField] List<Transform> zombiePoints;
@@ -129,7 +130,7 @@ public class GameplayController : MonoBehaviour
         currentPoint = 0;
         InBox.instance.Reset();
         retryMenu.SetActive(false);
-        state = State.gameplay;//State.dialogue;
+        state = State.dialogue; //State.gameplay;
 
 
         foreach (Light light in lights)
@@ -219,6 +220,7 @@ public class GameplayController : MonoBehaviour
                     //Zombie enemy
                     zombie.SetActive(powerOutage);
 
+                    //If no powerOutage, reset zombie position and light intensity values
                     if (!powerOutage)
                     {
                         zombieMoveNum = 0;
@@ -238,23 +240,42 @@ public class GameplayController : MonoBehaviour
                             light.intensity = 1.5f;
                         }
                     }
+                    //Else if powerOutage event, do zombie move logic
                     else
                     {
+                        //Enable light flicker
                         foreach (Light light in lights)
                         {
                             light.enabled = true;
                             light.GetComponent<LightFlicker>().enabled = true;
                         }
 
+                        //Update Zombie position every X seconds
                         zombie.transform.position = zombiePoints[zombieMoveNum].position;
                         zombieMoveTimer -= Time.deltaTime;
                         if (zombieMoveTimer <= 0)
                         {
+                            //If zombie is not at the last point
                             if (zombieMoveNum < zombiePoints.Count - 1)
                             {
-                                zombieMoveNum++;
-                                zombieMoveTimer = 3.5f;
+                                //Turn lights out while zombie is updating position
+                                lightOutTimer -= Time.deltaTime;
+                                if (lightOutTimer >= 0)
+                                {
+                                    foreach (Light light in lights)
+                                    {
+                                        light.intensity = 0f;
+                                    }
+                                }
+                                //Update zombie position and reset timers
+                                else
+                                {
+                                    zombieMoveNum++;
+                                    zombieMoveTimer = 3.5f;
+                                    lightOutTimer = 0.35f;
+                                }
                             }
+                            //Else play zombie jumpscare
                             else
                             {
                                 js_ModelNum = 0;

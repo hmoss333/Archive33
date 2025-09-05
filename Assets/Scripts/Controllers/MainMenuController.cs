@@ -8,7 +8,8 @@ using TMPro;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField] Transform titleCamPos, menuCamPos;
-    private bool movingCamera = false;
+    [SerializeField] float camSpeed;
+    [SerializeField] private bool movingCamera = false;
 
     [SerializeField] GameObject mainMenu, shiftSelectMenu, creditsMenu;
     [SerializeField] TMP_Text shiftSelectText;
@@ -63,21 +64,20 @@ public class MainMenuController : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButtonDown(0)
-            && Camera.main.transform.position != menuCamPos.position
-            && !movingCamera)
+            && PlayerPrefs.GetInt("newGame", 0) == 0)
         {
             movingCamera = true;
         }
 
         if (movingCamera)
         {
-            Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, menuCamPos.position, 2.5f * Time.deltaTime);
-            Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, menuCamPos.rotation, 2.5f * Time.deltaTime);
-            mainMenu.SetActive(true);
+            Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, menuCamPos.position, camSpeed * Time.deltaTime);
+            Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, menuCamPos.rotation, camSpeed * Time.deltaTime);
             PlayerPrefs.SetInt("newGame", 1);
 
-            if (Camera.main.transform.position == menuCamPos.position)
+            if (Vector3.Distance(Camera.main.transform.position, menuCamPos.position) <= 0.125f)
             {
+                mainMenu.SetActive(true);
                 movingCamera = false;
             }
         }
