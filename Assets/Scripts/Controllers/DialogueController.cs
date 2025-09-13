@@ -13,6 +13,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] float fadeTime = 5f;
     float timer;
     bool fade;
+    public bool textActive;// { get; private set; }
 
     private void Start()
     {
@@ -27,7 +28,8 @@ public class DialogueController : MonoBehaviour
 
     private void Update()
     {
-        background.gameObject.SetActive(textUI.text != string.Empty);
+        textActive = textUI.text != string.Empty;
+        background.gameObject.SetActive(textActive);
 
         if (fade && textUI.text != string.Empty)
         {

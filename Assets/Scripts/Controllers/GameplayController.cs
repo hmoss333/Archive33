@@ -152,33 +152,36 @@ public class GameplayController : MonoBehaviour
         SetProps(shiftNum);
         SetWarningLights(penalty);
 
-        if ((state == State.dialogue || state == State.gameplay) && shiftNum < 5)
-        {
-            shiftDuration = 360f; //shiftNum > 0 ? 360f : 300f;
-            System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
-            clockText.text = time.ToString(@"mm\:ss");
-
-            //Countdown shift timer
-            shiftTime += Time.deltaTime;
-            if (shiftTime >= shiftDuration)
-            {
-                shiftTime = 0f;
-                SetState(State.victory);
-            }
-        }
-
         switch (state)
         {
             case State.dialogue:
-                //Play dialogue set for current shift
-                if (shiftNum > uniqueDialogue.Count - 1)
-                    shiftNum = uniqueDialogue.Count - 1;
+                //Clamp shiftNum to avoid out-of-range errors
+                shiftNum = Mathf.Clamp(shiftNum, 0, uniqueDialogue.Count - 1);
 
+                //Play dialogue set for current shift
                 if (introDialogueCo == null)
                     introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
                 break;
             case State.gameplay:
                 //Handle all gameplay loop logic
+
+                //Shift Timer
+                if (shiftNum < 5)
+                {
+                    shiftDuration = 360f; //shiftNum > 0 ? 360f : 300f;
+                    System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
+                    clockText.text = time.ToString(@"mm\:ss");
+
+                    //Countdown shift timer
+                    shiftTime += Time.deltaTime;
+                    if (shiftTime >= shiftDuration)
+                    {
+                        shiftTime = 0f;
+                        SetState(State.victory);
+                    }
+                }
+
+                //Shift interact logic
                 if (shiftNum >= 0)
                 {
                     //Inbox
@@ -510,7 +513,14 @@ public class GameplayController : MonoBehaviour
         for (int i = 0; i < dialogueItems.Count; i++)
         {
             DialogueController.instance.UpdateText(dialogueItems[i], false);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(0.5f);
+            while (DialogueController.instance.textActive)
+            {
+                yield return null;
+
+                if (Input.GetMouseButtonUp(0))
+                    break;
+            }
         }
 
         DialogueController.instance.UpdateText(string.Empty, false);

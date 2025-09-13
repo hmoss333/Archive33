@@ -158,12 +158,12 @@ public class Radio : InteractObject
 
             if (scrollDelta > 0)
             {
-                currentFrequency += Time.deltaTime * rotateSpeed;
+                currentFrequency += Time.deltaTime * rotateSpeed * 5f;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
             }
             else if (scrollDelta < 0)
             {
-                currentFrequency -= Time.deltaTime * rotateSpeed;
+                currentFrequency -= Time.deltaTime * rotateSpeed * 5f;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
             }
 
