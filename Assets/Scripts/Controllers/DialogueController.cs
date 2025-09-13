@@ -13,7 +13,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] float fadeTime = 5f;
     float timer;
     bool fade;
-    public bool textActive;// { get; private set; }
+    public bool textActive { get; private set; }
 
     private void Start()
     {
