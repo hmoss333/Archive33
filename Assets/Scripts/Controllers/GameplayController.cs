@@ -153,13 +153,18 @@ public class GameplayController : MonoBehaviour
     {
         SetProps(shiftNum);
         SetWarningLights(penalty);
+        AudioController.instance.ModifyVolume();
 
         //Suffocattion audio controller
         //Scale all audiosources based on the current remaining airTime using the volume PlayerPref as a max
-        float suffocateVolume = Mathf.Clamp(InBox.instance.airTime, 0f, AudioController.instance.volume);
+        float suffocateVolume = InBox.instance.airTime / 15f;
+        suffocateVolume = Mathf.Clamp(suffocateVolume, 0f, AudioController.instance.volume);
         AudioController.instance.ModifyVolume(suffocateVolume);
         suffocateAudio.volume = AudioController.instance.volume; //always play this at max volume
-
+        if (suffocateVolume <= 0.45f && !suffocateAudio.isPlaying)
+        {
+            suffocateAudio.PlayOneShot(suffocateClip);
+        }
 
         switch (state)
         {
@@ -493,7 +498,7 @@ public class GameplayController : MonoBehaviour
 
     public void Suffocate()
     {
-        suffocateAudio.PlayOneShot(suffocateClip);
+        //suffocateAudio.PlayOneShot(suffocateClip);
         if (gameOverCo == null)
             gameOverCo = StartCoroutine(GameOverRoutine(false));
 
