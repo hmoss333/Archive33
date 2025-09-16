@@ -1165,6 +1165,7 @@ GameObject:
   - component: {fileID: 6530115624359995452}
   - component: {fileID: 6530115624359995455}
   - component: {fileID: 6530115624359995454}
+  - component: {fileID: 1621871550065037437}
   - component: {fileID: 6530115624359995448}
   - component: {fileID: 6530115624359995451}
   - component: {fileID: 6530115624359995450}
@@ -1247,13 +1248,14 @@ MonoBehaviour:
   - {fileID: 6530115622900849787}
   - {fileID: 6530115623224094701}
   - {fileID: 6530115622475004162}
-  currentPoint: 0
   jumpScare: {fileID: 0}
   js_Models:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   jumpScareClip: {fileID: 8300000, guid: 3be95760e14f2493bad5f6cf8a5dfcbe, type: 3}
+  suffocateAudio: {fileID: 0}
+  suffocateClip: {fileID: 0}
   shiftOverText: {fileID: 0}
   shiftCompleteText: {fileID: 0}
   winGameText: {fileID: 0}
@@ -1381,6 +1383,21 @@ MonoBehaviour:
   m_OnTrigger:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1621871550065037437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530115624359995453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b955195181b344a03ab301916cd15745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 1
+  audioSources: []
+  suffocateAudioSource: {fileID: 0}
 --- !u!82 &6530115624359995448
 AudioSource:
   m_ObjectHideFlags: 0

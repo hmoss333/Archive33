@@ -111,6 +111,8 @@ public class GameplayController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
 
+        AudioController.instance.ModifyVolume();
+
         LoadDocumentText();
         jumpScareAudio = jumpScare.GetComponent<AudioSource>();
 
@@ -151,6 +153,13 @@ public class GameplayController : MonoBehaviour
     {
         SetProps(shiftNum);
         SetWarningLights(penalty);
+
+        //Suffocattion audio controller
+        //Scale all audiosources based on the current remaining airTime using the volume PlayerPref as a max
+        float suffocateVolume = Mathf.Clamp(InBox.instance.airTime, 0f, AudioController.instance.volume);
+        AudioController.instance.ModifyVolume(suffocateVolume);
+        suffocateAudio.volume = AudioController.instance.volume; //always play this at max volume
+
 
         switch (state)
         {
@@ -576,6 +585,7 @@ public class GameplayController : MonoBehaviour
         currentPoint = 0;
         PlayerController.instance.RemoveCurrentDocument();
         InBox.instance.Reset();
+        AudioController.instance.ModifyVolume();
         PlayerPrefs.SetInt("shiftNum", shiftNum);
         PlayerPrefs.SetInt("maxShift", shiftNum);
         foreach (Light light in lights)
