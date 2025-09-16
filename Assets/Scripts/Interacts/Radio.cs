@@ -21,6 +21,8 @@ public class Radio : InteractObject
     [SerializeField] AudioClip targetAudio, staticAudio, badAudio;
 
     bool interacting, tunedToStation;
+    Vector2 viewPos;
+    Vector2 mouseDownPos;
 
 
     public void Start()
@@ -147,27 +149,43 @@ public class Radio : InteractObject
         arrowLeft.gameObject.SetActive(interacting);
         arrowRight.gameObject.SetActive(interacting);
 
+
+        viewPos.x = Input.GetAxis("Mouse X");
+        viewPos.y = Input.GetAxis("Mouse Y");
+
+
         //TODO
         //Add logic to have the player tune the radio to a randomized station value in order to get the instructions for the current document
         if (interacting)
         {
             PlayerController.instance.SetState(PlayerController.States.interacting);
-            float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
-            arrowLeft.color = scrollDelta < 0 ? arrowActive : arrowDefault;
-            arrowRight.color = scrollDelta > 0 ? arrowActive : arrowDefault;
+            //float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
+            //arrowLeft.color = scrollDelta < 0 ? arrowActive : arrowDefault;
+            //arrowRight.color = scrollDelta > 0 ? arrowActive : arrowDefault;
 
-            if (scrollDelta > 0)
+            //if (scrollDelta > 0)
+            //{
+            //    currentFrequency += Time.deltaTime * rotateSpeed * 5f;
+            //    dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
+            //}
+            //else if (scrollDelta < 0)
+            //{
+            //    currentFrequency -= Time.deltaTime * rotateSpeed * 5f;
+            //    dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
+            //}
+
+            if (viewPos.x > mouseDownPos.x)
             {
-                currentFrequency += Time.deltaTime * rotateSpeed * 5f;
+                //scroll frequency down
+                currentFrequency += Time.deltaTime * rotateSpeed * 2f;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
             }
-            else if (scrollDelta < 0)
+            else if (viewPos.x < mouseDownPos.x)
             {
-                currentFrequency -= Time.deltaTime * rotateSpeed * 5f;
+                //scroll frequency up
+                currentFrequency -= Time.deltaTime * rotateSpeed * 2f;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
             }
-
-
 
             //Check active stations
             //foreach (RadioStation station in activeStations)
@@ -237,6 +255,7 @@ public class Radio : InteractObject
         base.Interact();
         interacting = !interacting;
         DialogueController.instance.UpdateText(string.Empty, false);
+        mouseDownPos = viewPos;
     }
 }
 

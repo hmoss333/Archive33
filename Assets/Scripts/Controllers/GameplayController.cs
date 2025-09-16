@@ -427,7 +427,8 @@ public class GameplayController : MonoBehaviour
     ///Probably can be removed since we're no longer using score
     public void Success()
     {
-
+        if (spawnStaticMan)
+            ToggleStaticMan(false);
     }
 
     public void Failure()
