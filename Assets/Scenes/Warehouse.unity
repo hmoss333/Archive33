@@ -7845,6 +7845,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6470421558955177304, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: tintColor.b
+      value: 0.1745283
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470421558955177304, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: tintColor.g
+      value: 0.1745283
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470421558955177304, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
+      propertyPath: tintColor.r
+      value: 0.6981132
+      objectReference: {fileID: 0}
     - target: {fileID: 6800758720562757210, guid: d48e4968ae346409b970a1127f5b683f, type: 3}
       propertyPath: m_Name
       value: Player
