@@ -2281,11 +2281,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2730605817567717532, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: -0.032
       objectReference: {fileID: 0}
     - target: {fileID: 2730605817567717532, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.169
+      value: -0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 2730605817567717532, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.001
       objectReference: {fileID: 0}
     - target: {fileID: 2888100584138826946, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_RootOrder
@@ -2345,7 +2349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7500849641943102841, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_text
-      value: 'TLB: Archives'
+      value: 'TLB: Archivist'
       objectReference: {fileID: 0}
     - target: {fileID: 7500849641943102841, guid: cbdd694e559e34a7e923b7e6f8a81336, type: 3}
       propertyPath: m_fontSize
@@ -2805,17 +2809,15 @@ MonoBehaviour:
 
     - Steve O
 
-    - [TODO:
-    Get list of all asset creators]
 
-
-    Writen By
+    Writen
+    By
 
     - Henry Moss
 
 
-    Based
-    on the world of The Last Broadcast created by Henry Moss'
+    Based on the world of The Last Broadcast created by
+    Henry Moss'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 151e38c24b8ca4486997fe78026fced9, type: 2}
   m_sharedMaterial: {fileID: -1099266064948786653, guid: 151e38c24b8ca4486997fe78026fced9, type: 2}

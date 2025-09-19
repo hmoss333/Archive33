@@ -35,7 +35,7 @@ public class MainMenuController : MonoBehaviour
 
         FadeController.instance.StartFade(0f, 3f);
 
-        //PlayerPrefs.SetInt("maxShift", 0); //TODO: remove this from final build
+        //PlayerPrefs.SetInt("maxShift", 5); //TODO: remove this from final build
         selectShiftButtonCanvas.alpha = PlayerPrefs.GetInt("maxShift", 0) == 0 ? 0.5f : 1f;
         selectShiftButtonCanvas.interactable = PlayerPrefs.GetInt("maxShift", 0) >= 1;
 
