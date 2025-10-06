@@ -6265,6 +6265,18 @@ PrefabInstance:
       propertyPath: suffocateAudioSource
       value: 
       objectReference: {fileID: 1314167090}
+    - target: {fileID: 6530115624359995448, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995450, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995451, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995452, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -8242,7 +8254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3656556502706598338, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
       propertyPath: m_Volume
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3656556502706598338, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
       propertyPath: m_PlayOnAwake

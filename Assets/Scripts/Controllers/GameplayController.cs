@@ -112,7 +112,7 @@ public class GameplayController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
 
-        AudioController.instance.ModifyVolume();
+        //AudioController.instance.ModifyVolume();
 
         LoadDocumentText();
         jumpScareAudio = jumpScare.GetComponent<AudioSource>();
@@ -154,17 +154,24 @@ public class GameplayController : MonoBehaviour
     {
         SetProps(shiftNum);
         SetWarningLights(penalty);
-        AudioController.instance.ModifyVolume();
+        //AudioController.instance.ModifyVolume();
 
         //Suffocattion audio controller
         //Scale all audiosources based on the current remaining airTime using the volume PlayerPref as a max
-        float suffocateVolume = InBox.instance.airTime / 15f;
-        suffocateVolume = Mathf.Clamp(suffocateVolume, 0f, AudioController.instance.volume);
-        AudioController.instance.ModifyVolume(suffocateVolume);
-        suffocateAudio.volume = AudioController.instance.volume; //always play this at max volume
-        if (suffocateVolume <= 0.45f && !suffocateAudio.isPlaying)
+        if (InBox.instance.airTime < 15f)
         {
-            suffocateAudio.PlayOneShot(suffocateClip);
+            float suffocateVolume = InBox.instance.airTime / 15f;
+            suffocateVolume = Mathf.Clamp(suffocateVolume, 0f, AudioController.instance.volume);
+            AudioController.instance.ModifyVolume(suffocateVolume);
+            suffocateAudio.volume = AudioController.instance.volume; //always play this at max volume
+            if (suffocateVolume <= 0.45f && !suffocateAudio.isPlaying)
+            {
+                suffocateAudio.PlayOneShot(suffocateClip);
+            }
+        }
+        else
+        {
+            AudioController.instance.ResetVolume();
         }
 
         switch (state)
