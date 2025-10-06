@@ -88,6 +88,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] TMP_Text winGameText;
     [SerializeField] GameObject retryMenu;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
+    [SerializeField] AudioSource dialogueAudioSource;
     Coroutine introDialogueCo;
     Coroutine nextNightCo;
     Coroutine winGameCo;
@@ -174,7 +175,7 @@ public class GameplayController : MonoBehaviour
 
                 //Play dialogue set for current shift
                 if (introDialogueCo == null)
-                    introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
+                    introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueObjs));
                 break;
             case State.gameplay:
                 //Handle all gameplay loop logic
@@ -521,13 +522,16 @@ public class GameplayController : MonoBehaviour
 
 
     //Coroutines
-    IEnumerator IntroDialogueRoutine(List<string> dialogueItems)
+    IEnumerator IntroDialogueRoutine(List<DialogueObject> dialogueItems)
     {
         yield return new WaitForSeconds(3.5f);
 
         for (int i = 0; i < dialogueItems.Count; i++)
         {
-            DialogueController.instance.UpdateText(dialogueItems[i], false);
+            DialogueController.instance.UpdateText(dialogueItems[i].text, false);
+            dialogueAudioSource.Stop();
+            dialogueAudioSource.PlayOneShot(dialogueItems[i].clip);
+
             yield return new WaitForSeconds(0.5f);
             while (DialogueController.instance.textActive)
             {
@@ -631,7 +635,14 @@ public class GameplayController : MonoBehaviour
 [System.Serializable]
 class DialogueContainer
 {
-    public List<string> dialogueLines;
+    public List<DialogueObject> dialogueObjs;
+}
+
+[System.Serializable]
+class DialogueObject
+{
+    public string text;
+    public AudioClip clip;
 }
 
 [System.Serializable]
