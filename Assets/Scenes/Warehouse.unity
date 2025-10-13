@@ -8084,6 +8084,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8992346632431189774, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: whisperClip
+      value: 
+      objectReference: {fileID: 8300000, guid: fb7ce3dbdbebb4babb5a338d3c2884b4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
 --- !u!1001 &9059372417167724805

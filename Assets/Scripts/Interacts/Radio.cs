@@ -261,7 +261,7 @@ public class Radio : InteractObject
 
 
 [System.Serializable]
-class RadioStation
+struct RadioStation
 {
     public float frequency;
     public string message;

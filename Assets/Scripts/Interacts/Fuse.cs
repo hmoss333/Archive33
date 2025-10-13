@@ -18,6 +18,8 @@ public class Fuse : InteractObject
 
     public override void Update()
     {
+        base.Update();
+
         renderer.material.color = isBroken ? Color.red : Color.green;
     }
 

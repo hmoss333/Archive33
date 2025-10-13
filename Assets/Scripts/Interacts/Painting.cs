@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Painting : InteractObject
 {
@@ -15,6 +16,8 @@ public class Painting : InteractObject
 
     private void Start()
     {
+        waitTimer = 12f;
+        killTimer = 20f;
         effected = false;
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = whisperClip;
@@ -22,7 +25,7 @@ public class Painting : InteractObject
         renderer = GetComponentInChildren<Renderer>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (GameplayController.instance.state == GameplayController.State.gameplay)
         {
@@ -33,22 +36,21 @@ public class Painting : InteractObject
                 if (waitTimer <= 0)
                 {
                     effected = true;
-                    waitTimer = 8f;
-                    killTimer = 13f;
+                    waitTimer = 12f;
+                    killTimer = 20f;
                 }
             }
 
             if (effected)
             {
-                audioSource.Play();
+                if (!renderer.sharedMaterials.Contains(effectedMat)) { ModifyMaterials(renderer, effectedMat); }
+                if (!audioSource.isPlaying) { audioSource.PlayOneShot(whisperClip); }
                 killTimer -= Time.deltaTime;
                 if (killTimer <= 0)
                 {
-                    GameplayController.instance.Suffocate();//.SetState(GameplayController.State.death);
+                    GameplayController.instance.Suffocate();
                 }
             }
-
-            ModifyMaterials(renderer, effected ? effectedMat : defaultMat);
         }
     }
 
@@ -56,6 +58,7 @@ public class Painting : InteractObject
     {
         base.Interact();
 
+        ModifyMaterials(renderer, defaultMat);
         if (effected)
         {
             effected = false;
@@ -67,9 +70,14 @@ public class Painting : InteractObject
     void ModifyMaterials (Renderer rend, Material mat)
     {
         Material[] tempMats = rend.materials;
+        List<Material> matList = new List<Material>();
+        for (int i = 0; i < 2; i++)
+        {
+            matList.Add(tempMats[i]);
+        }
 
-        tempMats[1] = mat;
+        matList[1] = mat;
 
-        rend.materials = tempMats;
+        rend.materials = matList.ToArray();
     }
 }
