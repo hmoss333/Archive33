@@ -28,14 +28,12 @@ public class FadeController : MonoBehaviour
 
     public void StartFade(float aValue, float aTime)
     {
-        print("Starting fade");
         if (fadeRoutine == null)
             fadeRoutine = StartCoroutine(FadeTo(aValue, aTime));
     }
 
     public void StartFadeText(TMP_Text fadeGUI, float aValue, float aTime)
     {
-        print("Starting fade text");
         if (fadeTextRoutine == null)
             fadeTextRoutine = StartCoroutine(FadeText(fadeGUI, aValue, aTime));
     }
