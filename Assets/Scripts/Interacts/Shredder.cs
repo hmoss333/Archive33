@@ -17,8 +17,10 @@ public class Shredder : InteractObject
         animators = GetComponentsInChildren<Animator>();
     }
 
-    private void Update()
+    public override void Update()
     {
+        base.Update();
+
         foreach (Animator animator in animators)
         {
             animator.SetBool("Shredding", audioSource.isPlaying);

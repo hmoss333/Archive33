@@ -3779,7 +3779,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999339333}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 3.082, z: -2.912}
+  m_LocalPosition: {x: 0, y: 3.082, z: -2.902}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6413,6 +6413,34 @@ PrefabInstance:
       propertyPath: warningLights.Array.data[4]
       value: 
       objectReference: {fileID: 375041443}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[0]
+      value: Achivist, this is-
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[1]
+      value: We've lost- all power has been-
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[2]
+      value: Remain at your post. It's the only safe-
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[3]
+      value: '[Loud static with multiple voices overlapping]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[4]
+      value: Don't trust the voices! Don't-
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[5]
+      value: ......
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
 --- !u!4 &1929162923 stripped
@@ -8029,6 +8057,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6cd96e237fbf439d925d20ed012cb7d, type: 3}
+--- !u!1001 &8992346631989378246
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8073355784107037639, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_Name
+      value: Painting
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_RootOrder
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.087
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.0000000754979
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 5.353689e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000000037748947
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8992346632431189774, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: whisperClip
+      value: 
+      objectReference: {fileID: 8300000, guid: fb7ce3dbdbebb4babb5a338d3c2884b4, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
 --- !u!1001 &9059372417167724805
 PrefabInstance:
   m_ObjectHideFlags: 0

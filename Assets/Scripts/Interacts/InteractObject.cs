@@ -9,16 +9,13 @@ public class InteractObject : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        highlighted = false;
-    }
-
-    private void FixedUpdate()
-    {
         if (!highlighted && GetComponent<Outline>())
         {
             Outline outlineScript = GetComponent<Outline>();
             Destroy(outlineScript);
         }
+
+        highlighted = false;
     }
 
     public virtual void Interact()

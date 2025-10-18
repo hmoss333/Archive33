@@ -28,7 +28,7 @@ public class GameplayController : MonoBehaviour
 
     [Header("Shift Values")]
     [SerializeField] private float shiftDuration;
-    private float shiftTime;
+    private float shiftTime, longNightTime;
     public int shiftNum { get; private set; }
     private int penalty; //Increments on incorrect filing; 5 = death
     [SerializeField] TMP_Text clockText;
@@ -85,9 +85,9 @@ public class GameplayController : MonoBehaviour
     [Header("Dialogue Values")]
     [SerializeField] TMP_Text shiftOverText;
     [SerializeField] TMP_Text shiftCompleteText;
-    [SerializeField] TMP_Text winGameText;
     [SerializeField] GameObject retryMenu;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
+    [SerializeField] DialogueContainer winDialogue;
     Coroutine introDialogueCo;
     Coroutine nextNightCo;
     Coroutine winGameCo;
@@ -120,6 +120,7 @@ public class GameplayController : MonoBehaviour
             ? 5 //if longNightMode is enabled, skip to last night
             : PlayerPrefs.GetInt("shiftNum", 0); //else load last completed night; default to first night
         shiftTime = 0f;
+        longNightTime = 0f;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -175,14 +176,22 @@ public class GameplayController : MonoBehaviour
                 //Play dialogue set for current shift
                 if (introDialogueCo == null)
                     introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    StopCoroutine(introDialogueCo);
+                    DialogueController.instance.UpdateText("", false);
+                    SetState(State.gameplay);
+                }
+
                 break;
             case State.gameplay:
                 //Handle all gameplay loop logic
 
                 //Shift Timer
-                if (shiftNum < 5)
+                if (shiftNum < 4)
                 {
-                    shiftDuration = 360f; //shiftNum > 0 ? 360f : 300f;
+                    shiftDuration = 2f; //360f; //shiftNum > 0 ? 360f : 300f;
                     System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
                     clockText.text = time.ToString(@"mm\:ss");
 
@@ -193,6 +202,13 @@ public class GameplayController : MonoBehaviour
                         shiftTime = 0f;
                         SetState(State.victory);
                     }
+                }
+                else
+                {
+                    longNightTime += Time.deltaTime;
+                    PlayerPrefs.SetFloat("longNightScore", longNightTime);
+                    System.TimeSpan time = System.TimeSpan.FromSeconds(longNightTime);
+                    clockText.text = time.ToString(@"mm\:ss");
                 }
 
                 //Shift interact logic
@@ -365,7 +381,7 @@ public class GameplayController : MonoBehaviour
                 if (!FadeController.instance.isFading)
                 {
                     //Reset scene for next shift
-                    if (shiftNum < 4)
+                    if (shiftNum < 3)
                     {
                         if (nextNightCo == null)
                             nextNightCo = StartCoroutine(EndOfNightRoutine());
@@ -613,15 +629,33 @@ public class GameplayController : MonoBehaviour
 
     IEnumerator WinGameRoutine()
     {
+        PlayerPrefs.SetInt("longNightMode", 1);
+        Shake.instance.StartShake();
+
+        for (int i = 0; i < winDialogue.dialogueLines.Count; i++)
+        {
+            DialogueController.instance.UpdateText(winDialogue.dialogueLines[i], false);
+            yield return new WaitForSeconds(0.5f);
+            while (DialogueController.instance.textActive)
+            {
+                yield return null;
+
+                if (Input.GetMouseButtonUp(0))
+                    break;
+            }
+        }
+
+        DialogueController.instance.UpdateText(string.Empty, false);
+
+        yield return new WaitForSeconds(1.5f);
+
         FadeController.instance.StartFade(1f, 3f);
-        FadeController.instance.StartFadeText(winGameText, 1f, 1f);
 
         while (FadeController.instance.isFading)
             yield return null;
 
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(3f);
 
-        PlayerPrefs.SetInt("longNightMode", 1);
         SceneManager.LoadScene(0);
 
         winGameCo = null;

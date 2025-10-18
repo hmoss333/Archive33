@@ -1,44 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Painting : InteractObject
 {
-    [SerializeField] GameObject curtain;
+    [SerializeField] Material defaultMat, effectedMat;
     [SerializeField] float waitTimer, killTimer;
     AudioSource audioSource;
     [SerializeField] AudioClip whisperClip;
-    bool covered;
+    bool effected;
+    Renderer renderer;
 
+    
 
     private void Start()
     {
-        covered = true;
+        waitTimer = 12f;
+        killTimer = 20f;
+        effected = false;
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = whisperClip;
         audioSource.loop = true;
+        renderer = GetComponentInChildren<Renderer>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (covered)
+        if (GameplayController.instance.state == GameplayController.State.gameplay)
         {
-            audioSource.Stop();
-            waitTimer -= Time.deltaTime;
-            if (waitTimer <= 0)
+            if (!renderer.isVisible && !effected)
             {
-                covered = false;
-                waitTimer = 8f;
-                killTimer = 13f;
+                audioSource.Stop();
+                waitTimer -= Time.deltaTime;
+                if (waitTimer <= 0)
+                {
+                    effected = true;
+                    waitTimer = 12f;
+                    killTimer = 20f;
+                }
             }
-        }
-        else
-        {
-            audioSource.Play();
-            killTimer -= Time.deltaTime;
-            if (killTimer <= 0)
+
+            if (effected)
             {
-                GameplayController.instance.SetState(GameplayController.State.death);
+                if (!renderer.sharedMaterials.Contains(effectedMat)) { ModifyMaterials(renderer, effectedMat); }
+                if (!audioSource.isPlaying) { audioSource.PlayOneShot(whisperClip); }
+                killTimer -= Time.deltaTime;
+                if (killTimer <= 0)
+                {
+                    GameplayController.instance.Suffocate();
+                }
             }
         }
     }
@@ -46,8 +57,27 @@ public class Painting : InteractObject
     public override void Interact()
     {
         base.Interact();
-        covered = true;
-        waitTimer = 8f;
-        killTimer = 13f;
+
+        ModifyMaterials(renderer, defaultMat);
+        if (effected)
+        {
+            effected = false;
+            waitTimer = 8f;
+            killTimer = 13f;
+        }
+    }
+
+    void ModifyMaterials (Renderer rend, Material mat)
+    {
+        Material[] tempMats = rend.materials;
+        List<Material> matList = new List<Material>();
+        for (int i = 0; i < 2; i++)
+        {
+            matList.Add(tempMats[i]);
+        }
+
+        matList[1] = mat;
+
+        rend.materials = matList.ToArray();
     }
 }
