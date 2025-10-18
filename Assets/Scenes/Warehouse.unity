@@ -6413,6 +6413,34 @@ PrefabInstance:
       propertyPath: warningLights.Array.data[4]
       value: 
       objectReference: {fileID: 375041443}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[0]
+      value: Achivist, this is-
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[1]
+      value: We've lost- all power has been-
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[2]
+      value: Remain at your post. It's the only safe-
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[3]
+      value: '[Loud static with multiple voices overlapping]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[4]
+      value: Don't trust the voices! Don't-
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[5]
+      value: ......
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
 --- !u!4 &1929162923 stripped

@@ -8,7 +8,7 @@ public class Shake : MonoBehaviour
 
     private bool start = false;
     [SerializeField] private AnimationCurve curve;
-    private float duration = 1f;
+    Vector3 startPosition;
 
     Coroutine shakeRoutine;
 
@@ -18,44 +18,21 @@ public class Shake : MonoBehaviour
             instance = this;
         else
             Destroy(this);
+
+        startPosition = transform.position;
+    }
+
+    public void StartShake()
+    {
+        start = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (start && shakeRoutine == null)
+        if (start)// && shakeRoutine == null)
         {
-            start = false;
-            shakeRoutine = StartCoroutine(Shaking());
+            transform.position = startPosition + Random.insideUnitSphere * curve.Evaluate(Time.deltaTime);
         }
-    }
-
-    public void StartShake()
-    {
-        duration = 1f;
-        start = true;
-    }
-
-    public void StartShake(float durationTime)
-    {
-        duration = durationTime;
-        start = true;
-    }
-
-    IEnumerator Shaking()
-    {
-        Vector3 startPosition = transform.position;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            float strength = curve.Evaluate(elapsedTime / duration);
-            transform.position = startPosition + Random.insideUnitSphere * strength;
-            yield return null;
-        }
-
-        transform.position = startPosition;
-        shakeRoutine = null;
     }
 }

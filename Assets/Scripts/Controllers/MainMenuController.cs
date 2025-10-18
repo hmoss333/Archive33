@@ -17,8 +17,8 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] CanvasGroup selectShiftButtonCanvas;
     [SerializeField] CanvasGroup longNightButtonCanvas;
     [SerializeField] TMP_Text longNightScoreText;
-    [SerializeField] float longNightScore;
     int shiftSelectNum;
+    float longNightScore;
 
     [SerializeField] AudioSource clickAudioSource;
     [SerializeField] AudioClip clickAudio;
@@ -49,8 +49,9 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetInt("longNightMode", 1);
         longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
         longNightButtonCanvas.interactable = PlayerPrefs.GetInt("longNightMode", 0) == 1;
+        longNightScore = PlayerPrefs.GetFloat("longNightScore", 0f);
         longNightScoreText.enabled = PlayerPrefs.GetInt("longNightMode", 0) == 1;
-        longNightScoreText.text = $"({Mathf.RoundToInt(PlayerPrefs.GetFloat("longNightScore", 0f))})";
+        longNightScoreText.text = $"({Mathf.RoundToInt(longNightScore)})";
 
         if (PlayerPrefs.GetInt("newGame", 0) == 0)
         {
