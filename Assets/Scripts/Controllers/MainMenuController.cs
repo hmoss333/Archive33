@@ -16,7 +16,12 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] TMP_Text versionNumber;
     [SerializeField] CanvasGroup selectShiftButtonCanvas;
     [SerializeField] CanvasGroup longNightButtonCanvas;
+    [SerializeField] TMP_Text longNightScoreText;
+    [SerializeField] float longNightScore;
     int shiftSelectNum;
+
+    [SerializeField] AudioSource clickAudioSource;
+    [SerializeField] AudioClip clickAudio;
 
     bool startingGame;
     Coroutine startRoutine;
@@ -44,6 +49,8 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetInt("longNightMode", 1);
         longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
         longNightButtonCanvas.interactable = PlayerPrefs.GetInt("longNightMode", 0) == 1;
+        longNightScoreText.enabled = PlayerPrefs.GetInt("longNightMode", 0) == 1;
+        longNightScoreText.text = $"({Mathf.RoundToInt(PlayerPrefs.GetFloat("longNightScore", 0f))})";
 
         if (PlayerPrefs.GetInt("newGame", 0) == 0)
         {
@@ -80,6 +87,12 @@ public class MainMenuController : MonoBehaviour
                 mainMenu.SetActive(true);
                 movingCamera = false;
             }
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            clickAudioSource.Stop();
+            clickAudioSource.PlayOneShot(clickAudio);
         }
     }
 
@@ -126,7 +139,7 @@ public class MainMenuController : MonoBehaviour
     public void ModifyShiftNum(int shiftNum)
     {
         shiftSelectNum += shiftNum;
-        shiftSelectNum = Mathf.Clamp(shiftSelectNum, 0, PlayerPrefs.GetInt("maxShift", 0));
+        shiftSelectNum = Mathf.Clamp(shiftSelectNum, 0, PlayerPrefs.GetInt("maxShift", 0) - 1);
         shiftSelectText.text = $"Shift: {shiftSelectNum + 1}";
     }
 

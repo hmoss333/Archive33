@@ -28,7 +28,7 @@ public class GameplayController : MonoBehaviour
 
     [Header("Shift Values")]
     [SerializeField] private float shiftDuration;
-    private float shiftTime;
+    private float shiftTime, longNightTime;
     public int shiftNum { get; private set; }
     private int penalty; //Increments on incorrect filing; 5 = death
     [SerializeField] TMP_Text clockText;
@@ -120,6 +120,7 @@ public class GameplayController : MonoBehaviour
             ? 5 //if longNightMode is enabled, skip to last night
             : PlayerPrefs.GetInt("shiftNum", 0); //else load last completed night; default to first night
         shiftTime = 0f;
+        longNightTime = 0f;
         powerOutage = false;
         zombieMoveNum = 0;
         zombie.SetActive(false);
@@ -175,12 +176,20 @@ public class GameplayController : MonoBehaviour
                 //Play dialogue set for current shift
                 if (introDialogueCo == null)
                     introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    StopCoroutine(introDialogueCo);
+                    DialogueController.instance.UpdateText("", false);
+                    SetState(State.gameplay);
+                }
+
                 break;
             case State.gameplay:
                 //Handle all gameplay loop logic
 
                 //Shift Timer
-                if (shiftNum < 5)
+                if (shiftNum < 4)
                 {
                     shiftDuration = 360f; //shiftNum > 0 ? 360f : 300f;
                     System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
@@ -193,6 +202,13 @@ public class GameplayController : MonoBehaviour
                         shiftTime = 0f;
                         SetState(State.victory);
                     }
+                }
+                else
+                {
+                    longNightTime += Time.deltaTime;
+                    PlayerPrefs.SetFloat("longNightScore", longNightTime);
+                    System.TimeSpan time = System.TimeSpan.FromSeconds(longNightTime);
+                    clockText.text = time.ToString(@"mm\:ss");
                 }
 
                 //Shift interact logic
@@ -615,6 +631,7 @@ public class GameplayController : MonoBehaviour
     {
         FadeController.instance.StartFade(1f, 3f);
         FadeController.instance.StartFadeText(winGameText, 1f, 1f);
+        Shake.instance.StartShake(8f);
 
         while (FadeController.instance.isFading)
             yield return null;
