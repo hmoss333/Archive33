@@ -191,7 +191,7 @@ public class GameplayController : MonoBehaviour
                 //Shift Timer
                 if (shiftNum < 4)
                 {
-                    shiftDuration = 2f; //360f; //shiftNum > 0 ? 360f : 300f;
+                    shiftDuration = 360f; //shiftNum > 0 ? 360f : 300f;
                     System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
                     clockText.text = time.ToString(@"mm\:ss");
 

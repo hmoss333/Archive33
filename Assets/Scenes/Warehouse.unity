@@ -5210,17 +5210,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4349689160829392, guid: 7f0c31dcd24808146bd2f1b4545c5787, type: 3}
   m_PrefabInstance: {fileID: 1882339028}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1552791967 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1552791967, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
-  m_PrefabInstance: {fileID: 5387872318316655436}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1568897842
 GameObject:
   m_ObjectHideFlags: 0
@@ -6352,7 +6341,7 @@ PrefabInstance:
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: winGameText
       value: 
-      objectReference: {fileID: 1552791967}
+      objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: fuseBoxCover
       value: 
@@ -6440,6 +6429,10 @@ PrefabInstance:
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: winDialogue.dialogueLines.Array.data[5]
       value: ......
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[0].dialogueLines.Array.data[12]
+      value: Use your keyboard to tune the radio to the number provided.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
@@ -7801,7 +7794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5768634394724422491, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
       propertyPath: rotateSpeed
-      value: 25
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7904118900746251388, guid: bf52acf887ad04bd19c355e02f665df1, type: 3}
       propertyPath: m_IsActive
@@ -8067,6 +8060,10 @@ PrefabInstance:
     - target: {fileID: 8073355784107037639, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
       propertyPath: m_Name
       value: Painting
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073355784107037639, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8881523852488460669, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
       propertyPath: m_RootOrder

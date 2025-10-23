@@ -78,7 +78,9 @@ public class Radio : InteractObject
         targetStation.frequency = targetFrequency;
         try
         {
-            targetStation.message = PlayerController.instance.GetCurrentDocument().toBeShredded ? "Shred File" : PlayerController.instance.GetCurrentDocument().fileColor.ToString();
+            targetStation.message = PlayerController.instance.GetCurrentDocument().toBeShredded
+                ? "Shred File"
+                : $"File document as {PlayerController.instance.GetCurrentDocument().fileColor.ToString()}";
         }
         catch
         {
@@ -159,36 +161,21 @@ public class Radio : InteractObject
         if (interacting)
         {
             PlayerController.instance.SetState(PlayerController.States.interacting);
-            //float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
-            //arrowLeft.color = scrollDelta < 0 ? arrowActive : arrowDefault;
-            //arrowRight.color = scrollDelta > 0 ? arrowActive : arrowDefault;
 
-            //if (scrollDelta > 0)
-            //{
-            //    currentFrequency += Time.deltaTime * rotateSpeed * 5f;
-            //    dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
-            //}
-            //else if (scrollDelta < 0)
-            //{
-            //    currentFrequency -= Time.deltaTime * rotateSpeed * 5f;
-            //    dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
-            //}
-
-            if (viewPos.x > mouseDownPos.x)
+            if (Input.GetAxisRaw("Horizontal") > 0)//viewPos.x > mouseDownPos.x)
             {
                 //scroll frequency down
-                currentFrequency += Time.deltaTime * rotateSpeed * 2f;
-                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
+                currentFrequency += Time.deltaTime * rotateSpeed;
+                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed);
             }
-            else if (viewPos.x < mouseDownPos.x)
+            else if (Input.GetAxisRaw("Horizontal") < 0)//viewPos.x < mouseDownPos.x)
             {
                 //scroll frequency up
-                currentFrequency -= Time.deltaTime * rotateSpeed * 2f;
-                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
+                currentFrequency -= Time.deltaTime * rotateSpeed;
+                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed);
             }
 
             //Check active stations
-            //foreach (RadioStation station in activeStations)
             for (int i = 0; i < activeStations.Count; i++)
             {
                 if (currentFrequency <= activeStations[i].frequency + 1.5f && currentFrequency >= activeStations[i].frequency - 1.5f)
@@ -202,7 +189,8 @@ public class Radio : InteractObject
                         audioSource.clip = activeStations[i].clip;
                         audioSource.Play();
                     }
-                    DialogueController.instance.UpdateText(activeStations[i].message, false);
+                    string stationMessage = $"File document as {activeStations[i].message}";
+                    DialogueController.instance.UpdateText(stationMessage, false);
                     if (GameplayController.instance.spawnStaticMan)
                     {
                         focusTime -= Time.deltaTime;
