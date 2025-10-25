@@ -7,6 +7,7 @@ public class Radio : InteractObject
 {
     public static Radio instance;
 
+    [SerializeField] Transform focusPoint;
     [SerializeField] GameObject dialObj;
     [SerializeField] SpriteRenderer arrowLeft, arrowRight;
     [SerializeField] Color arrowDefault, arrowActive;
@@ -244,6 +245,15 @@ public class Radio : InteractObject
         interacting = !interacting;
         DialogueController.instance.UpdateText(string.Empty, false);
         mouseDownPos = viewPos;
+
+        if (interacting)
+        {
+            CamFocusController.instance.FocusTarget(focusPoint);
+        }
+        else
+        {
+            CamFocusController.instance.FocusReset();
+        }
     }
 }
 
