@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 582c261d2ca4242d1a8f798684bf3d75, type: 2}
+  - {fileID: 2100000, guid: f320ab4a688484a10bccf979940118f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlighted: 0
-  fileColor: 0
+  fileColor: 2
   fileClip: {fileID: 8300000, guid: a640cacc00c6a4edc9b23a514b2e2c72, type: 3}
 --- !u!82 &8466353752656926916
 AudioSource:

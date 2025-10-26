@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1686855533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1686855534}
+  m_Layer: 6
+  m_Name: FocusPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1686855534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686855533}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.25, z: -1.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5768634394724422488}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4900113112692521349
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,6 +153,7 @@ Transform:
   - {fileID: 4206436607890422797}
   - {fileID: 5837264711345671616}
   - {fileID: 1317000927216538755}
+  - {fileID: 1686855534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -201,6 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlighted: 0
+  focusPoint: {fileID: 1686855534}
   dialObj: {fileID: 8954140841052948885}
   arrowLeft: {fileID: 1892609716792081310}
   arrowRight: {fileID: 805287522009720820}
@@ -214,7 +247,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b28be12ec454a482eaa91d783c2c8fd9, type: 3}
   - {fileID: 8300000, guid: fc6264c3c679745788b1680ce1a9f453, type: 3}
   radioText: {fileID: 1185434254820822383}
-  rotateSpeed: 25
+  rotateSpeed: 5
   focusTime: 1
   audioSource: {fileID: 3656556502706598338}
   targetAudio: {fileID: 8300000, guid: d9fe638ba1ce545e5b7ed1f888cbc1cc, type: 3}

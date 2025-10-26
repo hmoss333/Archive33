@@ -955,7 +955,6 @@ MonoBehaviour:
   documentCount: {fileID: 4436502981899838426}
   airArrow: {fileID: 6687558012801753492}
   arrowRotSpeed: 0.035
-  airTime: 30
   doorAudio: {fileID: 36001159919433029}
   documentAudio: {fileID: 8865293435173166245}
   doorOpen: {fileID: 8300000, guid: 171a1d3f75fbf4412a8051f0f8c08b96, type: 3}
