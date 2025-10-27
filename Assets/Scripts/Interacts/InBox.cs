@@ -20,11 +20,10 @@ public class InBox : InteractObject
     [SerializeField] float documentGenTime = 12.5f;
     [SerializeField] TMP_Text documentCount;
 
-
     [Header("Air Variables")]
     [SerializeField] GameObject airArrow;
     [SerializeField] float arrowRotSpeed = 1.0f;
-    public float airTime { get; private set; } //; = 30f;
+    public float airTime;// { get; private set; } //; = 30f;
     private Quaternion arrowStartRotation, arrowEndRotation;
     private float _arrowLerpTime = 0f;
 
@@ -84,7 +83,8 @@ public class InBox : InteractObject
                     _arrowLerpTime = 1.0f; // Ensure it reaches the end exactly
                 }
 
-                airTime -= Time.deltaTime / 2f;
+                float airScale = 5 / documents.Count;// / 5f;
+                airTime -= Time.deltaTime / airScale;//2f;
                 if (airTime <= 0)
                 {
                     GameplayController.instance.Suffocate();
