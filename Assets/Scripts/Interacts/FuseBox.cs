@@ -6,9 +6,16 @@ public class FuseBox : InteractObject
 {
     public static FuseBox instance;
 
-    [SerializeField] List<Fuse> fuses;
-    Renderer renderer;
+    [SerializeField] Transform focusPoint;
+    bool interacting = false;
+
+    [SerializeField] GameObject light;
+    [SerializeField] Fuse[] fuses;
+    [SerializeField] Fuse selectedFuse;
+    int fuseIndex = 0;
+
     bool isBroken;
+
     AudioSource audioSource;
     [SerializeField] AudioClip fuseClip;
     [SerializeField] AudioClip outageClip;
@@ -20,7 +27,7 @@ public class FuseBox : InteractObject
         else
             Destroy(this);
 
-        renderer = GetComponent<Renderer>();
+        fuses = GetComponentsInChildren<Fuse>();
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = fuseClip;
     }
@@ -29,7 +36,42 @@ public class FuseBox : InteractObject
     {
         base.Update();
 
-        renderer.material.color = isBroken ? Color.red : Color.green;
+        light.GetComponent<Renderer>().material.color = isBroken ? Color.red : Color.green;
+
+        if (interacting)
+        {
+            PlayerController.instance.SetState(PlayerController.States.interacting);
+
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                fuseIndex++;
+            }
+            else if (Input.GetKeyDown(KeyCode.W))
+            {
+                fuseIndex--;
+            }
+
+            fuseIndex = Mathf.Clamp(fuseIndex, 0, 2);
+            selectedFuse = fuses[fuseIndex];
+            selectedFuse.highlighted = true;
+            Renderer R = selectedFuse.GetComponent<Renderer>();
+            Outline OL = R.GetComponent<Outline>();
+            if (OL == null) // if no script is attached, attach one
+            {
+                OL = R.gameObject.AddComponent<Outline>();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                selectedFuse.Interact();
+                CheckFuses();
+            }
+        }
+
+        foreach (Fuse fuse in fuses)
+        {
+            fuse.GetComponent<BoxCollider>().enabled = interacting;
+        }
     }
 
     public void SetBroken()
@@ -58,7 +100,22 @@ public class FuseBox : InteractObject
     public override void Interact()
     {
         base.Interact();
-        for (int i = 0; i < fuses.Count; i++)
+        interacting = !interacting;
+        DialogueController.instance.UpdateText(string.Empty, false);
+
+        if (interacting)
+        {
+            CamFocusController.instance.FocusTarget(focusPoint);
+        }
+        else
+        {
+            CamFocusController.instance.FocusReset();
+        }
+    }
+
+    void CheckFuses()
+    {
+        for (int i = 0; i < fuses.Length; i++)
         {
             if (fuses[i].isBroken)
                 return;
@@ -68,6 +125,4 @@ public class FuseBox : InteractObject
         audioSource.PlayOneShot(fuseClip);
         GameplayController.instance.RestartPower();
     }
-
-
 }

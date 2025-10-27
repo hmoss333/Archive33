@@ -22,6 +22,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] GameObject radio;
     [SerializeField] GameObject fuseBoxCover;
     [SerializeField] GameObject bell;
+    [SerializeField] GameObject painting;
 
     public enum State { dialogue, gameplay, victory, death }
     public State state;
@@ -88,6 +89,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] GameObject retryMenu;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     [SerializeField] DialogueContainer winDialogue;
+    [SerializeField] float skipTimer = 0f;
     Coroutine introDialogueCo;
     Coroutine nextNightCo;
     Coroutine winGameCo;
@@ -177,11 +179,21 @@ public class GameplayController : MonoBehaviour
                 if (introDialogueCo == null)
                     introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKey(KeyCode.Space))
                 {
-                    StopCoroutine(introDialogueCo);
-                    DialogueController.instance.UpdateText("", false);
-                    SetState(State.gameplay);
+                    skipTimer += Time.deltaTime;
+                    if (skipTimer >= 2f)
+                    {
+                        skipTimer = 0f;
+                        StopCoroutine(introDialogueCo);
+                        DialogueController.instance.UpdateText("", false);
+                        SetState(State.gameplay);
+                        InBox.instance.GenerateNewDocument();
+                    }
+                }
+                else
+                {
+                    skipTimer = 0f;
                 }
 
                 break;
@@ -440,6 +452,7 @@ public class GameplayController : MonoBehaviour
     {
         radio.SetActive(shiftVal >= 0);
         fuseBoxCover.SetActive(shiftVal < 1);
+        painting.SetActive(shiftVal >= 1);
         bell.SetActive(shiftVal >= 2);
     }
 
@@ -556,6 +569,10 @@ public class GameplayController : MonoBehaviour
 
         DialogueController.instance.UpdateText(string.Empty, false);
         SetState(State.gameplay);
+
+        yield return new WaitForSeconds(0.5f);
+        InBox.instance.GenerateNewDocument();
+
         introDialogueCo = null;
     }
 
@@ -663,13 +680,13 @@ public class GameplayController : MonoBehaviour
 }
 
 [System.Serializable]
-class DialogueContainer
+struct DialogueContainer
 {
     public List<string> dialogueLines;
 }
 
 [System.Serializable]
-class DocumentTextContainer
+struct DocumentTextContainer
 {
     public List<string> documentText;
     public List<string> corruptedText;

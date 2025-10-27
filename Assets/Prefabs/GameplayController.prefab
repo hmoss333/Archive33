@@ -1217,6 +1217,7 @@ MonoBehaviour:
   radio: {fileID: 0}
   fuseBoxCover: {fileID: 0}
   bell: {fileID: 0}
+  painting: {fileID: 0}
   state: 0
   shiftDuration: 0
   clockText: {fileID: 0}
@@ -1255,10 +1256,9 @@ MonoBehaviour:
   - {fileID: 0}
   jumpScareClip: {fileID: 8300000, guid: 3be95760e14f2493bad5f6cf8a5dfcbe, type: 3}
   suffocateAudio: {fileID: 0}
-  suffocateClip: {fileID: 0}
+  suffocateClip: {fileID: 8300000, guid: ba66517c86fd744779e01ef9c758e716, type: 3}
   shiftOverText: {fileID: 0}
   shiftCompleteText: {fileID: 0}
-  winGameText: {fileID: 0}
   retryMenu: {fileID: 0}
   uniqueDialogue:
   - dialogueLines:
@@ -1280,8 +1280,7 @@ MonoBehaviour:
     - Monitor it closely as your survival and efficiency are now tied to its accuracy.
     - 'Some documents will arrive encrypted with a radio frequency marker. '
     - 'In those instances, you must use the receiver at your station. '
-    - 'Tune carefully to the number provided, and follow the instructions delivered
-      over the air. '
+    - Use your keyboard to tune the radio to the number provided.
     - 'Remember: not all frequencies are stable. Only trust the one specified.'
     - End of message.
   - dialogueLines:
@@ -1364,6 +1363,15 @@ MonoBehaviour:
     - 'We will stay. '
     - Watching. Listening. Working. Together.
     - "End of\u2026\u2026message."
+  winDialogue:
+    dialogueLines:
+    - Achivist, this is-
+    - We've lost- all power has been-
+    - Remain at your post. It's the only safe-
+    - '[Loud static with multiple voices overlapping]'
+    - Don't trust the voices! Don't-
+    - ......
+  skipTimer: 0
   documentTextContainer:
     documentText: []
     corruptedText: []
@@ -1395,9 +1403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b955195181b344a03ab301916cd15745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: 1
   audioSources: []
-  suffocateAudioSource: {fileID: 0}
 --- !u!82 &6530115624359995448
 AudioSource:
   m_ObjectHideFlags: 0
