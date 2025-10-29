@@ -13,6 +13,7 @@ public class FuseBox : InteractObject
     [SerializeField] Fuse[] fuses;
     [SerializeField] Fuse selectedFuse;
     int fuseIndex = 0;
+    [SerializeField] SpriteRenderer arrowUp, arrowDown;
 
     bool isBroken;
 
@@ -36,19 +37,21 @@ public class FuseBox : InteractObject
     {
         base.Update();
 
+        arrowUp.gameObject.SetActive(interacting);
+        arrowDown.gameObject.SetActive(interacting);
         light.GetComponent<Renderer>().material.color = isBroken ? Color.red : Color.green;
 
         if (interacting)
         {
             PlayerController.instance.SetState(PlayerController.States.interacting);
 
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                fuseIndex++;
-            }
-            else if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 fuseIndex--;
+            }
+            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                fuseIndex++;
             }
 
             fuseIndex = Mathf.Clamp(fuseIndex, 0, 2);
