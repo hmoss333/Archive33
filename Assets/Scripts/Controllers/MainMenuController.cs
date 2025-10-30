@@ -11,7 +11,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] float camSpeed;
     [SerializeField] private bool movingCamera = false;
 
-    [SerializeField] GameObject mainMenu, shiftSelectMenu, creditsMenu;
+    [SerializeField] GameObject mainMenu, shiftSelectMenu, controlsMenu, creditsMenu;
     [SerializeField] TMP_Text shiftSelectText;
     [SerializeField] TMP_Text versionNumber;
     [SerializeField] CanvasGroup selectShiftButtonCanvas;
@@ -57,6 +57,7 @@ public class MainMenuController : MonoBehaviour
         {
             mainMenu.SetActive(false);
             shiftSelectMenu.SetActive(false);
+            controlsMenu.SetActive(false);
             creditsMenu.SetActive(false);
             Camera.main.transform.position = titleCamPos.position;
             Camera.main.transform.rotation = titleCamPos.rotation;
@@ -134,6 +135,7 @@ public class MainMenuController : MonoBehaviour
     {
         mainMenu.SetActive(false);
         shiftSelectMenu.SetActive(true);
+        controlsMenu.SetActive(false);
         creditsMenu.SetActive(false);
     }
 
@@ -159,6 +161,18 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
+    public void Controls()
+    {
+        if (!startingGame)
+        {
+            print("Open controls menu here");
+            mainMenu.SetActive(false);
+            shiftSelectMenu.SetActive(false);
+            controlsMenu.SetActive(true);
+            creditsMenu.SetActive(false);
+        }
+    }
+
     public void Credits()
     {
         if (!startingGame)
@@ -166,6 +180,7 @@ public class MainMenuController : MonoBehaviour
             print("Open credits menu here");
             mainMenu.SetActive(false);
             shiftSelectMenu.SetActive(false);
+            controlsMenu.SetActive(false);
             creditsMenu.SetActive(true);
         }
     }
@@ -174,6 +189,7 @@ public class MainMenuController : MonoBehaviour
     {
         mainMenu.SetActive(true);
         shiftSelectMenu.SetActive(false);
+        controlsMenu.SetActive(false);
         creditsMenu.SetActive(false);
     }
 

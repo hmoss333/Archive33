@@ -159,7 +159,7 @@ public class Radio : InteractObject
 
         //TODO
         //Add logic to have the player tune the radio to a randomized station value in order to get the instructions for the current document
-        if (interacting)
+        if (interacting && GameplayController.instance.state == GameplayController.State.gameplay)
         {
             PlayerController.instance.SetState(PlayerController.States.interacting);
 

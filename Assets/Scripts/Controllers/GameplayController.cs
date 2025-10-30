@@ -86,6 +86,7 @@ public class GameplayController : MonoBehaviour
     [Header("Dialogue Values")]
     [SerializeField] TMP_Text shiftOverText;
     [SerializeField] TMP_Text shiftCompleteText;
+    [SerializeField] TMP_Text holdToSkipText;
     [SerializeField] GameObject retryMenu;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     [SerializeField] DialogueContainer winDialogue;
@@ -154,9 +155,15 @@ public class GameplayController : MonoBehaviour
 
     private void Update()
     {
+        //Reset props, lights, and volume based on the current shift number
         SetProps(shiftNum);
         SetWarningLights(penalty);
         AudioController.instance.ModifyVolume();
+
+
+        //Only display the 'Hold to Skip' text element during the dialogue state
+        holdToSkipText.enabled = state == State.dialogue;
+
 
         //Suffocattion audio controller
         //Scale all audiosources based on the current remaining airTime using the volume PlayerPref as a max
@@ -169,6 +176,8 @@ public class GameplayController : MonoBehaviour
             suffocateAudio.PlayOneShot(suffocateClip);
         }
 
+
+        //State Machine
         switch (state)
         {
             case State.dialogue:
@@ -178,22 +187,24 @@ public class GameplayController : MonoBehaviour
                 //Play dialogue set for current shift
                 if (introDialogueCo == null)
                     introDialogueCo = StartCoroutine(IntroDialogueRoutine(uniqueDialogue[shiftNum].dialogueLines));
-
-                if (Input.GetKey(KeyCode.Space))
-                {
-                    skipTimer += Time.deltaTime;
-                    if (skipTimer >= 2f)
-                    {
-                        skipTimer = 0f;
-                        StopCoroutine(introDialogueCo);
-                        DialogueController.instance.UpdateText("", false);
-                        SetState(State.gameplay);
-                        InBox.instance.GenerateNewDocument();
-                    }
-                }
                 else
                 {
-                    skipTimer = 0f;
+                    if (Input.GetKey(KeyCode.Space))
+                    {
+                        skipTimer += Time.deltaTime;
+                        if (skipTimer >= 2f)
+                        {
+                            skipTimer = 0f;
+                            StopCoroutine(introDialogueCo);
+                            DialogueController.instance.UpdateText("", false);
+                            SetState(State.gameplay);
+                            InBox.instance.GenerateNewDocument();
+                        }
+                    }
+                    else
+                    {
+                        skipTimer = 0f;
+                    }
                 }
 
                 break;
@@ -578,6 +589,8 @@ public class GameplayController : MonoBehaviour
 
     IEnumerator GameOverRoutine(bool jumpScare)
     {
+        DialogueController.instance.UpdateText(string.Empty, false);
+
         if (jumpScare)
             JumpScare(js_ModelNum);
 
