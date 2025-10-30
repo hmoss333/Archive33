@@ -83,8 +83,7 @@ public class InBox : InteractObject
                     _arrowLerpTime = 1.0f; // Ensure it reaches the end exactly
                 }
 
-                float airScale = 5 / documents.Count;// / 5f;
-                airTime -= Time.deltaTime / airScale;//2f;
+                airTime -= Time.deltaTime / 2 * documents.Count;
                 if (airTime <= 0)
                 {
                     GameplayController.instance.Suffocate();
