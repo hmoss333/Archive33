@@ -127,5 +127,7 @@ public class FuseBox : InteractObject
         isBroken = false; //should trigger if all fuses are currently not broken
         audioSource.PlayOneShot(fuseClip);
         GameplayController.instance.RestartPower();
+        Interact();
+        PlayerController.instance.SetState(PlayerController.States.idle);
     }
 }

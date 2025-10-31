@@ -144,7 +144,7 @@ public class InBox : InteractObject
         newDoc.InitializeDoc();
         documents.Add(newDoc);
 
-        float maxTime = GameplayController.instance.shiftNum >= 3 ? 10.5f : 12.5f;
+        float maxTime = GameplayController.instance.shiftNum >= 3 ? 15.5f : 16.5f;
         documentGenTime = Random.Range(3f, maxTime);
     }
 
