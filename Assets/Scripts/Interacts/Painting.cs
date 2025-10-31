@@ -5,6 +5,7 @@ using System.Linq;
 
 public class Painting : InteractObject
 {
+    [SerializeField] Transform focusPoint;
     [SerializeField] Material defaultMat, effectedMat;
     [SerializeField] float waitTimer, killTimer;
     AudioSource audioSource;
@@ -48,6 +49,7 @@ public class Painting : InteractObject
                 killTimer -= Time.deltaTime;
                 if (killTimer <= 0)
                 {
+                    CamFocusController.instance.FocusTarget(focusPoint);
                     GameplayController.instance.Suffocate();
                 }
             }
@@ -58,6 +60,8 @@ public class Painting : InteractObject
     {
         base.Interact();
 
+        
+        CamFocusController.instance.FocusTarget(focusPoint);
         ModifyMaterials(renderer, defaultMat);
         if (effected)
         {

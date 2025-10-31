@@ -16,8 +16,8 @@ public class Radio : InteractObject
     [SerializeField] List<AudioClip> stationClips;
 
     [SerializeField] TMP_Text radioText;
-    public float targetFrequency;// { get; private set; } //public in order to display frequency on document
-    [SerializeField] float rotateSpeed, focusTime = 1f;
+    public float targetFrequency { get; private set; } //public in order to display frequency on document
+    [SerializeField] float rotateSpeed;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip targetAudio, staticAudio, badAudio;
 
@@ -56,7 +56,7 @@ public class Radio : InteractObject
     private void InitializeFrequency()
     {
         float returnFrequency = targetFrequency;
-        float offsetVal = Random.Range(15f, 25f);
+        float offsetVal = Random.Range(10f, 20f);
         int randDirection = Random.Range(0, 2);
         returnFrequency = randDirection == 0
                                 ? returnFrequency - offsetVal
@@ -193,15 +193,6 @@ public class Radio : InteractObject
                     }
                     string stationMessage = $"File document as {activeStations[i].message}";
                     DialogueController.instance.UpdateText(stationMessage, false);
-                    if (GameplayController.instance.spawnStaticMan)
-                    {
-                        focusTime -= Time.deltaTime;
-                        if (focusTime <= 0f)
-                        {
-                            focusTime = 1f;
-                            GameplayController.instance.ToggleStaticMan(false);
-                        }
-                    }
                     break;
                 }
                 else

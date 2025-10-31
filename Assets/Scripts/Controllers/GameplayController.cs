@@ -50,7 +50,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] private float powerOutageTimer = 20f;
     private bool powerOutage;
     private float zombieMoveTimer = 3.5f;
-    private float lightOutTimer = 0.35f;
+    private float lightOutTimer = 0.45f;
     private int zombieMoveNum;
     [SerializeField] GameObject zombie;
     [SerializeField] List<Transform> zombiePoints;
@@ -119,6 +119,7 @@ public class GameplayController : MonoBehaviour
         LoadDocumentText();
         jumpScareAudio = jumpScare.GetComponent<AudioSource>();
 
+        CamFocusController.instance.FocusReset();
         shiftNum = PlayerPrefs.GetInt("longNightMode") == 2
             ? 5 //if longNightMode is enabled, skip to last night
             : PlayerPrefs.GetInt("shiftNum", 0); //else load last completed night; default to first night
@@ -214,7 +215,7 @@ public class GameplayController : MonoBehaviour
                 //Shift Timer
                 if (shiftNum < 4)
                 {
-                    shiftDuration = 360f; //shiftNum > 0 ? 360f : 300f;
+                    shiftDuration = shiftNum > 0 ? 360f : 240f;
                     System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
                     clockText.text = time.ToString(@"mm\:ss");
 
@@ -327,8 +328,9 @@ public class GameplayController : MonoBehaviour
                                 else
                                 {
                                     zombieMoveNum++;
-                                    zombieMoveTimer = 3.5f;
-                                    lightOutTimer = 0.35f;
+                                    zombieMoveTimer = zombieMoveNum < zombiePoints.Count - 1 ? 3.5f : 4.5f;
+                                    print($"Zombie Timer: {zombieMoveTimer}");
+                                    lightOutTimer = 0.45f;
                                 }
                             }
                             //Else play zombie jumpscare
@@ -623,6 +625,7 @@ public class GameplayController : MonoBehaviour
         while (FadeController.instance.isFading)
             yield return null;
 
+        CamFocusController.instance.FocusReset();
         shiftTime = 0f;
         penalty = 0;
         powerOutage = false;

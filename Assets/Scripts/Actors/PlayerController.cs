@@ -42,7 +42,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (state == States.idle)
+        if (GameplayController.instance.state != GameplayController.State.death
+            && state == States.idle)
         {
             UpdateLook();
         }
