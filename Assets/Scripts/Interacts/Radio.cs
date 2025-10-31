@@ -11,12 +11,12 @@ public class Radio : InteractObject
     [SerializeField] GameObject dialObj;
     [SerializeField] SpriteRenderer arrowLeft, arrowRight;
     [SerializeField] Color arrowDefault, arrowActive;
-    [SerializeField][Range(30, 300)] float currentFrequency; //Use LF (low frequency) band for radio stations
+    [SerializeField][Range(30, 120)] float currentFrequency; //Use LF (low frequency) band for radio stations
     [SerializeField] List<RadioStation> activeStations;
     [SerializeField] List<AudioClip> stationClips;
 
     [SerializeField] TMP_Text radioText;
-    public float targetFrequency { get; private set; } //public in order to display frequency on document
+    public float targetFrequency;// { get; private set; } //public in order to display frequency on document
     [SerializeField] float rotateSpeed, focusTime = 1f;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip targetAudio, staticAudio, badAudio;
@@ -56,16 +56,16 @@ public class Radio : InteractObject
     private void InitializeFrequency()
     {
         float returnFrequency = targetFrequency;
-        float offsetVal = Random.Range(35f, 50f);
+        float offsetVal = Random.Range(15f, 25f);
         int randDirection = Random.Range(0, 2);
         returnFrequency = randDirection == 0
-                                ? returnFrequency + offsetVal
-                                : returnFrequency - offsetVal;
+                                ? returnFrequency - offsetVal
+                                : returnFrequency + offsetVal;
 
-        returnFrequency = Mathf.Clamp(returnFrequency, 30f, 300f);
+        returnFrequency = Mathf.Clamp(returnFrequency, 30f, 120f);
 
         //If result is at either the max or min, re-roll the new station
-        if (returnFrequency == 30f || returnFrequency == 300f)
+        if (returnFrequency == 30f || returnFrequency == 120f)
             InitializeFrequency();
         else
             targetFrequency = returnFrequency;
@@ -77,11 +77,12 @@ public class Radio : InteractObject
         InitializeFrequency();
         RadioStation targetStation = new RadioStation();
         targetStation.frequency = targetFrequency;
+        string currentColor = PlayerController.instance.GetCurrentDocument().fileColor.ToString();
         try
         {
             targetStation.message = PlayerController.instance.GetCurrentDocument().toBeShredded
-                ? "Shred File"
-                : $"File document as {PlayerController.instance.GetCurrentDocument().fileColor.ToString()}";
+                                        ? "Shred File"
+                                        : currentColor;
         }
         catch
         {
@@ -107,7 +108,7 @@ public class Radio : InteractObject
         //Active stations include Red, Blue, Yellow, Destroy, and Bad
         for (int i = 0; i < 4; i++)
         {
-            float randFrequency = Random.Range(30f, 300f);
+            float randFrequency = Random.Range(30f, 120f);
             foreach (RadioStation station in activeStations)
             {
                 if (station.frequency < randFrequency + 7.5f && station.frequency > randFrequency - 7.5f)
@@ -146,7 +147,7 @@ public class Radio : InteractObject
     {
         base.Update();
 
-        currentFrequency = Mathf.Clamp(currentFrequency, 30f, 300f);
+        currentFrequency = Mathf.Clamp(currentFrequency, 30f, 120f);
         radioText.text = currentFrequency.ToString("F2") + "kHz";
         radioText.gameObject.SetActive(interacting);
         arrowLeft.gameObject.SetActive(interacting);
