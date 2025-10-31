@@ -5808,7 +5808,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 5387872318316655436}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -7430,6 +7430,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 228977489, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 502191240, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -7438,10 +7442,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1085444639}
-    - target: {fileID: 1330822179, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5387872317755686211, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_Camera
       value: 
