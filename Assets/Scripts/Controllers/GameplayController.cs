@@ -217,8 +217,8 @@ public class GameplayController : MonoBehaviour
                 if (shiftNum < 4)
                 {
                     shiftDuration = shiftNum > 0 ? 360f : 240f;
-                    //System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
-                    //clockText.text = time.ToString(@"mm\:ss");
+                    System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
+                    clockText.text = time.ToString(@"mm\:ss");
 
                     //Countdown shift timer
                     shiftTime += Time.deltaTime;
@@ -232,12 +232,10 @@ public class GameplayController : MonoBehaviour
                 {
                     longNightTime += Time.deltaTime;
                     PlayerPrefs.SetFloat("longNightScore", longNightTime);
-                    //System.TimeSpan time = System.TimeSpan.FromSeconds(longNightTime);
-                    //clockText.text = time.ToString(@"mm\:ss");
+                    System.TimeSpan time = System.TimeSpan.FromSeconds(longNightTime);
+                    clockText.text = time.ToString(@"mm\:ss");
                 }
 
-                System.TimeSpan time = System.TimeSpan.FromSeconds(shiftNum > 4 ? shiftTime : longNightTime);
-                clockText.text = time.ToString(@"mm\:ss");
 
                 //Shift interact logic
                 if (shiftNum >= 0)
