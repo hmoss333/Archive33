@@ -138,6 +138,7 @@ public class GameplayController : MonoBehaviour
         InBox.instance.Reset();
         retryMenu.SetActive(false);
         state = State.dialogue; //State.gameplay;
+        PlayerController.instance.SetState(PlayerController.States.idle);
 
 
         foreach (Light light in lights)
@@ -216,8 +217,8 @@ public class GameplayController : MonoBehaviour
                 if (shiftNum < 4)
                 {
                     shiftDuration = shiftNum > 0 ? 360f : 240f;
-                    System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
-                    clockText.text = time.ToString(@"mm\:ss");
+                    //System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
+                    //clockText.text = time.ToString(@"mm\:ss");
 
                     //Countdown shift timer
                     shiftTime += Time.deltaTime;
@@ -231,9 +232,12 @@ public class GameplayController : MonoBehaviour
                 {
                     longNightTime += Time.deltaTime;
                     PlayerPrefs.SetFloat("longNightScore", longNightTime);
-                    System.TimeSpan time = System.TimeSpan.FromSeconds(longNightTime);
-                    clockText.text = time.ToString(@"mm\:ss");
+                    //System.TimeSpan time = System.TimeSpan.FromSeconds(longNightTime);
+                    //clockText.text = time.ToString(@"mm\:ss");
                 }
+
+                System.TimeSpan time = System.TimeSpan.FromSeconds(shiftNum > 4 ? shiftTime : longNightTime);
+                clockText.text = time.ToString(@"mm\:ss");
 
                 //Shift interact logic
                 if (shiftNum >= 0)
@@ -479,8 +483,6 @@ public class GameplayController : MonoBehaviour
 
 
     //Gameplay Functions
-    //TODO determine if this is still needed
-    ///Probably can be removed since we're no longer using score
     public void Success()
     {
         if (spawnStaticMan)
@@ -561,6 +563,38 @@ public class GameplayController : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    void ResetScene()
+    {
+        CamFocusController.instance.FocusReset();
+        shiftTime = 0f;
+        longNightTime = 0f;
+        penalty = 0;
+        powerOutage = false;
+        zombieMoveNum = 0;
+        zombie.SetActive(false);
+        ToggleStaticMan(false);
+        staticManDefaultPos = staticMan.transform.position;
+        moveRobot = false;
+        introDialogueCo = null;
+        shiftNum++;
+        FuseBox.instance.SetFixed();
+        Radio.instance.InitializeRadio();
+        moveRobot = false;
+        robotWaitTime = 6f;
+        currentPoint = 0;
+        PlayerController.instance.RemoveCurrentDocument();
+        InBox.instance.Reset();
+        AudioController.instance.ModifyVolume();
+        PlayerPrefs.SetInt("shiftNum", shiftNum);
+        PlayerPrefs.SetInt("maxShift", shiftNum);
+        foreach (Light light in lights)
+        {
+            light.enabled = true;
+            light.GetComponent<LightFlicker>().enabled = false;
+            light.intensity = 1.5f;
+        }
+    }
+
 
     //Coroutines
     IEnumerator IntroDialogueRoutine(List<string> dialogueItems)
@@ -612,6 +646,8 @@ public class GameplayController : MonoBehaviour
 
     IEnumerator EndOfNightRoutine()
     {
+        DialogueController.instance.UpdateText(string.Empty, false);
+
         FadeController.instance.StartFade(1f, 1f);
         FadeController.instance.StartFadeText(shiftCompleteText, 1f, 1f);
 
