@@ -8,6 +8,7 @@ public class DialogueController : MonoBehaviour
 {
     public static DialogueController instance;
 
+    //[SerializeField] GameObject textObject;
     [SerializeField] TMP_Text textUI;
     [SerializeField] Image background;
     [SerializeField] float fadeTime = 5f;

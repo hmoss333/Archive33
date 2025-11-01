@@ -90,7 +90,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] GameObject retryMenu;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
     [SerializeField] DialogueContainer winDialogue;
-    [SerializeField] float skipTimer = 0f;
+    [SerializeField] private float skipTimer = 0f;
     Coroutine introDialogueCo;
     Coroutine nextNightCo;
     Coroutine winGameCo;
@@ -193,7 +193,7 @@ public class GameplayController : MonoBehaviour
                     if (Input.GetKey(KeyCode.Space))
                     {
                         skipTimer += Time.deltaTime;
-                        if (skipTimer >= 2f)
+                        if (skipTimer >= 1.5f)
                         {
                             skipTimer = 0f;
                             StopCoroutine(introDialogueCo);

@@ -60,8 +60,6 @@ public class Painting : InteractObject
     {
         base.Interact();
 
-        
-        CamFocusController.instance.FocusTarget(focusPoint);
         ModifyMaterials(renderer, defaultMat);
         if (effected)
         {

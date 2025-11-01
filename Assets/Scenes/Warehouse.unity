@@ -6322,6 +6322,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 375041443}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[4]
+      value: We were wrong! We didn't know!
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[5]
+      value: Don't trust the voices! Don't-
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: winDialogue.dialogueLines.Array.data[6]
+      value: ......
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[0].dialogueLines.Array.size
       value: 18
       objectReference: {fileID: 0}
@@ -7714,6 +7730,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1085444639}
+    - target: {fileID: 1330822177, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 24.900024
+      objectReference: {fileID: 0}
     - target: {fileID: 5387872317755686211, guid: c572e24e58e004350a3d8c45079f1896, type: 3}
       propertyPath: m_Camera
       value: 
