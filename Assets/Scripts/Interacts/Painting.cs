@@ -49,6 +49,7 @@ public class Painting : InteractObject
                 killTimer -= Time.deltaTime;
                 if (killTimer <= 0)
                 {
+                    PlayerController.instance.SetState(PlayerController.States.interacting);
                     CamFocusController.instance.FocusTarget(focusPoint);
                     GameplayController.instance.Suffocate();
                 }
