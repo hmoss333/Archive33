@@ -21,11 +21,11 @@ public class Document
         FileColor randomColor = (FileColor)enumValues.GetValue(randomIndex);
         fileColor = randomColor;
 
-        int randVal = (int)UnityEngine.Random.Range(0, 2);
+        int randVal = (int)UnityEngine.Random.Range(0, 5);
         toBeShredded =
             randVal == 0
-                ? false
-                : true;
+                ? true
+                : false;
 
         if (GameplayController.instance.shiftNum >= 2)//3)
         {
