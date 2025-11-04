@@ -45,6 +45,15 @@ public class PlayerController : MonoBehaviour
         if (state == States.idle)
         {
             UpdateLook();
+
+
+            //Movement logic for final sequence
+            //TODO move this to only be active during victory state
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.velocity = transform.right * horizontal + transform.forward * vertical;
+                
         }
 
         if (GameplayController.instance.state == GameplayController.State.gameplay)
