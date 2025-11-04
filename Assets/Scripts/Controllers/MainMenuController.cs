@@ -16,7 +16,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] TMP_Text versionNumber;
     [SerializeField] CanvasGroup selectShiftButtonCanvas;
     [SerializeField] CanvasGroup longNightButtonCanvas;
-    [SerializeField] TMP_Text longNightScoreText;
+    [SerializeField] TMP_Text longNightButtonText;
     int shiftSelectNum;
     float longNightScore;
 
@@ -44,14 +44,14 @@ public class MainMenuController : MonoBehaviour
         selectShiftButtonCanvas.alpha = PlayerPrefs.GetInt("maxShift", 0) == 0 ? 0.5f : 1f;
         selectShiftButtonCanvas.interactable = PlayerPrefs.GetInt("maxShift", 0) >= 1;
 
-        //PlayerPrefs.SetInt("longNightMode", 0); //TODO: remove this from final build
+        //PlayerPrefs.SetInt("longNightMode", 1); //TODO: remove this from final build
         if (PlayerPrefs.GetInt("longNightMode") > 0)
             PlayerPrefs.SetInt("longNightMode", 1);
         longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
         longNightButtonCanvas.interactable = PlayerPrefs.GetInt("longNightMode", 0) == 1;
         longNightScore = PlayerPrefs.GetFloat("longNightScore", 0f);
-        longNightScoreText.enabled = PlayerPrefs.GetInt("longNightMode", 0) == 1;
-        longNightScoreText.text = $"({Mathf.RoundToInt(longNightScore)})";
+        longNightScore = Mathf.RoundToInt(longNightScore);
+        longNightButtonText.text = PlayerPrefs.GetInt("longNightMode") > 0 ? $"Long Night Mode ({longNightScore})" : "Long Night Mode";
 
         if (PlayerPrefs.GetInt("newGame", 0) == 0)
         {
