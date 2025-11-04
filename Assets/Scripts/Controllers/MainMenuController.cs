@@ -142,7 +142,7 @@ public class MainMenuController : MonoBehaviour
     public void ModifyShiftNum(int shiftNum)
     {
         shiftSelectNum += shiftNum;
-        shiftSelectNum = Mathf.Clamp(shiftSelectNum, 0, PlayerPrefs.GetInt("maxShift", 0) - 1);
+        shiftSelectNum = Mathf.Clamp(shiftSelectNum, 0, PlayerPrefs.GetInt("maxShift", 0));
         shiftSelectText.text = $"Shift: {shiftSelectNum + 1}";
     }
 

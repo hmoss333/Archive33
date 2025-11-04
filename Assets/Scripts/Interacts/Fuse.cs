@@ -5,13 +5,13 @@ using UnityEngine;
 public class Fuse : InteractObject
 {
     public bool isBroken { get; private set; }
-    Renderer renderer;
+    Renderer rd;
     AudioSource audioSource;
     [SerializeField] AudioClip fuseClip;
 
     public void Start()
     {
-        renderer = GetComponent<Renderer>();
+        rd = GetComponent<Renderer>();
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = fuseClip;
     }
@@ -20,7 +20,7 @@ public class Fuse : InteractObject
     {
         base.Update();
 
-        renderer.material.color = isBroken ? Color.red : Color.green;
+        rd.material.color = isBroken ? Color.red : Color.green;
     }
 
     public override void Interact()
