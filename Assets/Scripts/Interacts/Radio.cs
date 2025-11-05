@@ -77,9 +77,9 @@ public class Radio : InteractObject
         InitializeFrequency();
         RadioStation targetStation = new RadioStation();
         targetStation.frequency = targetFrequency;
-        string currentColor = PlayerController.instance.GetCurrentDocument().fileColor.ToString();
         try
         {
+            string currentColor = PlayerController.instance.GetCurrentDocument().fileColor.ToString();
             targetStation.message = PlayerController.instance.GetCurrentDocument().toBeShredded
                                         ? "Shred File"
                                         : currentColor;

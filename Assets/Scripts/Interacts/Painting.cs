@@ -11,7 +11,7 @@ public class Painting : InteractObject
     AudioSource audioSource;
     [SerializeField] AudioClip whisperClip;
     bool effected;
-    Renderer renderer;
+    Renderer rd;
 
     
 
@@ -23,14 +23,14 @@ public class Painting : InteractObject
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = whisperClip;
         audioSource.loop = true;
-        renderer = GetComponentInChildren<Renderer>();
+        rd = GetComponentInChildren<Renderer>();
     }
 
     private void FixedUpdate()
     {
         if (GameplayController.instance.state == GameplayController.State.gameplay)
         {
-            if (!renderer.isVisible && !effected)
+            if (!rd.isVisible && !effected)
             {
                 audioSource.Stop();
                 waitTimer -= Time.deltaTime;
@@ -44,7 +44,7 @@ public class Painting : InteractObject
 
             if (effected)
             {
-                if (!renderer.sharedMaterials.Contains(effectedMat)) { ModifyMaterials(renderer, effectedMat); }
+                if (!rd.sharedMaterials.Contains(effectedMat)) { ModifyMaterials(rd, effectedMat); }
                 if (!audioSource.isPlaying) { audioSource.PlayOneShot(whisperClip); }
                 killTimer -= Time.deltaTime;
                 if (killTimer <= 0)
@@ -61,7 +61,7 @@ public class Painting : InteractObject
     {
         base.Interact();
 
-        ModifyMaterials(renderer, defaultMat);
+        ModifyMaterials(rd, defaultMat);
         if (effected)
         {
             effected = false;
