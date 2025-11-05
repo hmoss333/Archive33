@@ -584,7 +584,7 @@ public class GameplayController : MonoBehaviour
         InBox.instance.Reset();
         AudioController.instance.ModifyVolume();
         PlayerPrefs.SetInt("shiftNum", shiftNum);
-        PlayerPrefs.SetInt("maxShift", shiftNum);
+        if (PlayerPrefs.GetInt("shiftNum") >= PlayerPrefs.GetInt("maxShift")) { PlayerPrefs.SetInt("maxShift", shiftNum); }
         foreach (Light light in lights)
         {
             light.enabled = true;
@@ -675,7 +675,7 @@ public class GameplayController : MonoBehaviour
         InBox.instance.Reset();
         AudioController.instance.ModifyVolume();
         PlayerPrefs.SetInt("shiftNum", shiftNum);
-        PlayerPrefs.SetInt("maxShift", shiftNum);
+        if (PlayerPrefs.GetInt("shiftNum") >= PlayerPrefs.GetInt("maxShift")) { PlayerPrefs.SetInt("maxShift", shiftNum); }
         foreach (Light light in lights)
         {
             light.enabled = true;
