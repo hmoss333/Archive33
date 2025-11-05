@@ -408,7 +408,7 @@ public class GameplayController : MonoBehaviour
                 if (!FadeController.instance.isFading)
                 {
                     //Reset scene for next shift
-                    if (shiftNum < 3)
+                    if (shiftNum < uniqueDialogue.Count - 1)
                     {
                         if (nextNightCo == null)
                             nextNightCo = StartCoroutine(EndOfNightRoutine());
@@ -584,7 +584,7 @@ public class GameplayController : MonoBehaviour
         InBox.instance.Reset();
         AudioController.instance.ModifyVolume();
         PlayerPrefs.SetInt("shiftNum", shiftNum);
-        PlayerPrefs.SetInt("maxShift", shiftNum);
+        if (PlayerPrefs.GetInt("shiftNum") >= PlayerPrefs.GetInt("maxShift")) { PlayerPrefs.SetInt("maxShift", shiftNum); }
         foreach (Light light in lights)
         {
             light.enabled = true;
@@ -675,7 +675,7 @@ public class GameplayController : MonoBehaviour
         InBox.instance.Reset();
         AudioController.instance.ModifyVolume();
         PlayerPrefs.SetInt("shiftNum", shiftNum);
-        PlayerPrefs.SetInt("maxShift", shiftNum);
+        if (PlayerPrefs.GetInt("shiftNum") >= PlayerPrefs.GetInt("maxShift")) { PlayerPrefs.SetInt("maxShift", shiftNum); }
         foreach (Light light in lights)
         {
             light.enabled = true;
