@@ -408,7 +408,7 @@ public class GameplayController : MonoBehaviour
                 if (!FadeController.instance.isFading)
                 {
                     //Reset scene for next shift
-                    if (shiftNum < 3)
+                    if (shiftNum < uniqueDialogue.Count - 1)
                     {
                         if (nextNightCo == null)
                             nextNightCo = StartCoroutine(EndOfNightRoutine());
