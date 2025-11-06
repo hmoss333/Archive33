@@ -223,7 +223,7 @@ public class GameplayController : MonoBehaviour
                 //Shift Timer
                 if (shiftNum < 4)
                 {
-                    shiftDuration = shiftNum > 0 ? 360f : 240f;
+                    shiftDuration = 10f;//shiftNum > 0 ? 360f : 240f;
                     System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
                     clockText.text = time.ToString(@"mm\:ss");
 
@@ -415,7 +415,7 @@ public class GameplayController : MonoBehaviour
                 if (!FadeController.instance.isFading)
                 {
                     //Reset scene for next shift
-                    if (shiftNum < uniqueDialogue.Count - 1)
+                    if (shiftNum < uniqueDialogue.Count - 2)
                     {
                         if (nextNightCo == null)
                             nextNightCo = StartCoroutine(EndOfNightRoutine());
@@ -712,7 +712,6 @@ public class GameplayController : MonoBehaviour
     IEnumerator WinGameRoutine()
     {
         PlayerPrefs.SetInt("longNightMode", 1);
-        //Shake.instance.StartShake();
 
         for (int i = 0; i < winDialogue.dialogueLines.Count; i++)
         {
@@ -728,13 +727,19 @@ public class GameplayController : MonoBehaviour
         }
 
         DialogueController.instance.UpdateText(string.Empty, false);
-
+        SetState(State.ending);
         m_OnEndingTrigger.Invoke();
 
         while (!triggerFinalDialogue)
             yield return null;
 
         //TODO put final dialogue here
+
+        FadeController.instance.StartFade(1f, 3f);
+
+        yield return new WaitForSeconds(2.5f);
+
+        Cursor.lockState = CursorLockMode.None;
 
         winGameCo = null;
     }
