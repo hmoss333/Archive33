@@ -2,6 +2,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Linq;
 using NaughtyAttributes;
 using TMPro;
@@ -24,7 +25,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] GameObject bell;
     [SerializeField] GameObject painting;
 
-    public enum State { dialogue, gameplay, victory, death }
+    public enum State { dialogue, gameplay, victory, death, ending }
     public State state;
 
     [Header("Shift Values")]
@@ -80,6 +81,12 @@ public class GameplayController : MonoBehaviour
     [Header("Suffocate Values")]
     [SerializeField] AudioSource suffocateAudio;
     [SerializeField] AudioClip suffocateClip;
+
+    [HorizontalLine]
+
+    [Header("Ending Triggers")]
+    public UnityEvent m_OnEndingTrigger = new UnityEvent();
+    private bool triggerFinalDialogue = false;
 
     [HorizontalLine]
 
@@ -427,6 +434,9 @@ public class GameplayController : MonoBehaviour
                 if (gameOverCo == null)
                     gameOverCo = StartCoroutine(GameOverRoutine(true));
                 break;
+            case State.ending:
+                //Activate elevator, light, and trigger zone
+                break;
             default:
                 DialogueController.instance.UpdateText($"Current state: {state}", true);
                 break;
@@ -545,6 +555,11 @@ public class GameplayController : MonoBehaviour
             gameOverCo = StartCoroutine(GameOverRoutine(false));
 
         SetState(State.death);
+    }
+
+    public void TriggerFinalDialogue()
+    {
+        triggerFinalDialogue = true;
     }
 
 
@@ -697,7 +712,7 @@ public class GameplayController : MonoBehaviour
     IEnumerator WinGameRoutine()
     {
         PlayerPrefs.SetInt("longNightMode", 1);
-        Shake.instance.StartShake();
+        //Shake.instance.StartShake();
 
         for (int i = 0; i < winDialogue.dialogueLines.Count; i++)
         {
@@ -714,16 +729,12 @@ public class GameplayController : MonoBehaviour
 
         DialogueController.instance.UpdateText(string.Empty, false);
 
-        yield return new WaitForSeconds(1.5f);
+        m_OnEndingTrigger.Invoke();
 
-        FadeController.instance.StartFade(1f, 3f);
-
-        while (FadeController.instance.isFading)
+        while (!triggerFinalDialogue)
             yield return null;
 
-        yield return new WaitForSeconds(3f);
-
-        SceneManager.LoadScene(0);
+        //TODO put final dialogue here
 
         winGameCo = null;
     }

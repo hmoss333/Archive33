@@ -48,11 +48,10 @@ public class PlayerController : MonoBehaviour
 
 
             //Movement logic for final sequence
-            //TODO move this to only be active during victory state
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            float vertical = Input.GetAxisRaw("Vertical");
-            Rigidbody rb = GetComponent<Rigidbody>();
-            rb.velocity = transform.right * horizontal + transform.forward * vertical;
+            if (GameplayController.instance.state == GameplayController.State.ending)
+            {
+                UpdateMovement();
+            }
                 
         }
 
@@ -81,6 +80,14 @@ public class PlayerController : MonoBehaviour
 
         camTransform.localRotation = Quaternion.Euler(-viewPos.y, 0, 0);
         transform.localRotation = Quaternion.Euler(0, viewPos.x, 0);
+    }
+
+    void UpdateMovement()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = transform.right * horizontal + transform.forward * vertical;
     }
 
     void InteractCheck()
