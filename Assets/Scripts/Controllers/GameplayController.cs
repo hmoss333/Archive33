@@ -84,24 +84,25 @@ public class GameplayController : MonoBehaviour
 
     [HorizontalLine]
 
-    [Header("Ending Triggers")]
-    public UnityEvent m_OnEndingTrigger = new UnityEvent();
-    private bool triggerFinalDialogue = false;
-
-    [HorizontalLine]
-
     [Header("Dialogue Values")]
     [SerializeField] TMP_Text shiftOverText;
     [SerializeField] TMP_Text shiftCompleteText;
     [SerializeField] TMP_Text holdToSkipText;
     [SerializeField] GameObject retryMenu;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
-    [SerializeField] DialogueContainer winDialogue;
     [SerializeField] private float skipTimer = 0f;
     Coroutine introDialogueCo;
     Coroutine nextNightCo;
-    Coroutine winGameCo;
     Coroutine gameOverCo;
+
+    [HorizontalLine]
+
+    [Header("Ending Values")]
+    [SerializeField] DialogueContainer winDialogue;
+    [SerializeField] DialogueContainer endingDialogue;
+    Coroutine winGameCo;
+    public UnityEvent m_OnEndingTrigger = new UnityEvent();
+    private bool triggerFinalDialogue = false;
 
     [HorizontalLine]
 
@@ -734,6 +735,18 @@ public class GameplayController : MonoBehaviour
             yield return null;
 
         //TODO put final dialogue here
+        for (int i = 0; i < endingDialogue.dialogueLines.Count; i++)
+        {
+            DialogueController.instance.UpdateText(endingDialogue.dialogueLines[i], false);
+            yield return new WaitForSeconds(0.5f);
+            while (DialogueController.instance.textActive)
+            {
+                yield return null;
+
+                if (Input.GetMouseButtonUp(0))
+                    break;
+            }
+        }
 
         FadeController.instance.StartFade(1f, 3f);
 
