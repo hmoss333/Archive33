@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class PlayerController : MonoBehaviour
@@ -9,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
 
     public enum States { idle, interacting };
-    public States state;
+    private States state;
 
     [SerializeField] Transform camTransform;
     [SerializeField] float mouseSensitivity = 3f;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject documentPrefab;
     [SerializeField] TMP_Text documentInstructions;
     [SerializeField] TMP_Text documentText;
+    [SerializeField] Image cursorImage;
 
     Vector2 viewPos;
 
@@ -56,8 +58,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        cursorImage.enabled = state != States.interacting;
         documentPrefab.SetActive(hasDocument);
-        SetState(States.idle);
+        if (GameplayController.instance.state != GameplayController.State.death) { SetState(States.idle); }
     }
 
     void UpdateLook()

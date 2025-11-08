@@ -7,16 +7,17 @@ public class Radio : InteractObject
 {
     public static Radio instance;
 
+    [SerializeField] Transform focusPoint;
     [SerializeField] GameObject dialObj;
     [SerializeField] SpriteRenderer arrowLeft, arrowRight;
     [SerializeField] Color arrowDefault, arrowActive;
-    [SerializeField][Range(30, 300)] float currentFrequency; //Use LF (low frequency) band for radio stations
+    [SerializeField][Range(30, 120)] float currentFrequency; //Use LF (low frequency) band for radio stations
     [SerializeField] List<RadioStation> activeStations;
     [SerializeField] List<AudioClip> stationClips;
 
     [SerializeField] TMP_Text radioText;
     public float targetFrequency { get; private set; } //public in order to display frequency on document
-    [SerializeField] float rotateSpeed, focusTime = 1f;
+    [SerializeField] float rotateSpeed;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip targetAudio, staticAudio, badAudio;
 
@@ -55,16 +56,16 @@ public class Radio : InteractObject
     private void InitializeFrequency()
     {
         float returnFrequency = targetFrequency;
-        float offsetVal = Random.Range(35f, 50f);
+        float offsetVal = Random.Range(10f, 20f);
         int randDirection = Random.Range(0, 2);
         returnFrequency = randDirection == 0
-                                ? returnFrequency + offsetVal
-                                : returnFrequency - offsetVal;
+                                ? returnFrequency - offsetVal
+                                : returnFrequency + offsetVal;
 
-        returnFrequency = Mathf.Clamp(returnFrequency, 30f, 300f);
+        returnFrequency = Mathf.Clamp(returnFrequency, 30f, 120f);
 
         //If result is at either the max or min, re-roll the new station
-        if (returnFrequency == 30f || returnFrequency == 300f)
+        if (returnFrequency == 30f || returnFrequency == 120f)
             InitializeFrequency();
         else
             targetFrequency = returnFrequency;
@@ -78,7 +79,10 @@ public class Radio : InteractObject
         targetStation.frequency = targetFrequency;
         try
         {
-            targetStation.message = PlayerController.instance.GetCurrentDocument().toBeShredded ? "Shred File" : PlayerController.instance.GetCurrentDocument().fileColor.ToString();
+            string currentColor = PlayerController.instance.GetCurrentDocument().fileColor.ToString();
+            targetStation.message = PlayerController.instance.GetCurrentDocument().toBeShredded
+                                        ? "Shred File"
+                                        : currentColor;
         }
         catch
         {
@@ -104,7 +108,7 @@ public class Radio : InteractObject
         //Active stations include Red, Blue, Yellow, Destroy, and Bad
         for (int i = 0; i < 4; i++)
         {
-            float randFrequency = Random.Range(30f, 300f);
+            float randFrequency = Random.Range(30f, 120f);
             foreach (RadioStation station in activeStations)
             {
                 if (station.frequency < randFrequency + 7.5f && station.frequency > randFrequency - 7.5f)
@@ -143,7 +147,7 @@ public class Radio : InteractObject
     {
         base.Update();
 
-        currentFrequency = Mathf.Clamp(currentFrequency, 30f, 300f);
+        currentFrequency = Mathf.Clamp(currentFrequency, 30f, 120f);
         radioText.text = currentFrequency.ToString("F2") + "kHz";
         radioText.gameObject.SetActive(interacting);
         arrowLeft.gameObject.SetActive(interacting);
@@ -156,39 +160,24 @@ public class Radio : InteractObject
 
         //TODO
         //Add logic to have the player tune the radio to a randomized station value in order to get the instructions for the current document
-        if (interacting)
+        if (interacting && GameplayController.instance.state == GameplayController.State.gameplay)
         {
             PlayerController.instance.SetState(PlayerController.States.interacting);
-            //float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
-            //arrowLeft.color = scrollDelta < 0 ? arrowActive : arrowDefault;
-            //arrowRight.color = scrollDelta > 0 ? arrowActive : arrowDefault;
 
-            //if (scrollDelta > 0)
-            //{
-            //    currentFrequency += Time.deltaTime * rotateSpeed * 5f;
-            //    dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
-            //}
-            //else if (scrollDelta < 0)
-            //{
-            //    currentFrequency -= Time.deltaTime * rotateSpeed * 5f;
-            //    dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
-            //}
-
-            if (viewPos.x > mouseDownPos.x)
+            if (Input.GetAxisRaw("Horizontal") > 0)//viewPos.x > mouseDownPos.x)
             {
                 //scroll frequency down
-                currentFrequency += Time.deltaTime * rotateSpeed * 2f;
-                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed * 10f);
+                currentFrequency += Time.deltaTime * rotateSpeed;
+                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed);
             }
-            else if (viewPos.x < mouseDownPos.x)
+            else if (Input.GetAxisRaw("Horizontal") < 0)//viewPos.x < mouseDownPos.x)
             {
                 //scroll frequency up
-                currentFrequency -= Time.deltaTime * rotateSpeed * 2f;
-                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed * 10f);
+                currentFrequency -= Time.deltaTime * rotateSpeed;
+                dialObj.transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed);
             }
 
             //Check active stations
-            //foreach (RadioStation station in activeStations)
             for (int i = 0; i < activeStations.Count; i++)
             {
                 if (currentFrequency <= activeStations[i].frequency + 1.5f && currentFrequency >= activeStations[i].frequency - 1.5f)
@@ -202,16 +191,8 @@ public class Radio : InteractObject
                         audioSource.clip = activeStations[i].clip;
                         audioSource.Play();
                     }
-                    DialogueController.instance.UpdateText(activeStations[i].message, false);
-                    if (GameplayController.instance.spawnStaticMan)
-                    {
-                        focusTime -= Time.deltaTime;
-                        if (focusTime <= 0f)
-                        {
-                            focusTime = 1f;
-                            GameplayController.instance.ToggleStaticMan(false);
-                        }
-                    }
+                    string stationMessage = $"File document as {activeStations[i].message}";
+                    DialogueController.instance.UpdateText(stationMessage, false);
                     break;
                 }
                 else
@@ -256,12 +237,21 @@ public class Radio : InteractObject
         interacting = !interacting;
         DialogueController.instance.UpdateText(string.Empty, false);
         mouseDownPos = viewPos;
+
+        if (interacting)
+        {
+            CamFocusController.instance.FocusTarget(focusPoint);
+        }
+        else
+        {
+            CamFocusController.instance.FocusReset();
+        }
     }
 }
 
 
 [System.Serializable]
-class RadioStation
+struct RadioStation
 {
     public float frequency;
     public string message;

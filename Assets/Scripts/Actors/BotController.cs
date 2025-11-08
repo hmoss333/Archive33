@@ -37,6 +37,7 @@ public class BotController : InteractObject
                 else
                 {
                     audioSource.PlayOneShot(correctClip);
+                    GameplayController.instance.Success();
                 }
 
                 GameplayController.instance.CallBot();

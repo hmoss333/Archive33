@@ -11,12 +11,17 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] float camSpeed;
     [SerializeField] private bool movingCamera = false;
 
-    [SerializeField] GameObject mainMenu, shiftSelectMenu, creditsMenu;
+    [SerializeField] GameObject mainMenu, shiftSelectMenu, controlsMenu, creditsMenu;
     [SerializeField] TMP_Text shiftSelectText;
     [SerializeField] TMP_Text versionNumber;
     [SerializeField] CanvasGroup selectShiftButtonCanvas;
     [SerializeField] CanvasGroup longNightButtonCanvas;
+    [SerializeField] TMP_Text longNightButtonText;
     int shiftSelectNum;
+    float longNightScore;
+
+    [SerializeField] AudioSource clickAudioSource;
+    [SerializeField] AudioClip clickAudio;
 
     bool startingGame;
     Coroutine startRoutine;
@@ -39,16 +44,20 @@ public class MainMenuController : MonoBehaviour
         selectShiftButtonCanvas.alpha = PlayerPrefs.GetInt("maxShift", 0) == 0 ? 0.5f : 1f;
         selectShiftButtonCanvas.interactable = PlayerPrefs.GetInt("maxShift", 0) >= 1;
 
-        //PlayerPrefs.SetInt("longNightMode", 0); //TODO: remove this from final build
+        //PlayerPrefs.SetInt("longNightMode", 1); //TODO: remove this from final build
         if (PlayerPrefs.GetInt("longNightMode") > 0)
             PlayerPrefs.SetInt("longNightMode", 1);
         longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
         longNightButtonCanvas.interactable = PlayerPrefs.GetInt("longNightMode", 0) == 1;
+        longNightScore = PlayerPrefs.GetFloat("longNightScore", 0f);
+        longNightScore = Mathf.RoundToInt(longNightScore);
+        longNightButtonText.text = PlayerPrefs.GetInt("longNightMode") > 0 ? $"Long Night Mode ({longNightScore})" : "Long Night Mode";
 
         if (PlayerPrefs.GetInt("newGame", 0) == 0)
         {
             mainMenu.SetActive(false);
             shiftSelectMenu.SetActive(false);
+            controlsMenu.SetActive(false);
             creditsMenu.SetActive(false);
             Camera.main.transform.position = titleCamPos.position;
             Camera.main.transform.rotation = titleCamPos.rotation;
@@ -80,6 +89,12 @@ public class MainMenuController : MonoBehaviour
                 mainMenu.SetActive(true);
                 movingCamera = false;
             }
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            clickAudioSource.Stop();
+            clickAudioSource.PlayOneShot(clickAudio);
         }
     }
 
@@ -120,6 +135,7 @@ public class MainMenuController : MonoBehaviour
     {
         mainMenu.SetActive(false);
         shiftSelectMenu.SetActive(true);
+        controlsMenu.SetActive(false);
         creditsMenu.SetActive(false);
     }
 
@@ -127,6 +143,7 @@ public class MainMenuController : MonoBehaviour
     {
         shiftSelectNum += shiftNum;
         shiftSelectNum = Mathf.Clamp(shiftSelectNum, 0, PlayerPrefs.GetInt("maxShift", 0));
+        if (shiftSelectNum >= 4) { shiftSelectNum = PlayerPrefs.GetInt("maxShift", 0) - 1; }
         shiftSelectText.text = $"Shift: {shiftSelectNum + 1}";
     }
 
@@ -145,6 +162,18 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
+    public void Controls()
+    {
+        if (!startingGame)
+        {
+            print("Open controls menu here");
+            mainMenu.SetActive(false);
+            shiftSelectMenu.SetActive(false);
+            controlsMenu.SetActive(true);
+            creditsMenu.SetActive(false);
+        }
+    }
+
     public void Credits()
     {
         if (!startingGame)
@@ -152,6 +181,7 @@ public class MainMenuController : MonoBehaviour
             print("Open credits menu here");
             mainMenu.SetActive(false);
             shiftSelectMenu.SetActive(false);
+            controlsMenu.SetActive(false);
             creditsMenu.SetActive(true);
         }
     }
@@ -160,6 +190,7 @@ public class MainMenuController : MonoBehaviour
     {
         mainMenu.SetActive(true);
         shiftSelectMenu.SetActive(false);
+        controlsMenu.SetActive(false);
         creditsMenu.SetActive(false);
     }
 
