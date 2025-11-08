@@ -24,14 +24,14 @@ public class CamFocusController : MonoBehaviour
         focusPos = defaultPos;
     }
 
-    //private void Update()
-    //{
-    //    if (transform.position != focusPos)
-    //    {
-    //        transform.position = Vector3.Lerp(transform.position, focusPos, focusPos != defaultPos ? moveTime * Time.deltaTime : 1f);
-    //        transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, focusPos != defaultPos ? moveTime * Time.deltaTime : 1f);
-    //    }
-    //}
+    private void Update()
+    {
+        if (PlayerController.instance.state == PlayerController.States.interacting && transform.position != focusPos)
+        {
+            transform.position = Vector3.Lerp(transform.position, focusPos, focusPos != defaultPos ? moveTime * Time.deltaTime : 1f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, focusPos != defaultPos ? moveTime * Time.deltaTime : 1f);
+        }
+    }
 
     public void FocusTarget(Transform target)
     {

@@ -100,9 +100,10 @@ public class GameplayController : MonoBehaviour
     [Header("Ending Values")]
     [SerializeField] DialogueContainer winDialogue;
     [SerializeField] DialogueContainer endingDialogue;
+    [SerializeField] Transform focusPoint;
     Coroutine winGameCo;
     public UnityEvent m_OnEndingTrigger = new UnityEvent();
-    private bool triggerFinalDialogue = false;
+    private bool triggerFinalDialogue;
 
     [HorizontalLine]
 
@@ -224,7 +225,7 @@ public class GameplayController : MonoBehaviour
                 //Shift Timer
                 if (shiftNum < 4)
                 {
-                    shiftDuration = 10f;//shiftNum > 0 ? 360f : 240f;
+                    shiftDuration = shiftNum > 0 ? 360f : 240f;
                     System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
                     clockText.text = time.ToString(@"mm\:ss");
 
@@ -233,6 +234,10 @@ public class GameplayController : MonoBehaviour
                     if (shiftTime >= shiftDuration)
                     {
                         shiftTime = 0f;
+                        CamFocusController.instance.FocusReset();
+                        PlayerController.instance.RemoveCurrentDocument();
+                        Radio.instance.InitializeRadio();
+                        FuseBox.instance.InitializeFuseBox();
                         SetState(State.victory);
                     }
                 }
@@ -591,7 +596,7 @@ public class GameplayController : MonoBehaviour
         moveRobot = false;
         introDialogueCo = null;
         shiftNum++;
-        FuseBox.instance.SetFixed();
+        FuseBox.instance.InitializeFuseBox();
         Radio.instance.InitializeRadio();
         moveRobot = false;
         robotWaitTime = 6f;
@@ -682,7 +687,7 @@ public class GameplayController : MonoBehaviour
         ToggleStaticMan(false);
         introDialogueCo = null;
         shiftNum++;
-        FuseBox.instance.SetFixed();
+        FuseBox.instance.InitializeFuseBox();
         Radio.instance.InitializeRadio();
         moveRobot = false;
         robotWaitTime = 6f;
@@ -729,12 +734,17 @@ public class GameplayController : MonoBehaviour
 
         DialogueController.instance.UpdateText(string.Empty, false);
         SetState(State.ending);
+
         m_OnEndingTrigger.Invoke();
 
         while (!triggerFinalDialogue)
             yield return null;
 
-        //TODO put final dialogue here
+        yield return new WaitForSeconds(0.5f);
+
+        PlayerController.instance.SetState(PlayerController.States.interacting);
+        CamFocusController.instance.FocusTarget(focusPoint);
+
         for (int i = 0; i < endingDialogue.dialogueLines.Count; i++)
         {
             DialogueController.instance.UpdateText(endingDialogue.dialogueLines[i], false);
