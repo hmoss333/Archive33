@@ -760,9 +760,13 @@ public class GameplayController : MonoBehaviour
 
         FadeController.instance.StartFade(1f, 3f);
 
-        yield return new WaitForSeconds(2.5f);
+        while (FadeController.instance.isFading)
+            yield return null;
+
+        yield return new WaitForSeconds(1.5f);
 
         Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene(0);
 
         winGameCo = null;
     }
