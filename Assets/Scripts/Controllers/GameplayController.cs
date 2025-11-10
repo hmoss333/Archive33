@@ -22,6 +22,7 @@ public class GameplayController : MonoBehaviour
     [Header("Prop References")]
     [SerializeField] GameObject radio;
     [SerializeField] GameObject fuseBoxCover;
+    [SerializeField] GameObject fuseBox;
     [SerializeField] GameObject bell;
     [SerializeField] GameObject painting;
 
@@ -483,6 +484,7 @@ public class GameplayController : MonoBehaviour
     {
         radio.SetActive(shiftVal >= 0);
         fuseBoxCover.SetActive(shiftVal < 1);
+        fuseBox.GetComponent<Collider>().enabled = shiftVal >= 1;
         painting.SetActive(shiftVal >= 1);
         bell.SetActive(shiftVal >= 2);
     }
@@ -645,6 +647,7 @@ public class GameplayController : MonoBehaviour
     IEnumerator GameOverRoutine(bool jumpScare)
     {
         DialogueController.instance.UpdateText(string.Empty, false);
+        shiftOverText.alpha = 0f;
 
         if (jumpScare)
             JumpScare(js_ModelNum);
@@ -666,6 +669,7 @@ public class GameplayController : MonoBehaviour
     IEnumerator EndOfNightRoutine()
     {
         DialogueController.instance.UpdateText(string.Empty, false);
+        shiftCompleteText.alpha = 0f;
 
         FadeController.instance.StartFade(1f, 1f);
         FadeController.instance.StartFadeText(shiftCompleteText, 1f, 1f);

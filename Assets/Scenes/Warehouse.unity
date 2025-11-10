@@ -781,6 +781,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f0c31dcd24808146bd2f1b4545c5787, type: 3}
+--- !u!1 &162535679 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9059372416604665801, guid: 1d63bff34de7e4a6691d423d902452fa, type: 3}
+  m_PrefabInstance: {fileID: 9059372417167724805}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &168968956
 GameObject:
   m_ObjectHideFlags: 0
@@ -7367,6 +7372,10 @@ PrefabInstance:
       propertyPath: zombie
       value: 
       objectReference: {fileID: 1118018747008711890}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: fuseBox
+      value: 
+      objectReference: {fileID: 162535679}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: painting
       value: 
