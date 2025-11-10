@@ -26,7 +26,7 @@ public class CamFocusController : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position != focusPos)
+        if (PlayerController.instance.state == PlayerController.States.interacting && transform.position != focusPos)
         {
             transform.position = Vector3.Lerp(transform.position, focusPos, focusPos != defaultPos ? moveTime * Time.deltaTime : 1f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, focusPos != defaultPos ? moveTime * Time.deltaTime : 1f);

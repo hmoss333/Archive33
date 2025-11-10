@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
 
     public enum States { idle, interacting };
-    private States state;
+    public States state;
 
     [SerializeField] Transform camTransform;
     [SerializeField] float mouseSensitivity = 3f;
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] TMP_Text documentText;
     [SerializeField] Image cursorImage;
 
+    Rigidbody rb;// = GetComponent<Rigidbody>();
     Vector2 viewPos;
 
     // Start is called before the first frame update
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         else
             Destroy(this);
 
+        rb = GetComponent<Rigidbody>();
         state = States.idle;
         hasDocument = false;
     }
@@ -45,6 +47,13 @@ public class PlayerController : MonoBehaviour
         if (state == States.idle)
         {
             UpdateLook();
+
+
+            //Movement logic for final sequence
+            if (GameplayController.instance.state == GameplayController.State.ending)
+            {
+                UpdateMovement();
+            }             
         }
 
         if (GameplayController.instance.state == GameplayController.State.gameplay)
@@ -60,7 +69,11 @@ public class PlayerController : MonoBehaviour
 
         cursorImage.enabled = state != States.interacting;
         documentPrefab.SetActive(hasDocument);
-        if (GameplayController.instance.state != GameplayController.State.death) { SetState(States.idle); }
+        if (GameplayController.instance.state != GameplayController.State.death
+            && GameplayController.instance.state != GameplayController.State.ending)
+        {
+            SetState(States.idle);
+        }
     }
 
     void UpdateLook()
@@ -72,6 +85,14 @@ public class PlayerController : MonoBehaviour
 
         camTransform.localRotation = Quaternion.Euler(-viewPos.y, 0, 0);
         transform.localRotation = Quaternion.Euler(0, viewPos.x, 0);
+    }
+
+    void UpdateMovement()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        //Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = transform.right * horizontal + transform.forward * vertical;
     }
 
     void InteractCheck()
