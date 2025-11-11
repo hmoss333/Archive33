@@ -43,6 +43,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] float stationResetTimer = 14f;
     public bool spawnStaticMan { get; private set; }
     [SerializeField] GameObject staticMan;
+    Renderer staticManRenderer;
     Vector3 staticManDefaultPos;
     ObjectFlicker staticManFlicker;
 
@@ -139,6 +140,7 @@ public class GameplayController : MonoBehaviour
         zombieMoveNum = 0;
         zombie.SetActive(false);
         ToggleStaticMan(false);
+        staticManRenderer = staticMan.GetComponentInChildren<Renderer>();
         staticMan.SetActive(false);
         staticManDefaultPos = staticMan.transform.position;
         staticManFlicker = GetComponent<ObjectFlicker>();
@@ -260,7 +262,8 @@ public class GameplayController : MonoBehaviour
                     //Radio
                     //Static man enemy
                     staticMan.SetActive(spawnStaticMan);
-                    camEffectController.SetEffectState(spawnStaticMan);
+                    if (staticManRenderer.isVisible)
+                        camEffectController.SetEffectState(spawnStaticMan);
                     float dist = Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position);
 
                     if (spawnStaticMan)
@@ -360,8 +363,8 @@ public class GameplayController : MonoBehaviour
                 }
                 if (shiftNum >= 2 || penalty >= 5)
                 {
-                    //'The Button'
-                    //Malformed Documents
+                    //'The Bell'
+                    //Corrupteed Documents
                     int midPoint = (int)robotMovePoints.Count / 2 + 1;
 
                     if (moveRobot)
@@ -401,6 +404,7 @@ public class GameplayController : MonoBehaviour
                             robotWaitTime -= Time.deltaTime;
                             if (robotWaitTime <= 0)
                             {
+                                Failure();
                                 robotWaitTime = 6f;
                                 currentPoint++;
                                 moveRobot = true;
@@ -501,6 +505,7 @@ public class GameplayController : MonoBehaviour
     //Gameplay Functions
     public void Success()
     {
+        stationResetTimer -= 1.5f;
         if (spawnStaticMan)
             ToggleStaticMan(false);
     }
@@ -508,6 +513,7 @@ public class GameplayController : MonoBehaviour
     public void Failure()
     {
         penalty++;
+        stationResetTimer -= 3.5f;
         incorrectAudio.PlayOneShot(incorrectClip);
 
         if (penalty >= 5)
