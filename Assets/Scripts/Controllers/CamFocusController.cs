@@ -7,9 +7,9 @@ public class CamFocusController : MonoBehaviour
     public static CamFocusController instance;
 
     [SerializeField] float moveTime;
-    Vector3 focusPos;
-    Vector3 defaultPos;
-    Vector3 targetPos;
+    [SerializeField] Vector3 focusPos;
+    [SerializeField] Vector3 defaultPos;
+    [SerializeField] Vector3 targetPos;
     Quaternion targetRot;
 
 
@@ -26,7 +26,7 @@ public class CamFocusController : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position != focusPos)
+        if (PlayerController.instance.state == PlayerController.States.interacting)
         {
             transform.position = Vector3.Lerp(transform.position, focusPos, focusPos != defaultPos ? moveTime * Time.deltaTime : 1f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, focusPos != defaultPos ? moveTime * Time.deltaTime : 1f);
@@ -43,5 +43,6 @@ public class CamFocusController : MonoBehaviour
     public void FocusReset()
     {
         focusPos = defaultPos;
+        transform.position = focusPos;
     }
 }

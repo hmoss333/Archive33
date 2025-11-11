@@ -196,7 +196,25 @@ public class MainMenuController : MonoBehaviour
 
     public void Exit()
     {
+        if (!startingGame && startRoutine == null)
+        {
+            startingGame = true;
+            startRoutine = StartCoroutine(CloseGameRoutine());
+        }
+    }
+
+    IEnumerator CloseGameRoutine()
+    {
+        FadeController.instance.StartFade(1f, 0.5f);
+
+        while (FadeController.instance.isFading)
+            yield return null;
+
+        yield return new WaitForSeconds(1f);
+
         Application.Quit();
+
+        startRoutine = null;
     }
 
     private void OnApplicationQuit()

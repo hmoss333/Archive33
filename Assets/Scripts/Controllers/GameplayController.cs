@@ -2,6 +2,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Linq;
 using NaughtyAttributes;
 using TMPro;
@@ -21,10 +22,11 @@ public class GameplayController : MonoBehaviour
     [Header("Prop References")]
     [SerializeField] GameObject radio;
     [SerializeField] GameObject fuseBoxCover;
+    [SerializeField] GameObject fuseBox;
     [SerializeField] GameObject bell;
     [SerializeField] GameObject painting;
 
-    public enum State { dialogue, gameplay, victory, death }
+    public enum State { dialogue, gameplay, victory, death, ending }
     public State state;
 
     [Header("Shift Values")]
@@ -41,6 +43,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] float stationResetTimer = 14f;
     public bool spawnStaticMan { get; private set; }
     [SerializeField] GameObject staticMan;
+    Renderer staticManRenderer;
     Vector3 staticManDefaultPos;
     ObjectFlicker staticManFlicker;
 
@@ -89,12 +92,20 @@ public class GameplayController : MonoBehaviour
     [SerializeField] TMP_Text holdToSkipText;
     [SerializeField] GameObject retryMenu;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
-    [SerializeField] DialogueContainer winDialogue;
     [SerializeField] private float skipTimer = 0f;
     Coroutine introDialogueCo;
     Coroutine nextNightCo;
-    Coroutine winGameCo;
     Coroutine gameOverCo;
+
+    [HorizontalLine]
+
+    [Header("Ending Values")]
+    [SerializeField] DialogueContainer winDialogue;
+    [SerializeField] DialogueContainer endingDialogue;
+    [SerializeField] Transform focusPoint;
+    Coroutine winGameCo;
+    public UnityEvent m_OnEndingTrigger = new UnityEvent();
+    private bool triggerFinalDialogue;
 
     [HorizontalLine]
 
@@ -129,6 +140,7 @@ public class GameplayController : MonoBehaviour
         zombieMoveNum = 0;
         zombie.SetActive(false);
         ToggleStaticMan(false);
+        staticManRenderer = staticMan.GetComponentInChildren<Renderer>();
         staticMan.SetActive(false);
         staticManDefaultPos = staticMan.transform.position;
         staticManFlicker = GetComponent<ObjectFlicker>();
@@ -225,6 +237,10 @@ public class GameplayController : MonoBehaviour
                     if (shiftTime >= shiftDuration)
                     {
                         shiftTime = 0f;
+                        CamFocusController.instance.FocusReset();
+                        PlayerController.instance.RemoveCurrentDocument();
+                        Radio.instance.InitializeRadio();
+                        FuseBox.instance.InitializeFuseBox();
                         SetState(State.victory);
                     }
                 }
@@ -246,7 +262,8 @@ public class GameplayController : MonoBehaviour
                     //Radio
                     //Static man enemy
                     staticMan.SetActive(spawnStaticMan);
-                    camEffectController.SetEffectState(spawnStaticMan);
+                    if (staticManRenderer.isVisible)
+                        camEffectController.SetEffectState(spawnStaticMan);
                     float dist = Vector3.Distance(staticMan.transform.position, PlayerController.instance.transform.position);
 
                     if (spawnStaticMan)
@@ -346,8 +363,8 @@ public class GameplayController : MonoBehaviour
                 }
                 if (shiftNum >= 2 || penalty >= 5)
                 {
-                    //'The Button'
-                    //Malformed Documents
+                    //'The Bell'
+                    //Corrupteed Documents
                     int midPoint = (int)robotMovePoints.Count / 2 + 1;
 
                     if (moveRobot)
@@ -387,6 +404,7 @@ public class GameplayController : MonoBehaviour
                             robotWaitTime -= Time.deltaTime;
                             if (robotWaitTime <= 0)
                             {
+                                Failure();
                                 robotWaitTime = 6f;
                                 currentPoint++;
                                 moveRobot = true;
@@ -408,7 +426,7 @@ public class GameplayController : MonoBehaviour
                 if (!FadeController.instance.isFading)
                 {
                     //Reset scene for next shift
-                    if (shiftNum < uniqueDialogue.Count - 1)
+                    if (shiftNum < uniqueDialogue.Count - 2)
                     {
                         if (nextNightCo == null)
                             nextNightCo = StartCoroutine(EndOfNightRoutine());
@@ -426,6 +444,9 @@ public class GameplayController : MonoBehaviour
                 //Other hazards will change the state from gameplay to this
                 if (gameOverCo == null)
                     gameOverCo = StartCoroutine(GameOverRoutine(true));
+                break;
+            case State.ending:
+                //Activate elevator, light, and trigger zone
                 break;
             default:
                 DialogueController.instance.UpdateText($"Current state: {state}", true);
@@ -467,6 +488,7 @@ public class GameplayController : MonoBehaviour
     {
         radio.SetActive(shiftVal >= 0);
         fuseBoxCover.SetActive(shiftVal < 1);
+        fuseBox.GetComponent<Collider>().enabled = shiftVal >= 1;
         painting.SetActive(shiftVal >= 1);
         bell.SetActive(shiftVal >= 2);
     }
@@ -483,6 +505,7 @@ public class GameplayController : MonoBehaviour
     //Gameplay Functions
     public void Success()
     {
+        stationResetTimer -= 1.5f;
         if (spawnStaticMan)
             ToggleStaticMan(false);
     }
@@ -490,6 +513,7 @@ public class GameplayController : MonoBehaviour
     public void Failure()
     {
         penalty++;
+        stationResetTimer -= 3.5f;
         incorrectAudio.PlayOneShot(incorrectClip);
 
         if (penalty >= 5)
@@ -547,6 +571,11 @@ public class GameplayController : MonoBehaviour
         SetState(State.death);
     }
 
+    public void TriggerFinalDialogue()
+    {
+        triggerFinalDialogue = true;
+    }
+
 
     //Retry Menu Buttons
     public void MainMenu()
@@ -575,7 +604,7 @@ public class GameplayController : MonoBehaviour
         moveRobot = false;
         introDialogueCo = null;
         shiftNum++;
-        FuseBox.instance.SetFixed();
+        FuseBox.instance.InitializeFuseBox();
         Radio.instance.InitializeRadio();
         moveRobot = false;
         robotWaitTime = 6f;
@@ -639,6 +668,8 @@ public class GameplayController : MonoBehaviour
         while (retryMenu.activeSelf)
             yield return null;
 
+        shiftOverText.alpha = 0f;
+
         gameOverCo = null;
     }
 
@@ -659,6 +690,7 @@ public class GameplayController : MonoBehaviour
         while (FadeController.instance.isFading)
             yield return null;
 
+        shiftCompleteText.alpha = 0f;
         CamFocusController.instance.FocusReset();
         shiftTime = 0f;
         penalty = 0;
@@ -666,7 +698,7 @@ public class GameplayController : MonoBehaviour
         ToggleStaticMan(false);
         introDialogueCo = null;
         shiftNum++;
-        FuseBox.instance.SetFixed();
+        FuseBox.instance.InitializeFuseBox();
         Radio.instance.InitializeRadio();
         moveRobot = false;
         robotWaitTime = 6f;
@@ -697,7 +729,6 @@ public class GameplayController : MonoBehaviour
     IEnumerator WinGameRoutine()
     {
         PlayerPrefs.SetInt("longNightMode", 1);
-        Shake.instance.StartShake();
 
         for (int i = 0; i < winDialogue.dialogueLines.Count; i++)
         {
@@ -713,16 +744,39 @@ public class GameplayController : MonoBehaviour
         }
 
         DialogueController.instance.UpdateText(string.Empty, false);
+        SetState(State.ending);
 
-        yield return new WaitForSeconds(1.5f);
+        m_OnEndingTrigger.Invoke();
+
+        while (!triggerFinalDialogue)
+            yield return null;
+
+        yield return new WaitForSeconds(0.5f);
+
+        PlayerController.instance.SetState(PlayerController.States.interacting);
+        CamFocusController.instance.FocusTarget(focusPoint);
+
+        for (int i = 0; i < endingDialogue.dialogueLines.Count; i++)
+        {
+            DialogueController.instance.UpdateText(endingDialogue.dialogueLines[i], false);
+            yield return new WaitForSeconds(0.5f);
+            while (DialogueController.instance.textActive)
+            {
+                yield return null;
+
+                if (Input.GetMouseButtonUp(0))
+                    break;
+            }
+        }
 
         FadeController.instance.StartFade(1f, 3f);
 
         while (FadeController.instance.isFading)
             yield return null;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(0);
 
         winGameCo = null;

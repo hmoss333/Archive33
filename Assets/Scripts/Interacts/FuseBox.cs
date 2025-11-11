@@ -128,4 +128,10 @@ public class FuseBox : InteractObject
         audioSource.PlayOneShot(fuseClip);
         GameplayController.instance.RestartPower();
     }
+
+    public void InitializeFuseBox()
+    {
+        interacting = false;
+        SetFixed();
+    }
 }
