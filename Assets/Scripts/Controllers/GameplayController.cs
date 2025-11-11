@@ -647,7 +647,6 @@ public class GameplayController : MonoBehaviour
     IEnumerator GameOverRoutine(bool jumpScare)
     {
         DialogueController.instance.UpdateText(string.Empty, false);
-        shiftOverText.alpha = 0f;
 
         if (jumpScare)
             JumpScare(js_ModelNum);
@@ -663,13 +662,14 @@ public class GameplayController : MonoBehaviour
         while (retryMenu.activeSelf)
             yield return null;
 
+        shiftOverText.alpha = 0f;
+
         gameOverCo = null;
     }
 
     IEnumerator EndOfNightRoutine()
     {
         DialogueController.instance.UpdateText(string.Empty, false);
-        shiftCompleteText.alpha = 0f;
 
         FadeController.instance.StartFade(1f, 1f);
         FadeController.instance.StartFadeText(shiftCompleteText, 1f, 1f);
@@ -684,6 +684,7 @@ public class GameplayController : MonoBehaviour
         while (FadeController.instance.isFading)
             yield return null;
 
+        shiftCompleteText.alpha = 0f;
         CamFocusController.instance.FocusReset();
         shiftTime = 0f;
         penalty = 0;
