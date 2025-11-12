@@ -103,6 +103,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] DialogueContainer winDialogue;
     [SerializeField] DialogueContainer endingDialogue;
     [SerializeField] Transform focusPoint;
+    bool shiftOver = false;
     Coroutine winGameCo;
     public UnityEvent m_OnEndingTrigger = new UnityEvent();
     private bool triggerFinalDialogue;
@@ -423,8 +424,10 @@ public class GameplayController : MonoBehaviour
                 break;
             case State.victory:
                 //Logic for if the player makes it to the end of their shift
-                if (!FadeController.instance.isFading)
+                if (!shiftOver && !FadeController.instance.isFading)
                 {
+                    shiftOver = true;
+
                     //Reset scene for next shift
                     if (shiftNum < uniqueDialogue.Count - 2)
                     {
@@ -434,9 +437,24 @@ public class GameplayController : MonoBehaviour
                     //Win game
                     else
                     {
+                        staticMan.SetActive(false);
+                        zombie.SetActive(false);
+
                         if (winGameCo == null)
                             winGameCo = StartCoroutine(WinGameRoutine());
                     }
+                }
+
+                //If the robot is still on screen, move them to final point
+                if (currentPoint != robotMovePoints.Count - 1 && currentPoint != 0)//robot.transform.position != robotMovePoints[robotMovePoints.Count - 1].position && robot.transform.position != robotMovePoints[0].position)
+                {
+                    robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotMovePoints[robotMovePoints.Count - 1].position, robotSpeed * Time.deltaTime);
+
+                    Vector3 lookDirection = robotMovePoints[robotMovePoints.Count - 1].position - robot.transform.position;
+                    Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                    robot.transform.rotation = Quaternion.RotateTowards(robot.transform.rotation, targetRotation, 350f * Time.deltaTime);
+
+                    robot.GetComponent<Animator>().SetBool("isMoving", true);
                 }
                 break;
             case State.death:
@@ -722,6 +740,7 @@ public class GameplayController : MonoBehaviour
         while (FadeController.instance.isFading)
             yield return null;
 
+        shiftOver = false;
         SetState(State.dialogue);
         nextNightCo = null;
     }
