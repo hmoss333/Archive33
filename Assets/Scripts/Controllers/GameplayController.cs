@@ -427,6 +427,7 @@ public class GameplayController : MonoBehaviour
                 if (!shiftOver && !FadeController.instance.isFading)
                 {
                     shiftOver = true;
+                    PlayerController.instance.SetState(PlayerController.States.idle);
 
                     //Reset scene for next shift
                     if (shiftNum < uniqueDialogue.Count - 2)
