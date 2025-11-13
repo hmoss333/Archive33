@@ -30,7 +30,7 @@ public class GameplayController : MonoBehaviour
     public State state;
 
     [Header("Shift Values")]
-    [SerializeField] private float shiftDuration;
+    private float shiftDuration;
     private float shiftTime, longNightTime;
     public int shiftNum { get; private set; }
     private int penalty; //Increments on incorrect filing; 5 = death
@@ -50,7 +50,7 @@ public class GameplayController : MonoBehaviour
     [HorizontalLine]
 
     [Header("Power Outage Values")]
-    [SerializeField] private float powerOutageTimer = 20f;
+    private float powerOutageTimer = 20f;
     private bool powerOutage;
     private float zombieMoveTimer = 3.5f;
     private float lightOutTimer = 0.45f;
@@ -92,7 +92,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] TMP_Text holdToSkipText;
     [SerializeField] GameObject retryMenu;
     [SerializeField] List<DialogueContainer> uniqueDialogue;
-    [SerializeField] private float skipTimer = 0f;
+    private float skipTimer = 0f;
     Coroutine introDialogueCo;
     Coroutine nextNightCo;
     Coroutine gameOverCo;

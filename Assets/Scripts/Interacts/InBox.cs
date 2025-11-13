@@ -16,7 +16,7 @@ public class InBox : InteractObject
 
     [Header("Document Variables")]
     [SerializeField] GameObject documentObj;
-    [SerializeField] List<Document> documents;
+    [SerializeField] public List<Document> documents;
     [SerializeField] float documentGenTime = 12.5f;
     [SerializeField] TMP_Text documentCount;
 
@@ -144,7 +144,7 @@ public class InBox : InteractObject
         newDoc.InitializeDoc();
         documents.Add(newDoc);
 
-        float maxTime = GameplayController.instance.shiftNum >= 3 ? 15.5f : 16.5f;
+        float maxTime = GameplayController.instance.shiftNum >= 3 ? 7.5f : 10f;
         documentGenTime = Random.Range(3f, maxTime);
     }
 

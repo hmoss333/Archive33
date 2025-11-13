@@ -7488,7 +7488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: winDialogue.dialogueLines.Array.data[1]
-      value: We've lost-[static]-all power has been-
+      value: We've lost- all power has been-
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: winDialogue.dialogueLines.Array.data[4]
@@ -7500,7 +7500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: winDialogue.dialogueLines.Array.data[6]
-      value: ......
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: endingDialogue.dialogueLines.Array.data[0]
@@ -7543,8 +7543,12 @@ PrefabInstance:
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
-      propertyPath: uniqueDialogue.Array.data[3].dialogueLines.Array.size
+      propertyPath: uniqueDialogue.Array.data[2].dialogueLines.Array.size
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[3].dialogueLines.Array.size
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: m_OnEndingTrigger.m_PersistentCalls.m_Calls.Array.size
@@ -7636,7 +7640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[2].dialogueLines.Array.data[0]
-      value: "Archi\u2014[crackle], this is Control."
+      value: "Archi\u2014, this is Control."
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[2].dialogueLines.Array.data[1]
@@ -7664,7 +7668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[2].dialogueLines.Array.data[7]
-      value: Trained to- [static surge]
+      value: Trained to-
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[2].dialogueLines.Array.data[8]
@@ -7676,7 +7680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[3].dialogueLines.Array.data[0]
-      value: "Archi\u2014[static burst]\u2014this is Con\u2014[warble]"
+      value: "Archi\u2014this is Con\u2014"
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[3].dialogueLines.Array.data[1]
@@ -7780,7 +7784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[2].dialogueLines.Array.data[12]
-      value: Avoid contact. \nAvoid conversation.
+      value: Avoid contact. Avoid conversation.
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[2].dialogueLines.Array.data[13]
@@ -7788,7 +7792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[2].dialogueLines.Array.data[14]
-      value: "End of mes\u2014[static surge, faint mechanical hum]."
+      value: "End of mes\u2014"
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[3].dialogueLines.Array.data[10]
@@ -7800,15 +7804,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[3].dialogueLines.Array.data[12]
-      value: "The vault must hold. \\nYour work must\u2014[loud static, abrupt cut]"
+      value: The vault must hold!
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[3].dialogueLines.Array.data[13]
-      value: "Archivist\u2026 I just want to say... I'm sorry for-"
+      value: "Your work must\u2014"
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[3].dialogueLines.Array.data[14]
-      value: '[Loud static]'
+      value: "Archivist\u2026 I just... so sorry for-"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[3].dialogueLines.Array.data[15]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: m_OnEndingTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
