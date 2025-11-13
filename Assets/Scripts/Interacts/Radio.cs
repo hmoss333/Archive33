@@ -22,8 +22,6 @@ public class Radio : InteractObject
     [SerializeField] AudioClip targetAudio, staticAudio, badAudio;
 
     bool interacting, tunedToStation;
-    Vector2 viewPos;
-    Vector2 mouseDownPos;
 
 
     public void Start()
@@ -121,7 +119,14 @@ public class Radio : InteractObject
                     print("Added station");
                     RadioStation newStation = new RadioStation();
                     newStation.frequency = randFrequency;
-                    newStation.message = PlayerController.instance.GetRandomColor().ToString();
+                    try
+                    {
+                        newStation.message = PlayerController.instance.GetRandomColor().ToString();
+                    }
+                    catch
+                    {
+                        newStation.message = string.Empty;
+                    }
                     switch (newStation.message.ToLower())
                     {
                         case "red":
@@ -155,23 +160,17 @@ public class Radio : InteractObject
         arrowRight.gameObject.SetActive(interacting);
 
 
-        viewPos.x = Input.GetAxis("Mouse X");
-        viewPos.y = Input.GetAxis("Mouse Y");
-
-
         //TODO
         //Add logic to have the player tune the radio to a randomized station value in order to get the instructions for the current document
         if (interacting && GameplayController.instance.state == GameplayController.State.gameplay)
-        {
-            PlayerController.instance.SetState(PlayerController.States.interacting);
-
-            if (Input.GetAxisRaw("Horizontal") > 0)//viewPos.x > mouseDownPos.x)
+        {          
+            if (Input.GetAxisRaw("Horizontal") > 0)
             {
                 //scroll frequency down
                 currentFrequency += Time.deltaTime * rotateSpeed;
                 dialObj.transform.Rotate(Vector3.up * Time.deltaTime * -rotateSpeed);
             }
-            else if (Input.GetAxisRaw("Horizontal") < 0)//viewPos.x < mouseDownPos.x)
+            else if (Input.GetAxisRaw("Horizontal") < 0)
             {
                 //scroll frequency up
                 currentFrequency -= Time.deltaTime * rotateSpeed;
@@ -236,8 +235,8 @@ public class Radio : InteractObject
     {
         base.Interact();
         interacting = !interacting;
+        PlayerController.instance.SetState(interacting ? PlayerController.States.interacting : PlayerController.States.idle);
         DialogueController.instance.UpdateText(string.Empty, false);
-        mouseDownPos = viewPos;
 
         if (interacting)
         {

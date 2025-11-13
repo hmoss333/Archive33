@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
         {
             UpdateLook();
 
-
             //Movement logic for final sequence
             if (GameplayController.instance.state == GameplayController.State.ending)
             {
@@ -69,11 +68,11 @@ public class PlayerController : MonoBehaviour
 
         cursorImage.enabled = state != States.interacting;
         documentPrefab.SetActive(hasDocument);
-        if (GameplayController.instance.state != GameplayController.State.death
-            && GameplayController.instance.state != GameplayController.State.ending)
-        {
-            SetState(States.idle);
-        }
+        //if (GameplayController.instance.state == GameplayController.State.death
+        //    || GameplayController.instance.state == GameplayController.State.ending)
+        //{
+        //    SetState(States.idle);
+        //}
     }
 
     void UpdateLook()
@@ -91,7 +90,6 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        //Rigidbody rb = GetComponent<Rigidbody>();
         rb.velocity = transform.right * horizontal + transform.forward * vertical;
     }
 

@@ -7,7 +7,7 @@ public class FuseBox : InteractObject
     public static FuseBox instance;
 
     [SerializeField] Transform focusPoint;
-    bool interacting = false;
+    [SerializeField] bool interacting = false;
 
     [SerializeField] GameObject light;
     [SerializeField] Fuse[] fuses;
@@ -43,8 +43,6 @@ public class FuseBox : InteractObject
 
         if (interacting)
         {
-            PlayerController.instance.SetState(PlayerController.States.interacting);
-
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 fuseIndex--;
@@ -104,6 +102,7 @@ public class FuseBox : InteractObject
     {
         base.Interact();
         interacting = !interacting;
+        PlayerController.instance.SetState(interacting ? PlayerController.States.interacting : PlayerController.States.idle);
         DialogueController.instance.UpdateText(string.Empty, false);
 
         if (interacting)

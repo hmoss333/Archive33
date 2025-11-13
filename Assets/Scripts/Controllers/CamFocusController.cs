@@ -35,6 +35,7 @@ public class CamFocusController : MonoBehaviour
 
     public void FocusTarget(Transform target)
     {
+        print($"Focusing {target.name}");
         targetPos = target.position;
         targetRot = target.rotation;
         focusPos = targetPos;
@@ -42,6 +43,7 @@ public class CamFocusController : MonoBehaviour
 
     public void FocusReset()
     {
+        print("Resetting Focus");
         focusPos = defaultPos;
         transform.position = focusPos;
     }
