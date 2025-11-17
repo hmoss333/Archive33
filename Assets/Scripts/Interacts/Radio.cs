@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Radio : InteractObject
 {
     public static Radio instance;
 
+    //[SerializeField] Image uiImage;
     [SerializeField] Transform focusPoint;
     [SerializeField] GameObject dialObj;
     [SerializeField] SpriteRenderer arrowLeft, arrowRight;
@@ -151,6 +153,19 @@ public class Radio : InteractObject
 
     public override void Update()
     {
+        //if (highlighted && uiImage.color.a <= 1f)
+        //{
+        //    float alpha = uiImage.color.a;
+        //    alpha += Time.deltaTime;
+        //    uiImage.color = new Color(uiImage.color.r, uiImage.color.g, uiImage.color.b, alpha);
+        //}
+        //else if (!highlighted && uiImage.color.a >= 0f)
+        //{
+        //    float alpha = uiImage.color.a;
+        //    alpha -= Time.deltaTime;
+        //    uiImage.color = new Color(uiImage.color.r, uiImage.color.g, uiImage.color.b, alpha);
+        //}
+
         base.Update();
 
         currentFrequency = Mathf.Clamp(currentFrequency, 30f, 120f);
@@ -163,7 +178,7 @@ public class Radio : InteractObject
         //TODO
         //Add logic to have the player tune the radio to a randomized station value in order to get the instructions for the current document
         if (interacting && GameplayController.instance.state == GameplayController.State.gameplay)
-        {          
+        {
             if (Input.GetAxisRaw("Horizontal") > 0)
             {
                 //scroll frequency down
@@ -228,7 +243,7 @@ public class Radio : InteractObject
                     audioSource.Play();
                 }
             }
-        }
+        }        
     }
 
     public override void Interact()
