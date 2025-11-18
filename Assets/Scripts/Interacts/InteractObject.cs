@@ -11,6 +11,12 @@ public class InteractObject : MonoBehaviour
     public virtual void Update()
     {
         highlighted = GetComponent<Outline>();
+
+        if (PlayerController.instance.interactObj != this || PlayerController.instance.state == PlayerController.States.interacting
+            && highlighted == true)
+        {
+            Destroy(GetComponent<Outline>());
+        }
     }
 
     public virtual void Interact()
