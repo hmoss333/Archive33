@@ -5,17 +5,12 @@ using UnityEngine;
 public class InteractObject : MonoBehaviour
 {
     public bool highlighted; //testing
+    public bool interacting;
 
     // Update is called once per frame
     public virtual void Update()
     {
-        if (!highlighted && GetComponent<Outline>())
-        {
-            Outline outlineScript = GetComponent<Outline>();
-            Destroy(outlineScript);
-        }
-
-        highlighted = false;
+        highlighted = GetComponent<Outline>();
     }
 
     public virtual void Interact()

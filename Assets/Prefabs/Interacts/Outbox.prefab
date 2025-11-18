@@ -197,7 +197,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 1, z: 0.75}
+  m_Size: {x: 0.5, y: 1, z: 0.75}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7067290427019987213
 MonoBehaviour:
@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlighted: 0
+  interacting: 0
   fileColor: 2
   fileClip: {fileID: 8300000, guid: a640cacc00c6a4edc9b23a514b2e2c72, type: 3}
 --- !u!82 &8466353752656926916

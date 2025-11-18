@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float mouseSensitivity = 3f;
     [SerializeField] float checkDist = 10f;
     [SerializeField] LayerMask layer;
-    InteractObject interactObj;
+    [SerializeField] InteractObject interactObj, lastInteractObj;
 
     public bool hasDocument { get; private set; }
     [SerializeField] Document currentDoc;
@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour
                     interactObj = hit.transform.gameObject.GetComponent<InteractObject>();
                     if (interactObj.enabled)
                     {
+                        lastInteractObj = interactObj;
                         interactObj.highlighted = true;
                         Renderer R = hit.collider.GetComponent<Renderer>();
                         Outline OL = R.GetComponent<Outline>();
@@ -125,6 +126,13 @@ public class PlayerController : MonoBehaviour
             {
                 interactObj = null;
             }
+        }
+
+        if (interactObj != lastInteractObj
+            || state == States.interacting
+            && lastInteractObj.GetComponent<Outline>())
+        {
+            Destroy(lastInteractObj.GetComponent<Outline>());
         }
     }
 

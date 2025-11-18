@@ -23,7 +23,7 @@ public class InBox : InteractObject
     [Header("Air Variables")]
     [SerializeField] GameObject airArrow;
     [SerializeField] float arrowRotSpeed = 1.0f;
-    public float airTime;// { get; private set; } //; = 30f;
+    public float airTime { get; private set; } //; = 30f;
     private Quaternion arrowStartRotation, arrowEndRotation;
     private float _arrowLerpTime = 0f;
 

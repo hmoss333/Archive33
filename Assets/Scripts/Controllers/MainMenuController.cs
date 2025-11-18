@@ -220,5 +220,7 @@ public class MainMenuController : MonoBehaviour
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("newGame", 0);
+        PlayerPrefs.SetInt("radioUI", 0);
+        PlayerPrefs.SetInt("fuseBoxUI", 0);
     }
 }

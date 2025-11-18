@@ -7,7 +7,6 @@ public class FuseBox : InteractObject
     public static FuseBox instance;
 
     [SerializeField] Transform focusPoint;
-    [SerializeField] bool interacting = false;
 
     [SerializeField] GameObject light;
     [SerializeField] Fuse[] fuses;
@@ -55,6 +54,11 @@ public class FuseBox : InteractObject
             fuseIndex = Mathf.Clamp(fuseIndex, 0, 2);
             selectedFuse = fuses[fuseIndex];
             selectedFuse.highlighted = true;
+            foreach (Fuse fuse in fuses)
+            {
+                if (fuse != selectedFuse && fuse.GetComponent<Outline>())
+                    Destroy(fuse.GetComponent<Outline>());
+            }
             Renderer R = selectedFuse.GetComponent<Renderer>();
             Outline OL = R.GetComponent<Outline>();
             if (OL == null) // if no script is attached, attach one

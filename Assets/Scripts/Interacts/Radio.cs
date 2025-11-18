@@ -8,7 +8,6 @@ public class Radio : InteractObject
 {
     public static Radio instance;
 
-    //[SerializeField] Image uiImage;
     [SerializeField] Transform focusPoint;
     [SerializeField] GameObject dialObj;
     [SerializeField] SpriteRenderer arrowLeft, arrowRight;
@@ -23,7 +22,7 @@ public class Radio : InteractObject
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip targetAudio, staticAudio, badAudio;
 
-    bool interacting, tunedToStation;
+    bool tunedToStation;
 
 
     public void Start()
@@ -153,19 +152,6 @@ public class Radio : InteractObject
 
     public override void Update()
     {
-        //if (highlighted && uiImage.color.a <= 1f)
-        //{
-        //    float alpha = uiImage.color.a;
-        //    alpha += Time.deltaTime;
-        //    uiImage.color = new Color(uiImage.color.r, uiImage.color.g, uiImage.color.b, alpha);
-        //}
-        //else if (!highlighted && uiImage.color.a >= 0f)
-        //{
-        //    float alpha = uiImage.color.a;
-        //    alpha -= Time.deltaTime;
-        //    uiImage.color = new Color(uiImage.color.r, uiImage.color.g, uiImage.color.b, alpha);
-        //}
-
         base.Update();
 
         currentFrequency = Mathf.Clamp(currentFrequency, 30f, 120f);
