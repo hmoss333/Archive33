@@ -102,6 +102,7 @@ public class GameplayController : MonoBehaviour
     [Header("Ending Values")]
     [SerializeField] DialogueContainer winDialogue;
     [SerializeField] DialogueContainer endingDialogue;
+    [SerializeField] TMP_Text moveText;
     [SerializeField] Transform focusPoint;
     bool shiftOver = false;
     Coroutine winGameCo;
@@ -767,6 +768,12 @@ public class GameplayController : MonoBehaviour
         SetState(State.ending);
 
         m_OnEndingTrigger.Invoke();
+
+        FadeController.instance.StartFadeText(moveText, 1f, 2.5f);
+
+        yield return new WaitForSeconds(3.5f);
+
+        FadeController.instance.StartFadeText(moveText, 0f, 3.5f);
 
         while (!triggerFinalDialogue)
             yield return null;
