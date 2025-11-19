@@ -61,6 +61,8 @@ public class MainMenuController : MonoBehaviour
             creditsMenu.SetActive(false);
             Camera.main.transform.position = titleCamPos.position;
             Camera.main.transform.rotation = titleCamPos.rotation;
+            PlayerPrefs.SetInt("radioUI", 0);
+            PlayerPrefs.SetInt("fuseBoxUI", 0);
         }
         else
         {
@@ -220,7 +222,5 @@ public class MainMenuController : MonoBehaviour
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("newGame", 0);
-        PlayerPrefs.SetInt("radioUI", 0);
-        PlayerPrefs.SetInt("fuseBoxUI", 0);
     }
 }

@@ -8136,7 +8136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiImage: {fileID: 967864598}
-  playerPrefTag: raduiUI
+  playerPrefTag: radioUI
 --- !u!4 &2020840520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4349689160829392, guid: 7f0c31dcd24808146bd2f1b4545c5787, type: 3}

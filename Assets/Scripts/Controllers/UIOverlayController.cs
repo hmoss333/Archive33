@@ -16,7 +16,6 @@ public class UIOverlayController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //PlayerPrefs.DeleteKey(playerPrefTag);
         baseInteract = GetComponentInParent<InteractObject>();
         playerPrefVal = PlayerPrefs.GetInt(playerPrefTag, 0);
     }
@@ -51,7 +50,7 @@ public class UIOverlayController : MonoBehaviour
     void FadeInUI()
     {
         float alpha = uiImage.color.a;
-        alpha += Time.deltaTime;
+        alpha += 1.5f * Time.deltaTime;
         uiImage.color = new Color(uiImage.color.r, uiImage.color.g, uiImage.color.b, alpha);
     }
 
