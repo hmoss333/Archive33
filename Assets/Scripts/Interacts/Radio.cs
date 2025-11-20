@@ -55,7 +55,7 @@ public class Radio : InteractObject
     private void InitializeFrequency()
     {
         float returnFrequency = targetFrequency;
-        float maxOffset = InBox.instance.documents.Count > 1 ? 10f : 17.5f;
+        float maxOffset = InBox.instance != null && InBox.instance.documents.Count > 1 ? 10f : 17.5f;
         float offsetVal = Random.Range(8f, maxOffset);
         int randDirection = Random.Range(0, 2);
         returnFrequency = randDirection == 0
