@@ -64,6 +64,7 @@ public class InBox : InteractObject
         base.Update();
         if (GameplayController.instance.state == GameplayController.State.gameplay)
         {
+            //If less than max documents, countdown to generate a new document
             if (documents.Count < 5)
             {
                 baseTime += Time.deltaTime;
@@ -74,6 +75,7 @@ public class InBox : InteractObject
                 }
             }
 
+            //Air level and arrow rotation
             if (documents.Count > 0)
             {
                 _arrowLerpTime += Time.deltaTime * arrowRotSpeed;
@@ -83,7 +85,8 @@ public class InBox : InteractObject
                     _arrowLerpTime = 1.0f; // Ensure it reaches the end exactly
                 }
 
-                airTime -= Time.deltaTime / 2 * documents.Count;
+                print(2.5f * documents.Count);
+                airTime -= Time.deltaTime / 2.25f * documents.Count;
                 if (airTime <= 0)
                 {
                     GameplayController.instance.Suffocate();
@@ -101,6 +104,7 @@ public class InBox : InteractObject
             }
         }
 
+        //Door open/close & audio
         if (documents.Count > 0)
         {
             _lerpTime += Time.deltaTime * rotationSpeed;
@@ -134,6 +138,7 @@ public class InBox : InteractObject
             }
         }
 
+        //Toggle document model
         documentObj.SetActive(documents.Count > 0);
         documentCount.text = documents.Count.ToString();
     }
@@ -145,7 +150,7 @@ public class InBox : InteractObject
         documents.Add(newDoc);
 
         float maxTime = GameplayController.instance.shiftNum >= 3 ? 9.25f : 10.5f;
-        documentGenTime = Random.Range(3f, maxTime);
+        documentGenTime = Random.Range(3.5f, maxTime);
     }
 
     public override void Interact()
