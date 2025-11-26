@@ -123,9 +123,8 @@ public class GameplayController : MonoBehaviour
         else
             Destroy(this);
 
-        //TODO set the lock state based on pause menu
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        Cursor.visible = false;
 
         AudioController.instance.ModifyVolume();
 
