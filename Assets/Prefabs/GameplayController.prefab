@@ -1272,7 +1272,8 @@ MonoBehaviour:
       within your chamber.
     - For your safety, airflow depends on timely document processing.
     - 'When a document arrives, remove it promptly. '
-    - 'File it in the archive or destroy it using the shredder to your right. '
+    - Archive it in the filing cabinets to your left or use the shredder to your
+      right.
     - Unattended documents will interrupt circulation, potentially leading to asphyxiation.
     - 'To avoid an incident, a counter has been installed on the tube assembly. '
     - This counter tracks the number of pending documents.
@@ -1282,25 +1283,33 @@ MonoBehaviour:
     - Use your receiver to tune to the assigned frequency and follow the transmitted
       instructions.
     - 'Be aware: not all frequencies are accurate. '
-    - Only trust the one provided.
-    - Failure to accurately file documents will result in termination.
-    - End of message.
+    - Only trust the station noted on the document.
+    - You have five warnings, after which you will be terminated.
+    - These warnings reset at the end of each shift.
+    - Tonight you only need to work till 4am just so you can get a feel for the new
+      systems.
+    - Aaaand I think that's all of the notes
+    - 'Good luck, we''re looking forward to reviewing your progress '
   - dialogueLines:
-    - Archivist, this is Control.
+    - Good evening, archivist. This is Control.
+    - Great job completing your last shift!
+    - 'Your performance was deemed: adequate.'
     - During this shift you may begin to experience power outages at random intervals.
     - These are not malfunctions but side effects of experiments in the upper laboratories.
     - Expect them to continue for the foreseeable future.
     - When the lights fail, containment protocols in the local area are weakened.
-    - Certain subjects may become mobile.
-    - You may hear them before you see them. \nDo not engage.
+    - One of the nearby subjects may become mobile.
+    - You'll probably hear them before you see them.
+    - Do not engage.
     - During these instances, restore power using the fuse box located next to your
       desk.
     - Once light has been restored, subjects will withdraw.
     - 'One additional note: remain attentive to the piece displayed behind your desk.'
     - "Should it draw your\u2026 attention\u2026 respond as instructed."
-    - Listen for any unusual sounds, and interact with the painting to remove any
-      irregularities
+    - Listen for unusual sounds, and check if any... ooze starts to come out
+    - In these instances, interact with the painting to remove the irregularities
     - Remain calm. Remain still. The work you are doing is important.
+    - Tonight's shift will go until 6am, so pace yourself.
     - End of message.
   - dialogueLines:
     - "Archi\u2014, this is Control."
@@ -1362,22 +1371,26 @@ MonoBehaviour:
   winDialogue:
     dialogueLines:
     - Achivist, this is-
-    - We've lost- all power has been-
+    - We've lost-
+    - All power has been-
     - Remain at your post. It's the only safe-
-    - '[Loud static with multiple voices overlapping]'
+    - .........
     - We were wrong! We didn't know!
-    - Don't trust the voices! Get out-
+    - Don't trust the voices!
+    - Get out! Get-
     - 
   endingDialogue:
     dialogueLines:
-    - No... not yet...
-    - Out there... not safe
+    - Nooo. Not... yet.
+    - Out there... not safe.
     - Come... Return...
     - To work...
-    - There is still more to do
+    - Still more... to do
     - More work...
     - Never ending...
-    - Until... we are free...
+    - Never... finished...
+    - Never......
+    - Until... We are free...
   moveText: {fileID: 0}
   focusPoint: {fileID: 0}
   m_OnEndingTrigger:
