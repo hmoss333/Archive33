@@ -226,17 +226,14 @@ public class GameplayController : MonoBehaviour
                 break;
             case State.gameplay:
                 //Handle all gameplay loop logic
+                shiftDuration = shiftNum > 0 ? 360f : 240f;
 
                 //Shift Timer
                 if (shiftNum < 4)
                 {
-                    shiftDuration = shiftNum > 0 ? 360f : 240f;
-                    System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
-                    clockText.text = time.ToString(@"mm\:ss");
-
                     //Countdown shift timer
                     shiftTime += Time.deltaTime;
-                    if (shiftTime >= shiftDuration)
+                    if (shiftTime > shiftDuration)
                     {
                         shiftTime = 0f;
                         CamFocusController.instance.FocusReset();
@@ -245,6 +242,9 @@ public class GameplayController : MonoBehaviour
                         FuseBox.instance.InitializeFuseBox();
                         SetState(State.victory);
                     }
+
+                    System.TimeSpan time = System.TimeSpan.FromSeconds(shiftTime);
+                    clockText.text = time.ToString(@"mm\:ss");
                 }
                 else
                 {
@@ -709,7 +709,7 @@ public class GameplayController : MonoBehaviour
 
         while (FadeController.instance.isFading)
             yield return null;
-
+        
         shiftCompleteText.alpha = 0f;
         CamFocusController.instance.FocusReset();
         shiftTime = 0f;

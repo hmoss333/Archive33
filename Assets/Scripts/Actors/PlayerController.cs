@@ -65,6 +65,10 @@ public class PlayerController : MonoBehaviour
                 interactObj.Interact();
             }
         }
+        else
+        {
+            interactObj = null;
+        }
 
         cursorImage.enabled = state != States.interacting;
         documentPrefab.SetActive(hasDocument);
