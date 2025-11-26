@@ -679,16 +679,16 @@ public class GameplayController : MonoBehaviour
         FadeController.instance.StartFade(1f, 3f);
         FadeController.instance.StartFadeText(shiftOverText, 1f, 1f);
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(3.5f);
 
         retryMenu.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         while (retryMenu.activeSelf)
             yield return null;
 
         shiftOverText.alpha = 0f;
-
         gameOverCo = null;
     }
 
