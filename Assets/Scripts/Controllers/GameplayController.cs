@@ -697,7 +697,7 @@ public class GameplayController : MonoBehaviour
     {
         DialogueController.instance.UpdateText(string.Empty, false);
 
-        FadeController.instance.StartFade(1f, 1f);
+        FadeController.instance.StartFade(1f, 3f);
         FadeController.instance.StartFadeText(shiftCompleteText, 1f, 1f);
 
         while (FadeController.instance.isFading)
@@ -719,8 +719,8 @@ public class GameplayController : MonoBehaviour
         introDialogueCo = null;
         shiftNum++;
         FuseBox.instance.InitializeFuseBox();
+        zombie.SetActive(false);
         Radio.instance.InitializeRadio();
-        moveRobot = false;
         robotWaitTime = 6f;
         currentPoint = 0;
         PlayerController.instance.RemoveCurrentDocument();
@@ -737,13 +737,7 @@ public class GameplayController : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        FadeController.instance.StartFade(0f, 2f);
-
-        while (FadeController.instance.isFading)
-            yield return null;
-
-        shiftOver = false;
-        SetState(State.dialogue);
+        SceneManager.LoadScene(1);
         nextNightCo = null;
     }
 
@@ -796,7 +790,7 @@ public class GameplayController : MonoBehaviour
             }
         }
 
-        FadeController.instance.StartFade(1f, 3f);
+        FadeController.instance.StartFade(1f, 5f);
 
         while (FadeController.instance.isFading)
             yield return null;
