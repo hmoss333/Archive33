@@ -1263,87 +1263,108 @@ MonoBehaviour:
   retryMenu: {fileID: 0}
   uniqueDialogue:
   - dialogueLines:
-    - Archivist, this is Control.
-    - Welcome back, I hope your time away was relaxing.
-    - "Some procedures have changed; we\u2019ll review key details at the start of
-      each shift. "
-    - Effective immediately, all documents will arrive via the pneumatic tube system.
-    - This system ensures efficient transfer from upper levels and maintains airflow
-      within your chamber.
-    - For your safety, airflow depends on timely document processing.
-    - 'When a document arrives, remove it promptly. '
-    - Archive it in the filing cabinets to your left or use the shredder to your
-      right.
-    - Unattended documents will interrupt circulation, potentially leading to asphyxiation.
-    - 'To avoid an incident, a counter has been installed on the tube assembly. '
-    - This counter tracks the number of pending documents.
-    - Monitor it closely as your efficiency and continued operation depend on its
-      accuracy.
-    - Each document carries an encrypted radio marker.
-    - Use your receiver to tune to the assigned frequency and follow the transmitted
-      instructions.
-    - 'Be aware: not all frequencies are accurate. '
-    - Only trust the station noted on the document.
-    - You have five warnings, after which you will be terminated.
-    - These warnings reset at the end of each shift.
-    - Tonight you only need to work till 4am just so you can get a feel for the new
-      systems.
-    - Aaaand I think that's all of the notes
-    - 'Good luck, we''re looking forward to reviewing your progress '
+    - Hello, Archivist, this is Control.
+    - Welcome back!
+    - "I know that you're familiar with all of the systems, but there have been some
+      changes while you\u2019ve been away "
+    - "On the right side of your desk you\u2019ll see the new pneumatic tube system. "
+    - 'This is where all new documents will arrive for filing. '
+    - 'The documents themselves will need to either be filed in one of the cabinets
+      to your left, '
+    - 'Or destroyed in the shredder to your right. '
+    - 'When a document arrives, remove it quickly to avoid creating a buildup. '
+    - 'Airflow into your chamber is now connected to this new system. '
+    - 'So long as the system is clear, air will keep flowing. '
+    - "Let the files build up, and\u2026 well you get the idea. "
+    - 'Keep the files moving and you get to keep breathing! '
+    - "To avoid any confusion we\u2019ve installed a counter on the tube assembly
+      so you can see how many documents are left. "
+    - "Lastly, you\u2019ll see the radio receiver on the right of your desk. "
+    - 'Each document coming in has a number at the top of the page. '
+    - This number is a Radio Frequency Marker.
+    - "In order to know how the document needs to be handled you\u2019ll need to
+      tune your radio to the matching frequency. "
+    - "Be aware that there are other stations, so make sure that you\u2019re only
+      listening to the right one! "
+    - 'If you do mess up though, no worries! '
+    - 'You have five warnings represented by the lights on your desk. '
+    - "If you mess up all five times then you\u2019ll be\u2026 terminated. "
+    - Aggressively.
+    - .........
+    - 'Not a big deal, though! '
+    - "Your warnings are reset at the end of every shift, so just make it to the
+      end and you\u2019ll be fine. "
+    - 'Since this is your first night you only need to work till 4am just so you
+      can get a feel for everything '
+    - Aaaand I think that's all of the notes.
+    - Good luck, we're looking forward to reviewing your progress.
   - dialogueLines:
-    - Good evening, archivist. This is Control.
+    - Good evening once again, Archivist! This is Control.
     - Great job completing your last shift!
-    - 'Your performance was deemed: adequate.'
-    - During this shift you may begin to experience power outages at random intervals.
-    - These are not malfunctions but side effects of experiments in the upper laboratories.
-    - Expect them to continue for the foreseeable future.
-    - When the lights fail, containment protocols in the local area are weakened.
-    - One of the nearby subjects may become mobile.
-    - You'll probably hear them before you see them.
-    - Do not engage.
-    - During these instances, restore power using the fuse box located next to your
-      desk.
-    - Once light has been restored, subjects will withdraw.
-    - 'One additional note: remain attentive to the piece displayed behind your desk.'
-    - "Should it draw your\u2026 attention\u2026 respond as instructed."
-    - Listen for unusual sounds, and check if any... ooze starts to come out
-    - In these instances, interact with the painting to remove the irregularities
-    - Remain calm. Remain still. The work you are doing is important.
-    - Tonight's shift will go until 6am, so pace yourself.
-    - End of message.
+    - "I\u2019m seeing here that your performance was deemed\u2026 ADEQUATE. "
+    - "Not bad! Kinda\u2026 You know, let\u2019s just move on."
+    - "So, there\u2019s been a lot of new work upstairs and it\u2019s causing some
+      electrical problems around the archives. "
+    - "The specifics are being kept secret, but I do know that it\u2019s related
+      to some new experiments. "
+    - 'Right now we can expect them for the foreseeable future. '
+    - 'When the lights do go out, you can use the Fuse Box to your right to turn
+      everything back on. '
+    - "Don\u2019t let the lights stay out for too long, though. "
+    - 'During these times, containment protocols in the local area are weakened. '
+    - "I don\u2019t have to explain to YOU why letting the Subjects roam free is
+      a bad idea. "
+    - "Just remember, don\u2019t engage and get the lights back on as soon as possible. "
+    - 'Once the power has been restored, any Subjects will withdraw. '
+    - 'Super easy, right? '
+    - Oh! One additional note,
+    - "Keep an eye on the\u2026 painting\u2026 behind your desk."
+    - "If it draws your attention, just\u2026 respond as instructed. "
+    - Listen for any unusual sounds, and check if any... ooze starts to come out.
+    - 'In these instances, you only need to interact with the painting to remove
+      the irregularities. '
+    - 'Just a reminder, tonight''s shift will go until 6am, so pace yourself! '
+    - "Good luck. We\u2019re all counting on you. "
   - dialogueLines:
     - "Archi\u2014, this is Control."
+    - So, we're having some technical-
+    - ......
     - 'Be advised of a new classification: corrupted documents.'
-    - 'They are unlike the others: unstable, unsafe.'
+    - 'They are not like the others: unstable, unsafe.'
     - "Do not read. Do not linger. Do not\u2014"
-    - '[static]'
+    - 
     - If one appears, ring the bell on your desk.
-    - "The disposal unit will respond. It is\u2026 trained for this."
+    - The disposal unit will respond.
+    - "It's\u2026 trained for this."
     - Trained to-
-    - 'Important: ring the bell only when certain.'
+    - 
+    - 'Important: ring the bell only when absolutely certain.'
     - "False alerts are\u2026 discouraged."
     - The unit does not tolerate uncertainty.
     - When it arrives, surrender the document at once.
     - Avoid contact. Avoid conversation.
+    - All previous protocals are still in place.
     - We're counting on-
     - "End of mes\u2014"
   - dialogueLines:
     - "Archi\u2014this is Con\u2014"
     - System failures escalating.
     - Repairs underway, but containment is unstable.
-    - Your directive remains.
+    - Your instructions remain the same.
     - File what must be filed. Shred what must be shredded.
     - Tune only to the specified frequencies.
     - Do not deviate.
-    - "The vault remains safest\u2014for now."
-    - "There are\u2026 gaps. Reports of movement. Voices..."
+    - "The archives remains safest\u2014for now."
+    - "There are\u2026 gaps. Reports of movement."
+    - Voices...
     - Ignore them.
     - "If you hear anything\u2014ignore!"
     - "If you see anything\u2014IGNORE!"
-    - The vault must hold!
+    - The archives must hold!
     - "Your work must\u2014"
-    - "Archivist\u2026 I just... so sorry for-"
-    - 
+    - ......
+    - Look, I just... I'm so sorry for-
+    - .........
   - dialogueLines:
     - "Arch\u2026 ivist."
     - "This\u2026 is Con\u2026 trol."
