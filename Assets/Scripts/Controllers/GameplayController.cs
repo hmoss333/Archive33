@@ -25,6 +25,8 @@ public class GameplayController : MonoBehaviour
     [SerializeField] GameObject fuseBox;
     [SerializeField] GameObject bell;
     [SerializeField] GameObject painting;
+    [SerializeField] GameObject paintingCurtain;
+    [SerializeField] GameObject paintingCurtainFallen;
 
     public enum State { dialogue, gameplay, victory, death, ending }
     public State state;
@@ -508,6 +510,8 @@ public class GameplayController : MonoBehaviour
         radio.SetActive(shiftVal >= 0);
         fuseBoxCover.SetActive(shiftVal < 1);
         fuseBox.GetComponent<Collider>().enabled = shiftVal >= 1;
+        paintingCurtain.SetActive(shiftVal == 1);
+        paintingCurtainFallen.SetActive(shiftVal >= 1);
         painting.SetActive(shiftVal >= 1);
         bell.SetActive(shiftVal >= 2);
     }
