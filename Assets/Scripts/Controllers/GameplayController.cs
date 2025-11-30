@@ -510,7 +510,7 @@ public class GameplayController : MonoBehaviour
         radio.SetActive(shiftVal >= 0);
         fuseBoxCover.SetActive(shiftVal < 1);
         fuseBox.GetComponent<Collider>().enabled = shiftVal >= 1;
-        paintingCurtain.SetActive(shiftVal == 1);
+        paintingCurtain.SetActive(shiftVal < 1);
         paintingCurtainFallen.SetActive(shiftVal >= 1);
         painting.SetActive(shiftVal >= 1);
         bell.SetActive(shiftVal >= 2);
