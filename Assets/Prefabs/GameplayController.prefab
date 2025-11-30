@@ -1220,6 +1220,8 @@ MonoBehaviour:
   fuseBox: {fileID: 0}
   bell: {fileID: 0}
   painting: {fileID: 0}
+  paintingCurtain: {fileID: 0}
+  paintingCurtainFallen: {fileID: 0}
   state: 0
   clockText: {fileID: 0}
   camEffectController: {fileID: 0}
@@ -1286,12 +1288,15 @@ MonoBehaviour:
       tune your radio to the matching frequency. "
     - "Be aware that there are other stations, so make sure that you\u2019re only
       listening to the right one! "
+    - We've also heard reports from other workers that the radio signal can sometimes
+      cause halucinations.
+    - Distored visions, things that aren't really there. You get the idea.
+    - Just file your current document and everything should go back to normal...
+      probably.
     - 'If you do mess up though, no worries! '
     - 'You have five warnings represented by the lights on your desk. '
     - "If you mess up all five times then you\u2019ll be\u2026 terminated. "
     - Aggressively.
-    - .........
-    - 'Not a big deal, though! '
     - "Your warnings are reset at the end of every shift, so just make it to the
       end and you\u2019ll be fine. "
     - 'Since this is your first night you only need to work till 4am just so you
@@ -1440,6 +1445,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: e763689a146034eca97717c1f145ba95, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
