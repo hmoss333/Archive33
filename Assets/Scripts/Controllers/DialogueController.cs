@@ -51,6 +51,6 @@ public class DialogueController : MonoBehaviour
     {
         textUI.text = newText;
         fade = fadeVal;
-        print(newText);
+        //print(newText);
     }
 }

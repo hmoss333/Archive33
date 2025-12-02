@@ -85,7 +85,7 @@ public class InBox : InteractObject
                     _arrowLerpTime = 1.0f; // Ensure it reaches the end exactly
                 }
 
-                print(2.5f * documents.Count);
+                //print(2.5f * documents.Count);
                 airTime -= Time.deltaTime / 2.25f * documents.Count;
                 if (airTime <= 0)
                 {
