@@ -41,14 +41,14 @@ public class MainMenuController : MonoBehaviour
         FadeController.instance.StartFade(0f, 3f);
 
         //PlayerPrefs.SetInt("maxShift", 5); //TODO: remove this from final build
-        selectShiftButtonCanvas.alpha = PlayerPrefs.GetInt("maxShift", 0) == 0 ? 0.5f : 1f;
-        selectShiftButtonCanvas.interactable = PlayerPrefs.GetInt("maxShift", 0) >= 1;
+        //selectShiftButtonCanvas.alpha = PlayerPrefs.GetInt("maxShift", 0) == 0 ? 0.5f : 1f;
+        //selectShiftButtonCanvas.interactable = PlayerPrefs.GetInt("maxShift", 0) >= 1;
 
-        //PlayerPrefs.SetInt("longNightMode", 1); //TODO: remove this from final build
+        PlayerPrefs.SetInt("longNightMode", 1); //TODO: remove this from final build
         if (PlayerPrefs.GetInt("longNightMode") > 0)
             PlayerPrefs.SetInt("longNightMode", 1);
-        longNightButtonCanvas.alpha = PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
-        longNightButtonCanvas.interactable = PlayerPrefs.GetInt("longNightMode", 0) == 1;
+        longNightButtonCanvas.alpha = 1f; //PlayerPrefs.GetInt("longNightMode", 0) == 0 ? 0.5f : 1f;
+        longNightButtonCanvas.interactable = true; //PlayerPrefs.GetInt("longNightMode", 0) == 1;
         longNightScore = PlayerPrefs.GetFloat("longNightScore", 0f);
         longNightScore = Mathf.RoundToInt(longNightScore);
         longNightButtonText.text = PlayerPrefs.GetInt("longNightMode") > 0 ? $"Long Night Mode ({longNightScore})" : "Long Night Mode";

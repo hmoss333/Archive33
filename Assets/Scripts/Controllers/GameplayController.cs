@@ -34,7 +34,7 @@ public class GameplayController : MonoBehaviour
     [Header("Shift Values")]
     private float shiftDuration;
     private float shiftTime, longNightTime;
-    public int shiftNum { get; private set; }
+    public int shiftNum;// { get; private set; }
     private int penalty; //Increments on incorrect filing; 5 = death
     [SerializeField] TMP_Text clockText;
 
@@ -136,7 +136,7 @@ public class GameplayController : MonoBehaviour
         CamFocusController.instance.FocusReset();
         shiftNum = PlayerPrefs.GetInt("longNightMode") == 2
             ? 5 //if longNightMode is enabled, skip to last night
-            : PlayerPrefs.GetInt("shiftNum", 0); //else load last completed night; default to first night
+            : 1;//PlayerPrefs.GetInt("shiftNum", 0); //else load last completed night; default to first night
         shiftTime = 0f;
         longNightTime = 0f;
         powerOutage = false;
@@ -432,20 +432,20 @@ public class GameplayController : MonoBehaviour
                     PlayerController.instance.SetState(PlayerController.States.idle);
 
                     //Reset scene for next shift
-                    if (shiftNum < uniqueDialogue.Count - 2)
-                    {
-                        if (nextNightCo == null)
-                            nextNightCo = StartCoroutine(EndOfNightRoutine());
-                    }
+                    //if (shiftNum < uniqueDialogue.Count - 2)
+                    //{
+                    if (nextNightCo == null)
+                        nextNightCo = StartCoroutine(EndOfNightRoutine());
+                    //}
                     //Win game
-                    else
-                    {
-                        staticMan.SetActive(false);
-                        zombie.SetActive(false);
+                    //else
+                    //{
+                    //    staticMan.SetActive(false);
+                    //    zombie.SetActive(false);
 
-                        if (winGameCo == null)
-                            winGameCo = StartCoroutine(WinGameRoutine());
-                    }
+                    //    if (winGameCo == null)
+                    //        winGameCo = StartCoroutine(WinGameRoutine());
+                    //}
                 }
 
                 //If the robot is still on screen, move them to final point
@@ -740,7 +740,7 @@ public class GameplayController : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
         nextNightCo = null;
     }
 

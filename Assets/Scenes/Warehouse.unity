@@ -7318,6 +7318,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 375041443}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[0]
+      value: 'Good evening and welcome to the demo for TLB: Archivist!!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[1]
+      value: This is Control and I will be giving you a brief set of instructions
+        to get you started.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[2]
+      value: In this version of the game you'll get to try out a full night shift
+        working our archives department.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[3]
+      value: Let's get you started!
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[16]
+      value: "If it draws your attention, just\u2026 click on it to get it back to
+        normal."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: m_OnEndingTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1115475089}
