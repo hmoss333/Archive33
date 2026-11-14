@@ -7318,6 +7318,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 375041443}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.size
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[0]
       value: 'Good evening and welcome to the demo for TLB: Archivist!!'
       objectReference: {fileID: 0}
@@ -7336,9 +7340,162 @@ PrefabInstance:
       value: Let's get you started!
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[4]
+      value: "On the right side of your desk you\u2019ll see the new pneumatic tube
+        system. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[5]
+      value: This is where all new documents will arrive for filing.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[6]
+      value: 'The documents themselves will need to either be filed in one of the
+        cabinets to your left, '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[7]
+      value: 'Or destroyed in the shredder to your right. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[8]
+      value: 'Airflow into your chamber is now connected to this new system. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[9]
+      value: 'So long as the system is clear, air will keep flowing. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[10]
+      value: "Let the files build up, and\u2026 well you get the idea. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[11]
+      value: "Next, you\u2019ll see the radio receiver on the right of your desk. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[12]
+      value: 'Each document coming in has a number at the top of the page. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[13]
+      value: This number is a Radio Frequency Marker.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[14]
+      value: "In order to know how the document needs to be handled you\u2019ll need
+        to tune your radio to the matching frequency. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[15]
+      value: "Be aware that there are other stations, so make sure that you\u2019re
+        only listening to the right one! "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[16]
+      value: We've also heard reports from other workers that the radio signal can
+        sometimes cause halucinations.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[17]
+      value: Distored visions, things that aren't really there. You get the idea.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[18]
+      value: Just file your current document and everything should go back to normal...
+        probably.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[19]
+      value: 'If you do mess up though, no worries! '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[20]
+      value: 'You have five warnings represented by the lights on your desk. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[21]
+      value: "If you mess up all five times then you\u2019ll be\u2026 terminated. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[22]
+      value: Aggressively.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[23]
+      value: "Oh, before I forget, there\u2019s been a lot of new work upstairs and
+        it\u2019s causing some electrical problems around the archives. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[24]
+      value: "The specifics are being kept secret, but I do know that it\u2019s related
+        to some new experiments. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[25]
+      value: 'Right now we can expect them for the foreseeable future. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[26]
+      value: 'When the lights do go out, you can use the Fuse Box to your right to
+        turn everything back on. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[27]
+      value: "Don\u2019t let the lights stay out for too long, though. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[28]
+      value: 'During these times, containment protocols in the local area are weakened. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[29]
+      value: "I don\u2019t have to explain to YOU why letting the Subjects roam free
+        is a bad idea. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[30]
+      value: "Just remember, don\u2019t engage and get the lights back on as soon
+        as possible. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[31]
+      value: 'Once the power has been restored, any Subjects will withdraw. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[32]
+      value: 'Super easy, right? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[33]
+      value: Oh! One additional note,
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[34]
+      value: "Keep an eye on the\u2026 painting\u2026 behind your desk."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[35]
       value: "If it draws your attention, just\u2026 click on it to get it back to
         normal."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[36]
+      value: Listen for any unusual sounds, and check if any... ooze starts to come
+        out.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[37]
+      value: 'In these instances, you only need to interact with the painting to
+        remove the irregularities. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[38]
+      value: 'Just a reminder, tonight''s shift will go until 6am, so pace yourself! '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: uniqueDialogue.Array.data[1].dialogueLines.Array.data[39]
+      value: "Good luck. We\u2019re all counting on you. "
       objectReference: {fileID: 0}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: m_OnEndingTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Target
