@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 03820cfca84d46028218980b1c2a74df, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9392,6 +9392,10 @@ PrefabInstance:
       propertyPath: image
       value: 
       objectReference: {fileID: 40111118}
+    - target: {fileID: 8992346632431189774, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: screenTentacles
+      value: 
+      objectReference: {fileID: 40111120}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
 --- !u!1001 &9059372417167724805
