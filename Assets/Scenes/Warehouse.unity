@@ -7374,6 +7374,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 994384694}
     - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
+      propertyPath: stationResetTimer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530115624359995455, guid: da6e49b3d1a9b4b95b4e7bc20ad2ae39, type: 3}
       propertyPath: camEffectController
       value: 
       objectReference: {fileID: 1508664987}
