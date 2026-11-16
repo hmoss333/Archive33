@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class Painting : InteractObject
@@ -13,7 +14,23 @@ public class Painting : InteractObject
     bool effected;
     Renderer rd;
 
-    
+
+    [Header("UI Elements")]
+    [SerializeField] Image image;
+    [Range(0f, 1f)] public float intensity;
+
+    Material mat;
+    static readonly int IntensityId = Shader.PropertyToID("_Intensity");
+    static readonly int SeedId = Shader.PropertyToID("_Seed");
+
+
+
+    void Awake()
+    {
+        mat = Instantiate(image.material);   // instance, so the asset isn't edited
+        image.material = mat;
+        mat.SetFloat(SeedId, Random.value * 100f);
+    }
 
     private void Start()
     {
@@ -24,15 +41,21 @@ public class Painting : InteractObject
         audioSource.clip = whisperClip;
         audioSource.loop = true;
         rd = GetComponentInChildren<Renderer>();
+        intensity = 0f;
     }
 
     private void FixedUpdate()
     {
+        intensity = Mathf.Clamp(intensity, 0f, 1f);
+        mat.SetFloat(IntensityId, intensity);
+
         if (GameplayController.instance.state == GameplayController.State.gameplay)
         {
             if (!rd.isVisible && !effected)
             {
                 audioSource.Stop();
+                intensity -= 1.5f * Time.deltaTime;
+
                 waitTimer -= Time.deltaTime;
                 if (waitTimer <= 0)
                 {
@@ -46,6 +69,8 @@ public class Painting : InteractObject
             {
                 if (!rd.sharedMaterials.Contains(effectedMat)) { ModifyMaterials(rd, effectedMat); }
                 if (!audioSource.isPlaying) { audioSource.PlayOneShot(whisperClip); }
+
+                intensity += 0.5f * Time.deltaTime;
                 killTimer -= Time.deltaTime;
                 if (killTimer <= 0)
                 {
