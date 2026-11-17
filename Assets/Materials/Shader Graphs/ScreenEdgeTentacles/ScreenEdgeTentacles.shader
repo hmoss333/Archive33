@@ -11,8 +11,8 @@ Shader "Custom/URP/ScreenEdgeTentacles"
         _Taper       ("Taper (lower = fatter body)", Float) = 0.6
         _FingerDepth ("Max Reach Toward Center (0-1)", Float) = 0.6
         _MinLength   ("Min Length When Retracted (0-1)", Float) = 0.3
-        _BaseDepth   ("Edge Band Depth (0-1)", Float) = 0.06
-        _Softness    ("Edge Softness", Float) = 0.12
+        _BaseDepth   ("Edge Band Depth (0-1)", Float) = 0.006
+        _Softness    ("Edge Softness", Float) = 0.012
         _Sway        ("Sideways Sway (0 = perfectly straight)", Float) = 0.015
         _Distortion  ("Distortion", Float) = 0.05
     }
