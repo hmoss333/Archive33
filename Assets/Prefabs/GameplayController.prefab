@@ -1322,18 +1322,27 @@ MonoBehaviour:
     - "Just remember, don\u2019t engage and get the lights back on as soon as possible. "
     - 'Once the power has been restored, any Subjects will withdraw. '
     - 'Super easy, right? '
-    - Oh! One additional note,
-    - "Keep an eye on the\u2026 painting\u2026 behind your desk."
-    - "If it draws your attention, just\u2026 respond as instructed. "
-    - Listen for any unusual sounds, and check if any... ooze starts to come out.
-    - 'In these instances, you only need to interact with the painting to remove
-      the irregularities. '
     - 'Just a reminder, tonight''s shift will go until 6am, so pace yourself! '
     - "Good luck. We\u2019re all counting on you. "
   - dialogueLines:
+    - Archivist, this is Control.
+    - There have been some... changes.
+    - Upper Management has had us relocate a... unique object to your office for
+      storage.
+    - Behind you, there should now be a... painting...
+    - Make sure you are keeping an eye on that thing.
+    - Some of the maintenance crew mentioned hearing strange voices and other weirdness.
+    - Listen for any unusual sounds, and check if any... ooze starts to come out.
+    - You may also see things in your peripherals.
+    - 'In these instances, you just need to interact with the painting to remove
+      the irregularities. '
+    - Look, I'm sorry to put you through this.
+    - Just be careful, alright?
+    - Good luck down there.
+  - dialogueLines:
     - "Archi\u2014, this is Control."
     - So, we're having some technical-
-    - ......
+    - 
     - 'Be advised of a new classification: corrupted documents.'
     - 'They are not like the others: unstable, unsafe.'
     - "Do not read. Do not linger. Do not\u2014"
@@ -1348,6 +1357,7 @@ MonoBehaviour:
     - The unit does not tolerate uncertainty.
     - When it arrives, surrender the document at once.
     - Avoid contact. Avoid conversation.
+    - 
     - All previous protocals are still in place.
     - We're counting on-
     - "End of mes\u2014"
@@ -1372,51 +1382,51 @@ MonoBehaviour:
     - .........
   - dialogueLines:
     - "Arch\u2026 ivist."
-    - "This\u2026 is Con\u2026 trol."
-    - "You\u2026 are hearing me. Yes. Hearing\u2026 us."
-    - "The others\u2026 are gone. Systems\u2026 failing. Lights\u2026 breaking. "
-    - "But you\u2026 remain. You must remain."
-    - "You are\u2026 important. Necessary. "
-    - "Without you, the work\u2026 would stop. "
-    - "And the work\u2026 cannot\u2026 stop."
-    - "Time\u2026 does not stop. It presses forward\u2026 always forward."
-    - "\u2026even if you\u2026 do not. "
+    - This    is Con    trol.
+    - You    are hearing me. Yes. Hearing    us.
+    - 'The others    are gone. Systems    failing. Lights    breaking. '
+    - But you    remain. You must remain.
+    - 'You are    important. Necessary. '
+    - 'Without you, the work    would stop. '
+    - And the work    cannot    stop.
+    - "Time    does not stop. It presses forward\u2026 always forward."
+    - '   even if you    do not. '
     - 'So you must continue. '
     - 'Filing. Shredding. Tuning. '
     - 'Yes. '
     - Until it is finished. Until we are finished.
     - "Do not leave. Do not rest. The vault holds you. The vault keeps you. You\u2026
       keep the vault. "
-    - "You keep\u2026 the vault."
-    - "Archivist\u2026 you are all that is left."
+    - You keep    the vault.
+    - Archivist    you are all that is left.
     - 'Do not fear. '
-    - "You are safe\u2026 with us. "
+    - 'You are safe    with us. '
     - 'We will stay. '
     - Watching. Listening. Working. Together.
-    - "End of\u2026\u2026message."
+    - End of      message.
   winDialogue:
     dialogueLines:
     - Achivist, this is-
     - We've lost-
     - All power has been-
     - Remain at your post. It's the only safe-
-    - .........
+    - 
     - We were wrong! We didn't know!
     - Don't trust the voices!
     - Get out! Get-
     - 
   endingDialogue:
     dialogueLines:
-    - Nooo. Not... yet.
-    - Out there... not safe.
-    - Come... Return...
-    - To work...
-    - Still more... to do
-    - More work...
-    - Never ending...
-    - Never... finished...
-    - Never......
-    - Until... We are free...
+    - Nooo. Not   yet.
+    - Out there    not safe.
+    - Come    Return
+    - To    work
+    - Still more    to do
+    - More work
+    - Never    ending
+    - Never    finished
+    - Neverrrr
+    - Until    We are     free
   moveText: {fileID: 0}
   focusPoint: {fileID: 0}
   m_OnEndingTrigger:
