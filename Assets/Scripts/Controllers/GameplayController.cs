@@ -233,7 +233,7 @@ public class GameplayController : MonoBehaviour
                 if (shiftNum < 4)
                 {
                     //Countdown shift timer
-                    shiftTime += Time.deltaTime;
+                    shiftTime += Time.deltaTime * 1.25f;
                     if (shiftTime > shiftDuration)
                     {
                         shiftTime = 0f;

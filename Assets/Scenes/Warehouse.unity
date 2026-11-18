@@ -9409,6 +9409,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4519800272123587408, guid: 1d63bff34de7e4a6691d423d902452fa, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9059372416604665801, guid: 1d63bff34de7e4a6691d423d902452fa, type: 3}
       propertyPath: m_Name
       value: FuseBox
