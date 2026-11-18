@@ -155,7 +155,7 @@ public class InBox : InteractObject
         int newMax = documents.Count + 1;
         if (newMax > maxDocs) { maxDocs++; print($"Updated  maxDoc value to {maxDocs}"); }
 
-        float maxTime = GameplayController.instance.shiftNum >= 3 ? 9.25f : 10.5f;
+        float maxTime = GameplayController.instance.shiftNum >= 4 ? 9.25f : 10.5f;
         documentGenTime = Random.Range(3.5f, maxTime);
     }
 
