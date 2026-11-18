@@ -106,6 +106,7 @@ public class FuseBox : InteractObject
     {
         base.Interact();
         interacting = !interacting;
+        fuseIndex = 0; //always start on default fuse when interacting
         PlayerController.instance.SetState(interacting ? PlayerController.States.interacting : PlayerController.States.idle);
         DialogueController.instance.UpdateText(string.Empty, false);
 
