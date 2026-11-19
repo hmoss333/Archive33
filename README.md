@@ -1,98 +1,41 @@
 # The Last Broadcast: Archivist
 
-**A psychological horror game built in Unity3D and released for Windows and macOS.**
+**A first-person psychological horror game developed in Unity3D and C#, released for Windows and macOS.**
 
-[Play on itch.io](https://mossmangames.itch.io/tlb-archivist)
+[**Play on itch.io**](https://mossmangames.itch.io/tlb-archivist)
 
 ## Overview
 
-*The Last Broadcast: Archivist* is a first-person psychological horror game set inside a decaying records facility. The player takes the role of an archivist tasked with processing an endless stream of documents while following instructions delivered through an old radio system.
+*The Last Broadcast: Archivist* is a psychological horror game set within a decaying government records facility. Players assume the role of an archivist tasked with processing an endless stream of documents while following instructions delivered through an aging radio communication system.
 
-The core gameplay combines **document management, radio-frequency interaction, environmental systems, and resource management**. As the player progresses, increasingly distorted radio transmissions introduce uncertainty into what should otherwise be a routine administrative task.
+What begins as a routine administrative assignment gradually becomes an unsettling experience as increasingly distorted transmissions, environmental disruptions, and conflicting instructions challenge the player's ability to distinguish normal operations from something far more sinister.
 
-The project was developed in **Unity3D using C#** and released as a commercial game for both Windows and macOS.
+The gameplay combines document management, radio-frequency interaction, environmental exploration, and resource management. Rather than relying on traditional combat mechanics, the game builds tension through routine tasks, player observation, and the growing uncertainty surrounding the facility.
 
-## Technical Highlights
+## Gameplay Systems
 
-* Developed in **Unity3D / C#**
-* Built and shipped commercial releases for **Windows and macOS**
-* Interactive first-person environment with mouse-based interaction
-* Custom radio-frequency interaction system
-* Dynamic document-processing gameplay loop
-* Environmental interaction and state-based systems
-* In-game electrical/fuse system used for environmental progression
-* Audio-driven gameplay and narrative systems
-* UI and interaction systems designed around diegetic environmental elements
-* Designed and implemented gameplay systems from prototype through release
+The radio serves as the central gameplay mechanic, allowing players to manually tune between frequencies to receive instructions and determine how documents should be processed. This system connects player input, frequency selection, audio feedback, and gameplay progression into a single interactive experience.
 
-## Core Gameplay Systems
+Document processing provides the primary gameplay loop. Players examine incoming paperwork, interpret radio instructions, and determine the appropriate actions. As the game progresses, increasingly complex instructions and environmental disturbances add pressure to what initially appears to be a straightforward task.
 
-### Radio Frequency System
+The facility itself also plays an active role in gameplay. Interactive electrical systems, including fuse boxes and power restoration mechanics, require players to engage directly with their surroundings. Environmental interactions and diegetic UI elements help maintain immersion by presenting gameplay information through the world rather than relying on conventional menus and HUD elements.
 
-The radio is the central gameplay mechanic. Players tune between frequencies using the keyboard, with transmissions providing instructions that determine how documents should be processed.
+## Development
 
-The system connects player input, frequency state, audio feedback, and gameplay progression, making the radio more than a conventional menu or dialogue system.
+Developed in Unity3D using C#, the project involved designing and implementing individual gameplay systems from initial concept through final integration. Each mechanic was developed through rapid prototyping and iterative refinement, allowing gameplay concepts to be tested and improved before becoming part of the larger experience.
 
-### Document Processing
+Development involved working closely with artists to integrate gameplay functionality with environmental assets, visual design, and audio. Collaboration with QA teams was equally important, helping identify issues, validate system behavior, and refine interactions throughout production.
 
-Documents arrive continuously and must be evaluated and processed by the player.
+The project required bringing together interconnected systems for player interaction, radio communication, document processing, environmental functionality, UI, audio, and progression into a cohesive gameplay experience.
 
-The system creates a repeating gameplay loop:
+## Technical Information
 
-1. Receive a document.
-2. Examine its contents.
-3. Interpret information received through the radio.
-4. Determine the appropriate destination or action.
-5. Process the document.
-6. Continue while managing increasing environmental and cognitive pressure.
-
-This turns a simple administrative task into the primary gameplay mechanic.
-
-### Environmental Power System
-
-The facility contains interactive electrical systems that can affect the player's ability to operate within the environment.
-
-Fuse interactions are integrated directly into gameplay rather than presented as a conventional menu, requiring the player to physically interact with the environment to restore functionality.
-
-## Engineering Focus
-
-The project was designed around a simple principle: **make ordinary systems feel interactive and meaningful.**
-
-Instead of relying exclusively on traditional HUDs and menus, many interactions are presented through the game world itself. This required coordinating gameplay state, player interaction, UI, audio, environmental objects, and progression systems.
-
-The result is a project that demonstrates experience building interconnected gameplay systems rather than isolated prototypes.
-
-## Development Goals
-
-The project was also an opportunity to explore how a relatively small set of mechanics can support an entire gameplay experience.
-
-The primary development challenges included:
-
-* Creating a compelling gameplay loop around a non-combat activity
-* Making radio interaction intuitive while maintaining uncertainty
-* Connecting environmental state to gameplay progression
-* Building systems that could support increasing complexity without overwhelming the player
-* Maintaining a consistent visual and interaction language across the game
-* Packaging and deploying the project across multiple desktop platforms
+- **Engine:** Unity3D
+- **Language:** C#
+- **Platforms:** Windows, macOS
 
 ## Release
 
-*The Last Broadcast: Archivist* was released commercially for:
+*The Last Broadcast: Archivist* was commercially released for Windows and macOS as part of the larger *The Last Broadcast* horror universe developed by Moss Man Games.
 
-* **Windows**
-* **macOS**
-
-The project is part of the larger *The Last Broadcast* universe, an ongoing survival-horror project developed by Moss Games.
-
-## Technology
-
-**Engine:** Unity3D
-**Language:** C#
-**Platforms:** Windows, macOS
-**Genre:** Psychological Horror / Survival Horror
-
-## Project Purpose
-
-While *The Last Broadcast: Archivist* is a game, the project demonstrates broader software-development skills including **object-oriented programming, interactive system design, input handling, state management, UI development, audio integration, cross-platform deployment, and iterative problem solving**.
-
-The project represents my experience taking a concept from an initial gameplay prototype through development and into a publicly released product.
+[**Play The Last Broadcast: Archivist**](https://mossmangames.itch.io/tlb-archivist)
