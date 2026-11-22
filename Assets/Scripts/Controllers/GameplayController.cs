@@ -297,31 +297,58 @@ public class GameplayController : MonoBehaviour
                     //Power outage
                     //FuseBox + fuses
                     //Zombie enemy
-                    zombie.SetActive(powerOutage);
+                    //zombie.SetActive(powerOutage);
 
                     //If no powerOutage, reset zombie position and light intensity values
                     if (!powerOutage)
                     {
-                        zombieMoveNum = 0;
-                        powerOutageTimer -= Time.deltaTime;
-                        if (powerOutageTimer <= 0)
+                        //If zombie is active, do not immediately hide him until the next power outage
+                        if (zombieMoveNum > 0)
                         {
-                            float maxPowerOutageTime = shiftNum >= 3 ? 17f : 20f;
-                            powerOutageTimer = Random.Range(15f, 20f);
-                            powerOutage = true;
-                            FuseBox.instance.SetBroken();
+                            zombieMoveTimer -= Time.deltaTime;
+                            if (zombieMoveTimer <= 0)
+                            {
+                                //Turn lights out while zombie is updating position
+                                lightOutTimer -= Time.deltaTime;
+                                if (lightOutTimer >= 0)
+                                {
+                                    foreach (Light light in lights)
+                                    {
+                                        light.intensity = 0f;
+                                    }
+                                }
+                                else
+                                {
+                                    zombieMoveNum = 0;
+                                }
+                            }
                         }
-
-                        foreach (Light light in lights)
+                        else
                         {
-                            light.enabled = true;
-                            light.GetComponent<LightFlicker>().enabled = false;
-                            light.intensity = 1.5f;
+                            zombie.SetActive(false);
+                            zombieMoveNum = 0;
+                            powerOutageTimer -= Time.deltaTime;
+                            if (powerOutageTimer <= 0)
+                            {
+                                float maxPowerOutageTime = shiftNum >= 3 ? 17f : 20f;
+                                powerOutageTimer = Random.Range(15f, 20f);
+                                powerOutage = true;
+                                FuseBox.instance.SetBroken();
+                            }
+
+                            foreach (Light light in lights)
+                            {
+                                light.enabled = true;
+                                light.GetComponent<LightFlicker>().enabled = false;
+                                light.intensity = 1.5f;
+                            }
                         }
                     }
                     //Else if powerOutage event, do zombie move logic
                     else
                     {
+                        zombie.SetActive(true);
+
                         //Enable light flicker
                         foreach (Light light in lights)
                         {
