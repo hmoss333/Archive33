@@ -210,12 +210,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlighted: 0
+  interacting: 0
   focusPoint: {fileID: 1904936234657906274}
   defaultMat: {fileID: 2100000, guid: 5bd5d4271dc3e1f468caf5b2debe9bc3, type: 2}
   effectedMat: {fileID: 2100000, guid: 0c5941f3898e13249a74b8cc203bfff7, type: 2}
   waitTimer: 0
   killTimer: 10
   whisperClip: {fileID: 8300000, guid: fb7ce3dbdbebb4babb5a338d3c2884b4, type: 3}
+  oozeRenderer: {fileID: 0}
+  intensity: 0
+  screenTentacles: {fileID: 0}
 --- !u!1 &8479601985855215886
 GameObject:
   m_ObjectHideFlags: 0

@@ -230,10 +230,10 @@ public class GameplayController : MonoBehaviour
                 shiftDuration = shiftNum > 0 ? 360f : 240f;
 
                 //Shift Timer
-                if (shiftNum < 4)
+                if (shiftNum < 5)
                 {
                     //Countdown shift timer
-                    shiftTime += Time.deltaTime;
+                    shiftTime += Time.deltaTime * 1.25f;
                     if (shiftTime > shiftDuration)
                     {
                         shiftTime = 0f;
@@ -364,10 +364,14 @@ public class GameplayController : MonoBehaviour
                         }
                     }
                 }
-                if (shiftNum >= 2 || penalty >= 5)
+                if (shiftNum >= 2)
+                {
+                    //Activate Painting
+                }
+                if (shiftNum >= 3 || penalty >= 5)
                 {
                     //'The Bell'
-                    //Corrupteed Documents
+                    //Corrupted Documentsd
                     int midPoint = (int)robotMovePoints.Count / 2 + 1;
 
                     if (moveRobot)
@@ -419,7 +423,7 @@ public class GameplayController : MonoBehaviour
                     robot.GetComponent<Animator>().SetBool("isWaiting", currentPoint == midPoint && !moveRobot);
                     robot.GetComponent<BotController>().enabled = currentPoint == 3;
                 }
-                if (shiftNum >= 3)
+                if (shiftNum >= 4)
                 {
                     //Lower timers for all hazards
                 }
@@ -510,10 +514,10 @@ public class GameplayController : MonoBehaviour
         radio.SetActive(shiftVal >= 0);
         fuseBoxCover.SetActive(shiftVal < 1);
         fuseBox.GetComponent<Collider>().enabled = shiftVal >= 1;
-        paintingCurtain.SetActive(shiftVal < 1);
-        paintingCurtainFallen.SetActive(shiftVal >= 1);
-        painting.SetActive(shiftVal >= 1);
-        bell.SetActive(shiftVal >= 2);
+        paintingCurtain.SetActive(shiftVal < 2);
+        paintingCurtainFallen.SetActive(shiftVal >= 2);
+        painting.SetActive(shiftVal >= 2);
+        bell.SetActive(shiftVal >= 3);
     }
 
     void SetWarningLights(int penaltyVal)

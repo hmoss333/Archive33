@@ -19,6 +19,7 @@ public class InBox : InteractObject
     [SerializeField] public List<Document> documents;
     [SerializeField] float documentGenTime = 12.5f;
     [SerializeField] TMP_Text documentCount;
+    int maxDocs = 0;
 
     [Header("Air Variables")]
     [SerializeField] GameObject airArrow;
@@ -85,8 +86,9 @@ public class InBox : InteractObject
                     _arrowLerpTime = 1.0f; // Ensure it reaches the end exactly
                 }
 
-                //print(2.5f * documents.Count);
-                airTime -= Time.deltaTime / 2.25f * documents.Count;
+                float modifyer = 0.125f * maxDocs + 1; //2.25f
+                print(modifyer);
+                airTime -= Time.deltaTime / modifyer;
                 if (airTime <= 0)
                 {
                     GameplayController.instance.Suffocate();
@@ -149,7 +151,11 @@ public class InBox : InteractObject
         newDoc.InitializeDoc();
         documents.Add(newDoc);
 
-        float maxTime = GameplayController.instance.shiftNum >= 3 ? 9.25f : 10.5f;
+        //Increment maxDoc value to adjust the air modifyer value
+        int newMax = documents.Count + 1;
+        if (newMax > maxDocs) { maxDocs++; print($"Updated  maxDoc value to {maxDocs}"); }
+
+        float maxTime = GameplayController.instance.shiftNum >= 4 ? 9.25f : 10.5f;
         documentGenTime = Random.Range(3.5f, maxTime);
     }
 
@@ -161,6 +167,8 @@ public class InBox : InteractObject
             PlayerController.instance.SetCurrentDocument(documents[documents.Count - 1]);
             documents.RemoveAt(documents.Count - 1);
             documentAudio.PlayOneShot(takeDocument);
+            if (documents.Count <= 0)
+                maxDocs = 0;
         }
     }
 

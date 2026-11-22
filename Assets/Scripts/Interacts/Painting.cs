@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class Painting : InteractObject
@@ -13,7 +14,16 @@ public class Painting : InteractObject
     bool effected;
     Renderer rd;
 
-    
+
+    [SerializeField] SpriteRenderer oozeRenderer;
+    static readonly int ProgressId = Shader.PropertyToID("_Progress");
+    Material mat;
+
+
+    [Header("UI Elements")]
+    [Range(0f, 1f)] public float intensity;
+    [SerializeField] ScreenEdgeTentacles screenTentacles;
+
 
     private void Start()
     {
@@ -24,6 +34,29 @@ public class Painting : InteractObject
         audioSource.clip = whisperClip;
         audioSource.loop = true;
         rd = GetComponentInChildren<Renderer>();
+
+        mat = oozeRenderer.material; // instanced copy, so multiple oozes don't share state
+        mat.SetFloat(ProgressId, 0f);
+        mat.SetVector("_BoundsMin", oozeRenderer.sprite.bounds.min);
+        mat.SetVector("_Size", oozeRenderer.sprite.bounds.size);
+
+        intensity = 0f;
+    }
+
+    private void Update()
+    {
+        if (effected)
+        {
+            intensity += 0.5f * Time.deltaTime;
+        }
+        else
+        {
+            intensity -= 1.5f * Time.deltaTime;
+        }
+
+        intensity = Mathf.Clamp(intensity, 0f, 1f);
+        screenTentacles.SetIntensity(intensity);
+        mat.SetFloat(ProgressId, intensity);
     }
 
     private void FixedUpdate()
