@@ -9273,7 +9273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7438344950594466720, guid: ad1fea9375e4e41fcac5feb15c7218c0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7814202741931157786, guid: ad1fea9375e4e41fcac5feb15c7218c0, type: 3}
       propertyPath: m_RootOrder
@@ -9401,6 +9401,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3744040655716680815, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: target
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744040655716680815, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: current
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4198559891254011763, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8073355784107037639, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
       propertyPath: m_Name
       value: Painting
@@ -9457,7 +9469,8 @@ PrefabInstance:
       propertyPath: screenTentacles
       value: 
       objectReference: {fileID: 40111120}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3744040655716680815, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b8e5cd74bd4f94294843106c1bfaff02, type: 3}
 --- !u!1001 &9059372417167724805
 PrefabInstance:
