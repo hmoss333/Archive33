@@ -60,6 +60,7 @@ public class GameplayController : MonoBehaviour
     [SerializeField] GameObject zombie;
     [SerializeField] List<Transform> zombiePoints;
     [SerializeField] List<Light> lights;
+    Coroutine zombieRoutine;
 
     [HorizontalLine]
 
@@ -302,46 +303,14 @@ public class GameplayController : MonoBehaviour
                     //If no powerOutage, reset zombie position and light intensity values
                     if (!powerOutage)
                     {
-                        //If zombie is active, do not immediately hide him until the next power outage
-                        if (zombieMoveNum > 0)
+                        zombieMoveNum = 0;
+                        powerOutageTimer -= Time.deltaTime;
+                        if (powerOutageTimer <= 0)
                         {
-                            zombieMoveTimer -= Time.deltaTime;
-                            if (zombieMoveTimer <= 0)
-                            {
-                                //Turn lights out while zombie is updating position
-                                lightOutTimer -= Time.deltaTime;
-                                if (lightOutTimer >= 0)
-                                {
-                                    foreach (Light light in lights)
-                                    {
-                                        light.intensity = 0f;
-                                    }
-                                }
-                                else
-                                {
-                                    zombieMoveNum = 0;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            zombie.SetActive(false);
-                            zombieMoveNum = 0;
-                            powerOutageTimer -= Time.deltaTime;
-                            if (powerOutageTimer <= 0)
-                            {
-                                float maxPowerOutageTime = shiftNum >= 3 ? 17f : 20f;
-                                powerOutageTimer = Random.Range(15f, 20f);
-                                powerOutage = true;
-                                FuseBox.instance.SetBroken();
-                            }
-
-                            foreach (Light light in lights)
-                            {
-                                light.enabled = true;
-                                light.GetComponent<LightFlicker>().enabled = false;
-                                light.intensity = 1.5f;
-                            }
+                            float maxPowerOutageTime = shiftNum >= 3 ? 17f : 20f;
+                            powerOutageTimer = Random.Range(15f, 20f);
+                            powerOutage = true;
+                            FuseBox.instance.SetBroken();
                         }
                     }
                     //Else if powerOutage event, do zombie move logic
@@ -370,7 +339,7 @@ public class GameplayController : MonoBehaviour
                                 {
                                     foreach (Light light in lights)
                                     {
-                                        light.intensity = 0f;
+                                        light.enabled = false;
                                     }
                                 }
                                 //Update zombie position and reset timers
@@ -590,7 +559,8 @@ public class GameplayController : MonoBehaviour
 
     public void RestartPower()
     {
-        powerOutage = false;
+        if (zombieRoutine == null)
+            zombieRoutine = StartCoroutine(ZombieResetRoutine());
     }
 
     public void ToggleStaticMan(bool value)
@@ -704,6 +674,38 @@ public class GameplayController : MonoBehaviour
         introDialogueCo = null;
     }
 
+    IEnumerator ZombieResetRoutine()
+    {
+        powerOutage = false;
+
+        foreach (Light light in lights)
+        {
+            light.GetComponent<LightFlicker>().enabled = false;
+            light.intensity = 1.5f;
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        //Turn off all lights
+        foreach (Light light in lights)
+        {
+            light.enabled = false;
+        }
+
+        yield return new WaitForSeconds(0.35f);
+
+        //Reset all lights
+        foreach (Light light in lights)
+        {
+            lightOutTimer = 0.45f;
+            zombieMoveNum = 0;
+            zombie.SetActive(false);
+            light.enabled = true;
+        }
+
+        zombieRoutine = null;
+    }
+
     IEnumerator GameOverRoutine(bool jumpScare)
     {
         DialogueController.instance.UpdateText(string.Empty, false);
@@ -810,6 +812,9 @@ public class GameplayController : MonoBehaviour
 
         PlayerController.instance.SetState(PlayerController.States.interacting);
         CamFocusController.instance.FocusTarget(focusPoint);
+        ScreenEdgeTentacles screenTentacles = new ScreenEdgeTentacles();
+        screenTentacles = GameObject.FindObjectOfType<ScreenEdgeTentacles>();
+        screenTentacles.SetIntensity(1);
 
         for (int i = 0; i < endingDialogue.dialogueLines.Count; i++)
         {

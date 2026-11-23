@@ -30,7 +30,7 @@ Material:
     - _Count: 20
     - _Distortion: 0.05
     - _FingerDepth: 0.35
-    - _Intensity: 0.6
+    - _Intensity: 0
     - _MinLength: 0.3
     - _Seed: 0
     - _Softness: 0.01
