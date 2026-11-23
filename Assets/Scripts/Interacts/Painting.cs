@@ -54,7 +54,7 @@ public class Painting : InteractObject
             intensity -= 1.5f * Time.deltaTime;
         }
 
-        intensity = Mathf.Clamp(intensity, 0f, 1f);
+        intensity = Mathf.Clamp01(intensity);
         screenTentacles.SetIntensity(intensity);
         mat.SetFloat(ProgressId, intensity);
     }

@@ -812,9 +812,6 @@ public class GameplayController : MonoBehaviour
 
         PlayerController.instance.SetState(PlayerController.States.interacting);
         CamFocusController.instance.FocusTarget(focusPoint);
-        ScreenEdgeTentacles screenTentacles = new ScreenEdgeTentacles();
-        screenTentacles = GameObject.FindObjectOfType<ScreenEdgeTentacles>();
-        screenTentacles.SetIntensity(1);
 
         for (int i = 0; i < endingDialogue.dialogueLines.Count; i++)
         {
@@ -834,7 +831,7 @@ public class GameplayController : MonoBehaviour
         while (FadeController.instance.isFading)
             yield return null;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
 
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(0);
